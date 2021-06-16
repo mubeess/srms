@@ -98,11 +98,11 @@ export default function Login(props) {
       <ThemeProvider theme={theme}>
         <StyledLogin>
             <div className='login-container'>
-             <div className='login-header'>
+             {/* <div className='login-header'>
              <Typography style={{
                color:'gray'
              }} variant="h4" align='center' gutterBottom>Admin Login</Typography>
-             </div>
+             </div> */}
              <div className='login-details'>
                  <div className='logo'>
                      <img src='logo.png' alt='logo'></img>

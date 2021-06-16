@@ -16,6 +16,8 @@ background-color:#1E7F95;
 margin-top: 10px;
 display: flex;
 flex-direction: column;
+position: fixed;
+z-index: 100;
 `;
  function Aside(props) {
     return (
@@ -63,20 +65,23 @@ flex-direction: column;
           </ListItemIcon>
           <ListItemText style={{color:'white'}} primary="Staff" />
         </ListItem>
-
+        <Link to="/dash/student">
         <ListItem style={{borderBottom:'1px solid white'}} button>
           <ListItemIcon>
             <GroupAdd style={{color:'white'}} />
           </ListItemIcon>
           <ListItemText style={{color:'white'}} primary="Students" />
         </ListItem>
+       </Link>
 
+       <Link to="/dash/fees">
         <ListItem style={{borderBottom:'1px solid white'}} button>
           <ListItemIcon>
             <Receipt style={{color:'white'}} />
           </ListItemIcon>
           <ListItemText style={{color:'white'}} primary="Fees Verification" />
         </ListItem>
+        </Link>
         </StyledAside>
     )
 }

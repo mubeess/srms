@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import Aside from './Main/Aside'
 import MainApp from './Main/MainApp'
 import Student from './Student/Student'
+import FeesVarification from './Student/FeeVarification'
 
 
 const StyledMain=styled.div`
@@ -42,6 +43,8 @@ function Index(props) {
                  return <MainApp></MainApp>
            case '/dash/student':
                     return <Student></Student>
+            case '/dash/fees':
+                        return <FeesVarification></FeesVarification>
         
             default:
                 return <Main></Main>

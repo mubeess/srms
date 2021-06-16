@@ -6,8 +6,9 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import { Button } from '@material-ui/core';
+import { Button, Divider } from '@material-ui/core';
 import ViewStudent from './ViewStudent';
+import Verify from './Verify';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -46,12 +47,12 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
-    marginTop:'10px',
-    marginLeft:'20%'
+    marginLeft:'20%',
+    marginTop:'10px'
   },
 }));
 
-export default function Student() {
+export default function FeesVarification() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -61,21 +62,23 @@ export default function Student() {
 
   return (
     <div className={classes.root}>
+      <Divider></Divider>
+      <Typography style={{marginLeft:'10px'}} variant="button" display="block" gutterBottom>
+        All Payment Varifications
+      </Typography>
+
+      <Divider></Divider>
       
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-          <Tab style={{backgroundColor:'#1E7F95',borderRadius:'10px',color:'white',margin:'20px'}} label="Add Student" {...a11yProps(0)} />
-          <Tab style={{backgroundColor:'#1E7F95',borderRadius:'10px',color:'white',margin:'20px'}} label="View All Students" {...a11yProps(1)} />
-          <Tab style={{backgroundColor:'#1E7F95',borderRadius:'10px',color:'white',margin:'20px'}} label="Item Three" {...a11yProps(2)} />
+          <Tab style={{backgroundColor:'#1E7F95',borderRadius:'10px',color:'white',margin:'20px'}} label="Verify Fees" {...a11yProps(0)} />
+          <Tab style={{backgroundColor:'#1E7F95',borderRadius:'10px',color:'white',margin:'20px'}} label="View Paid Fees" {...a11yProps(1)} />
         </Tabs>
 
       <TabPanel value={value} index={0}>
-        <AddStudent></AddStudent>
+       <Verify></Verify>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <ViewStudent></ViewStudent>
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        Item Three
+        <h1>2nddddd</h1>
       </TabPanel>
     </div>
   );
