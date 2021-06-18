@@ -31,13 +31,13 @@ const useStyles = makeStyles((theme) => ({
       marginTop: theme.spacing(2),
     },
   }));
-export default function AddStudent() {
+export default function AddStaff() {
     const classes = useStyles();
 
     return (
        <StyledAdd>
      <Typography style={{marginLeft:'10px'}} variant="button" display="block" gutterBottom>
-        Add Student
+        Add Staff
       </Typography>
       <Divider></Divider>
         <div className='personal'>
@@ -47,15 +47,9 @@ export default function AddStudent() {
         </div>
         <div className='personal'>
           
-          <TextField id="date"
-          style={{width:'22%'}}
-        label="Birthday"
-        type="date"
-        defaultValue="2017-05-24"
-         variant="outlined" />
-    
-        <TextField style={{width:'22%'}} id="outlined-basic" label="ID Number" variant="outlined" />
-        <FormControl style={{width:'22%'}} variant="outlined" className={classes.formControl}>
+        <TextField style={{marginLeft:'5px'}} id="outlined-basic" label="Staff Id" variant="outlined" />
+        <TextField style={{marginLeft:'5px'}} type='email' id="outlined-basic" label="Email Address" variant="outlined" />
+        <FormControl style={{width:'226px'}}  variant="outlined" className={classes.formControl}>
         <InputLabel htmlFor="outlined-age-native-simple">Gender</InputLabel>
         <Select
           native
@@ -71,7 +65,20 @@ export default function AddStudent() {
         </Select>
       </FormControl>
         </div>
+
+
+
+        <div className='personal'>
+        <TextField id="outlined-basic" label="Qualificaion" variant="outlined" />
+        <TextField id="outlined-basic" label="Department" variant="outlined" />
+        <TextField id="outlined-basic" label="Phone Number" variant="outlined" />
+        </div>
+
+
+
         <TextField style={{width:'83%',marginLeft:'85px',marginTop:'20px'}} id="outlined-basic" label="Address" variant="outlined" />
+
+
         <div className='personal'>
         <FormControl style={{width:'22%'}} variant="outlined" className={classes.formControl}>
         <InputLabel htmlFor="outlined-age-native-simple">Country</InputLabel>
@@ -124,40 +131,20 @@ export default function AddStudent() {
         </div>
 
 
+
+
+
         <div className='personal'>
-        <FormControl style={{width:'40%'}} variant="outlined" className={classes.formControl}>
-        <InputLabel htmlFor="outlined-age-native-simple">Enrollment Session</InputLabel>
-        <Select
-          native
-          value='First Term'
-          label="Enrollment Session"
-          inputProps={{
-            name: 'enrol',
-            id: 'outlined-age-native-simple',
-          }}
-        >
-          <option value='First Term'>First Term</option>
-        </Select>
-      </FormControl>
+        <TextField id="outlined-basic" label="Bank Name" variant="outlined" />
+        <TextField id="outlined-basic" label="Account Number" variant="outlined" />
+        <TextField id="outlined-basic" label="Account Name" variant="outlined" />
+        </div>       
 
 
-      <FormControl style={{width:'35%'}} variant="outlined" className={classes.formControl}>
-        <InputLabel htmlFor="outlined-age-native-simple">Class</InputLabel>
-        <Select
-          native
-          value='Jss1'
-          label="Class"
-          inputProps={{
-            name: 'class',
-            id: 'outlined-age-native-simple',
-          }}
-        >
-          <option value='Jss1'>Jss1</option>
-        </Select>
-      </FormControl>
-        </div>
+
+
         <Typography style={{marginLeft:'10px'}} variant="button" display="block" gutterBottom>
-        Parent/Guardian
+        Next Of Kin
       </Typography>
       <Divider></Divider>
       <div className='personal'>
@@ -166,7 +153,7 @@ export default function AddStudent() {
         <TextField id="outlined-basic" label="Phone Number" variant="outlined" />
         </div>
         <TextField style={{width:'83%',marginLeft:'90px',marginTop:'20px'}} id="outlined-basic" label="Address" variant="outlined" />
-        <Button style={{marginLeft:'80%',marginTop:'20px',marginBottom:'20px'}} variant="contained" color='primary'>Add Student</Button>
+        <Button style={{marginLeft:'80%',marginTop:'20px',marginBottom:'20px'}} variant="contained" color='primary'>Add Staff</Button>
        </StyledAdd>
     )
 }

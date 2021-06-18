@@ -1,0 +1,194 @@
+import React from 'react'
+import styled from 'styled-components'
+import Logo from './logo.png'
+import Typography from '@material-ui/core/Typography'
+import Divider from '@material-ui/core/Divider'
+const StyledReciept=styled.div`
+width: 100%;
+height: 100vh;
+background-color:lightgray;
+display: flex;
+flex-direction: column;
+align-items: center;
+.mainReciept{
+    background-color: white;
+    display: flex;
+   flex-direction: column;
+   align-items: center;
+   min-height: 90vh;
+   min-width: 40%;
+   margin-top: 20px;
+   position: relative;
+   .back{
+       position: absolute;
+       width: 70%;
+       height: 70%;
+       z-index: 0;
+       margin-top:25%;
+       img{
+        width: 100%;
+       height: 100%;
+       opacity: 0.2;
+       }
+   }
+   .address{
+    display: flex;
+    flex-direction: row;
+    z-index: 2;
+    img{
+        width: 103px;
+        height: 97px;
+    }
+}
+.studentDetails{
+    display: flex;
+    z-index: 2;
+    flex-direction: column;
+    
+    .singleDetails{
+        display: flex;
+        flex-direction: row;
+         
+    }
+ 
+
+}
+.singleDetails{
+        display: flex;
+        flex-direction: row;
+}
+}
+
+`;
+
+export default function Reciept() {
+    return (
+       <StyledReciept>
+           <div className='mainReciept'>
+            <div className='back' style={{zIndex:'0'}}>
+            <img src={Logo} alt='back'></img>
+            </div>
+            
+           <Typography style={{marginLeft:'auto'}} variant="overline" display="block" gutterBottom>
+        PMB:5432
+          </Typography>
+           <div className='address'>
+            <img src={Logo} alt='logo'></img>
+            <div className='mainAddress'>
+            <Typography variant="h6" gutterBottom>
+            NOBLE INTELLECT ACADEMY
+          </Typography>
+          <Typography variant="caption" display="block" gutterBottom>
+          No. 25 zone 3 Kofare, Jimeta Yola North Adamawa State 
+      </Typography>
+      <Typography variant="caption" display="block" gutterBottom>
+      nobleintellectacademy@gmail.com  ||   08140409672
+      </Typography>
+            </div>
+           </div>
+
+
+
+     <Typography style={{zIndex:'2'}} align='center' variant="h6" gutterBottom>
+     STUDENT RECEIPT
+      </Typography>
+
+      <Typography  style={{zIndex:'2'}} variant="caption" display="block" gutterBottom>
+      2020/2021 ACADEMIC SESSION
+      </Typography>
+      <div className='studentDetails'>
+          <div className='singleDetails'>
+          <Typography style={{marginRight:'70px',}} variant="caption" display="block" gutterBottom>
+      STUDENT ID: NIA/09/001
+      </Typography>
+      <Typography style={{marginLeft:'auto'}} variant="caption" display="block" gutterBottom>
+      DATE:12/06/2021
+      </Typography>
+          </div>
+      
+
+
+          <div className='singleDetails'>
+      <Typography style={{marginRight:'70px'}}  variant="caption" display="block" gutterBottom>
+      NAME: AMINU ABUBAKAR
+      </Typography>
+      <Typography style={{marginLeft:'auto'}} variant="caption" display="block" gutterBottom>
+      CLASS:JSS 1
+      </Typography>
+      </div>
+
+
+      <div className='singleDetails'>
+      <Typography style={{marginRight:'70px'}}  variant="caption" display="block" gutterBottom>
+    TELLER NO: 23456
+      </Typography>
+      <Typography style={{marginLeft:'auto'}} variant="caption" display="block" gutterBottom>
+      TERM:SECOND
+      </Typography>
+      </div>
+      </div>
+      <Divider style={{width:'100%',marginTop:'20px'}}></Divider>
+      <div className='studentDetails'>
+
+      <div className='singleDetails'>
+      <Typography style={{marginRight:'70px'}}  variant="h6" display="block" gutterBottom>
+      PURPOSE OF PAYMENT:
+      </Typography>
+      <Typography style={{marginLeft:'auto'}} variant="h6" display="block" gutterBottom>
+      AMOUNT
+      </Typography>
+      </div>
+
+      <div className='singleDetails'>
+      <Typography style={{marginRight:'70px'}}  variant="caption" display="block" gutterBottom>
+      FEES PAYMENT
+      </Typography>
+      <Typography style={{marginLeft:'auto'}} variant="caption" display="block" gutterBottom>
+      N50,000
+      </Typography>
+      </div>
+
+
+      <div className='singleDetails'>
+      <Typography style={{marginRight:'70px'}}  variant="caption" display="block" gutterBottom>
+      PURPOSE:
+      </Typography>
+      <Typography style={{marginLeft:'auto'}} variant="caption" display="block" gutterBottom>
+      AMOUNT
+      </Typography>
+      </div>
+
+
+      <div className='singleDetails'>
+      <Typography style={{marginRight:'70px'}}  variant="caption" display="block" gutterBottom>
+      PURPOSE:
+      </Typography>
+      <Typography style={{marginLeft:'auto'}} variant="caption" display="block" gutterBottom>
+      AMOUNT
+      </Typography>
+      </div>
+
+
+      </div>
+
+
+
+      <Divider style={{width:'100%'}}></Divider>
+
+      <div className='singleDetails'>
+      <Typography style={{marginRight:'70px'}}  variant="h6" display="block" gutterBottom>
+      TOTAL
+      </Typography>
+      <Typography style={{marginLeft:'auto'}} variant="h6" display="block" gutterBottom>
+     N50,000
+      </Typography>
+      </div>
+      <Divider style={{width:'100%'}}></Divider>
+      <Divider style={{width:'50%',marginTop:'40px'}}></Divider>
+      <Typography variant="overline" display="block" gutterBottom>
+      BURSARY SIGNATURE
+      </Typography>
+           </div>
+       </StyledReciept>
+    )
+}

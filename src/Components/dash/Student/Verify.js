@@ -13,6 +13,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button'
 import Success from './success2.gif'
+import {withRouter,Link} from 'react-router-dom'
 
 
 const StyledMod=styled.div`
@@ -81,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-export default function Verify() {
+ function Verify(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
 
@@ -211,11 +212,10 @@ export default function Verify() {
       >
         <Fade in={open}>
          <StyledMod>
-           <Divider></Divider>
            <Typography variant="button" display="block" gutterBottom>
             FEES VERIFICATION
            </Typography>
-           <Divider></Divider>
+           <Divider style={{width:'100%'}}></Divider>
          <img src={Success} alt='success'></img>
          <h3 className='successwrite'>
            SUCCESS
@@ -223,12 +223,16 @@ export default function Verify() {
        <Typography variant="overline" display="block" gutterBottom>
          Payment Verified Successfully 
       </Typography>
-      <Button style={{background:'green'}} variant="contained" color="primary">
+      <Button onClick={()=>{
+        window.location.pathname = '/reciept';
+      }} style={{background:'green'}} variant="contained" color="primary">
        Print Reciept
    </Button>
+
          </StyledMod> 
         </Fade>
       </Modal>
         </StyledFees>
     )
 }
+export default withRouter(Verify)

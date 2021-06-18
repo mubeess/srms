@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import {Dashboard,VerifiedUserRounded,BarChart,Folder,Receipt,FileCopy,Group,GroupAdd} from '@material-ui/icons';
+import {Dashboard,VerifiedUserRounded,BarChart,Folder,Receipt,FileCopy,Group,GroupAdd,Work} from '@material-ui/icons';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import {withRouter,Link} from 'react-router-dom'
@@ -25,9 +25,9 @@ z-index: 100;
         <Link to="/dash/main">
         <ListItem style={{borderBottom:'1px solid white'}} button>
           <ListItemIcon>
-            <Dashboard style={{color:'white'}} />
+            <Dashboard style={{color:'white'}}/>
           </ListItemIcon>
-          <ListItemText style={{color:'white'}} primary="Dashboard" />
+          <ListItemText style={{color:'white'}} primary="Dashboard"/>
         </ListItem>
         </Link>
 
@@ -58,13 +58,15 @@ z-index: 100;
           </ListItemIcon>
           <ListItemText style={{color:'white'}} primary="Results" />
         </ListItem>
-
+        
+        <Link to="/dash/staff">
         <ListItem style={{borderBottom:'1px solid white'}} button>
           <ListItemIcon>
             <Group style={{color:'white'}} />
           </ListItemIcon>
           <ListItemText style={{color:'white'}} primary="Staff" />
         </ListItem>
+        </Link>
         <Link to="/dash/student">
         <ListItem style={{borderBottom:'1px solid white'}} button>
           <ListItemIcon>
@@ -82,6 +84,16 @@ z-index: 100;
           <ListItemText style={{color:'white'}} primary="Fees Verification" />
         </ListItem>
         </Link>
+
+      
+        <ListItem style={{borderBottom:'1px solid white'}} button>
+          <ListItemIcon>
+            <Work style={{color:'white'}} />
+          </ListItemIcon>
+          <ListItemText style={{color:'white'}} primary="Roles" />
+        </ListItem>
+        
+
         </StyledAside>
     )
 }
