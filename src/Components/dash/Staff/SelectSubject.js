@@ -1,5 +1,6 @@
 import { Divider,Typography, Input,Button,TextField} from '@material-ui/core';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
 import React from 'react'
 import styled from 'styled-components'
 import SearchIcon from '@material-ui/icons/Search';
@@ -11,8 +12,9 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import Notifications from '@material-ui/icons/Notifications'
+import Edit from '@material-ui/icons/Edit'
 import gray from '@material-ui/core/colors/grey'
+import blue from '@material-ui/core/colors/blue'
 import Pagination from '@material-ui/lab/Pagination';
 
 
@@ -39,6 +41,8 @@ const StyledView=styled.div`
 width: 100%;
 min-height: 60vh;
 background-color:transparent;
+margin-left:50px;
+
 .header{
     display: flex;
     flex-direction: row;
@@ -60,12 +64,12 @@ const useStyles = makeStyles({
     minWidth: 700,
   },
 });
-export default function ViewStudent() {
+export default function SelectSubject(props) {
   const classes = useStyles();
     return (
       <StyledView>
         <Typography style={{marginLeft:'10px'}} variant="button" display="block" gutterBottom>
-        Manage Students
+       Select Subject and Class
       </Typography>
           <Divider></Divider>
           <div className='header'>
@@ -76,18 +80,9 @@ export default function ViewStudent() {
       <Typography style={{marginLeft:'10px'}} variant="caption" display="block" gutterBottom>
       entries
       </Typography>
-<Button style={{backgroundColor:'#1E7F95',marginLeft:'20px',height:'30px'}} variant="contained" color="primary">
-  PDF
-</Button>
-<Button style={{backgroundColor:'#1E7F95',marginLeft:'20px',height:'30px'}}  variant="contained" color="primary">
-  EXCELL
-</Button>
-<Button style={{backgroundColor:'#1E7F95',marginLeft:'20px',height:'30px'}}  variant="contained" color="primary">
-  csv
-</Button>
 <TextField
         color='#FFC305'
-        style={{marginLeft:'30px',width:'40%',marginRight:'10px',marginTop:'5px'}}
+        style={{marginLeft:'auto',width:'40%',marginRight:'10px',marginTop:'5px'}}
         id="input-with-icon-adornment"
         type='search'
         label="Search By Id or Name"
@@ -105,11 +100,9 @@ export default function ViewStudent() {
         <TableHead >
           <TableRow style={{backgroundColor:gray[500]}} >
             <StyledTableCell>S/N</StyledTableCell>
-            <StyledTableCell align="right">ID NUMBER</StyledTableCell>
-            <StyledTableCell align="right">NAME</StyledTableCell>
+            <StyledTableCell align="right">SUBJECT</StyledTableCell>
             <StyledTableCell align="right">SECTION</StyledTableCell>
             <StyledTableCell align="right">CLASS</StyledTableCell>
-            <StyledTableCell align="right">STATUS</StyledTableCell>
             <StyledTableCell align="right">ACTIONS</StyledTableCell>
           </TableRow>
         </TableHead>
@@ -119,22 +112,35 @@ export default function ViewStudent() {
               <StyledTableCell component="th" scope="row">
                 {ind+1}
               </StyledTableCell>
-              <StyledTableCell align="right">{row.id}</StyledTableCell>
               <StyledTableCell align="right">{row.name}</StyledTableCell>
               <StyledTableCell align="right">{row.section}</StyledTableCell>
               <StyledTableCell align="right">{row.classs}</StyledTableCell>
-              <StyledTableCell align="right">{row.statuss}</StyledTableCell>
               <StyledTableCell align="right">
-               <Notifications></Notifications>
-               <Notifications></Notifications>
-               <Notifications></Notifications>
-              </StyledTableCell>
+              {/* <Button
+                variant="contained"
+                color="primary"
+                onClick={()=>{
+                    props.handleNext()
+                }}
+                className={classes.button}
+              >
+               Enter Results
+              </Button> */}
+              {/* <Edit onClick={()=>{
+                    props.handleNext()
+                }}></Edit> */}
+        <IconButton style={{backgroundColor:gray[500]}} onClick={()=>{
+                    props.handleNext()
+                }} color="primary" aria-label="upload picture" component="span">
+         <Edit></Edit>
+        </IconButton>
+               </StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
-    <Pagination style={{marginTop:'20px'}} count={10} color="primary" />
+  
 
       </StyledView>
     )

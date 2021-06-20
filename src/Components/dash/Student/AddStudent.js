@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import styled from 'styled-components'
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider'
@@ -33,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
   }));
 export default function AddStudent() {
     const classes = useStyles();
+    const [isSStudent,setIsStudet]=useState(false)
 
     return (
        <StyledAdd>
@@ -48,13 +49,13 @@ export default function AddStudent() {
         <div className='personal'>
           
           <TextField id="date"
-          style={{width:'22%'}}
-        label="Birthday"
+          style={{width:'22%',marginLeft:'10px'}}
+        label="DOB"
         type="date"
         defaultValue="2017-05-24"
          variant="outlined" />
     
-        <TextField style={{width:'22%'}} id="outlined-basic" label="ID Number" variant="outlined" />
+        <TextField style={{width:'22%',}} id="outlined-basic" label="ID Number" variant="outlined" />
         <FormControl style={{width:'22%'}} variant="outlined" className={classes.formControl}>
         <InputLabel htmlFor="outlined-age-native-simple">Gender</InputLabel>
         <Select
@@ -125,7 +126,7 @@ export default function AddStudent() {
 
 
         <div className='personal'>
-        <FormControl style={{width:'40%'}} variant="outlined" className={classes.formControl}>
+        <FormControl style={{width:'22%'}} variant="outlined" className={classes.formControl}>
         <InputLabel htmlFor="outlined-age-native-simple">Enrollment Session</InputLabel>
         <Select
           native
@@ -141,12 +142,33 @@ export default function AddStudent() {
       </FormControl>
 
 
-      <FormControl style={{width:'35%'}} variant="outlined" className={classes.formControl}>
-        <InputLabel htmlFor="outlined-age-native-simple">Class</InputLabel>
+      <FormControl style={{width:'22%'}} variant="outlined" className={classes.formControl}>
+        <InputLabel htmlFor="outlined-age-native-simple">Section</InputLabel>
+        <Select
+         onChange={()=>{
+           setIsStudet(true)
+         }}
+          native
+          value='Jss1'
+          label="Section"
+          inputProps={{
+            name: 'class',
+            id: 'outlined-age-native-simple',
+          }}
+        >
+          <option value='Jss1'>Jss1</option>
+          <option value='Jss2'>Jss2</option>
+        </Select>
+      </FormControl>
+
+
+
+      <FormControl style={{width:'22%',transition:'1s',opacity:isSStudent?'1':'0'}} variant="outlined" className={classes.formControl}>
+        <InputLabel htmlFor="outlined-age-native-simple">Category</InputLabel>
         <Select
           native
           value='Jss1'
-          label="Class"
+          label="Category"
           inputProps={{
             name: 'class',
             id: 'outlined-age-native-simple',

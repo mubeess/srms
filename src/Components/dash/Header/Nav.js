@@ -63,26 +63,18 @@ export default function Nav() {
                color:'black'
              }} variant="button" align='center' gutterBottom>ACADEMY</Typography>
         </div>
-        <TextField
-        color='#FFC305'
-        style={{marginLeft:'auto',width:'20%',marginRight:'10px',marginTop:'10px'}}
-        id="input-with-icon-adornment"
-        type='search'
-        label=""
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-             <SearchIcon></SearchIcon>
-            </InputAdornment>
-          ),
-        }}
-      />
+        <Typography style={{
+               color:'black',
+               marginLeft:'auto',
+               marginTop:'25px',
+             }} variant="caption" align='center' gutterBottom>NOBLE INTELLECT</Typography>
         <Avatar
     onClick={handleClick}
      aria-controls="simple-menu" aria-haspopup="true"  style={{
     marginTop:'20px',
     marginLeft:'20px',
-    cursor:'pointer'
+    cursor:'pointer',
+    marginRight:'50px'
 }}>H</Avatar>
 <Menu
         id="simple-menu"
@@ -95,13 +87,7 @@ export default function Nav() {
         <MenuItem onClick={handleClose}>My account</MenuItem>
         <MenuItem onClick={handleClose}>Logout</MenuItem>
       </Menu>
-<Badge style={{
-    marginRight:'100px',
-    marginTop:'20px',
-    marginLeft:'20px'
-}} badgeContent={4} color="secondary">
-  <Notifications></Notifications>
-</Badge>
+
         
        </StyledNav>
        </ThemeProvider>

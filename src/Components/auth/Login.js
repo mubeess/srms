@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import styled from 'styled-components'
 import Typography from '@material-ui/core/Typography';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -6,6 +6,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import LockRoundedIcon from '@material-ui/icons/LockRounded';
+import AppContext from '../../Context/app/appContext'
 import { makeStyles,  fade,
   ThemeProvider,
   withStyles,
@@ -93,6 +94,7 @@ const theme = createMuiTheme({
 });
 
 export default function Login(props) {
+  const appProps=useContext(AppContext)
   const classes = useStyles();
     return (
       <ThemeProvider theme={theme}>
@@ -126,7 +128,6 @@ export default function Login(props) {
       />
  <Typography style={{marginLeft:'30px',color:'gray',marginTop:'30px'}} variant="overline" display="block"  gutterBottom>Password:</Typography>
 <TextField
-        color='#FFC305'
         style={{marginLeft:'30px',width:'80%'}}
         id="input-with-icon-adornment"
         type='password'
@@ -142,6 +143,9 @@ export default function Login(props) {
 
 
 <Button onClick={()=>{
+  console.log(appProps)
+  appProps.setUser({name:'mubarak'})
+  appProps.setIslogged()
   props.history.push('dash/main')
 }}  className={classes.butt}  style={{marginLeft:'auto',marginTop:'30px',marginRight:'40px'}} variant='outlined' color="secondary">
         Login

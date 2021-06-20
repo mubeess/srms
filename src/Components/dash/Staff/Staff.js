@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { Button } from '@material-ui/core';
 import AddStaff from './AddStaff';
+import  ViewStaff from './ViewStaff'
 
 
 function TabPanel(props) {
@@ -71,7 +72,7 @@ export default function Staff() {
     <AddStaff></AddStaff>
       </TabPanel>
       <TabPanel value={value} index={1}>
-      <h1>meeee</h1>
+      <ViewStaff></ViewStaff>
       </TabPanel>
     </div>
   );

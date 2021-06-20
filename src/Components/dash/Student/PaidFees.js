@@ -13,6 +13,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Notifications from '@material-ui/icons/Notifications'
 import gray from '@material-ui/core/colors/grey'
+import green from '@material-ui/core/colors/green'
 import Pagination from '@material-ui/lab/Pagination';
 
 
@@ -60,7 +61,7 @@ const useStyles = makeStyles({
     minWidth: 700,
   },
 });
-export default function ViewStudent() {
+export default function ViewStaff() {
   const classes = useStyles();
     return (
       <StyledView>
@@ -125,16 +126,14 @@ export default function ViewStudent() {
               <StyledTableCell align="right">{row.classs}</StyledTableCell>
               <StyledTableCell align="right">{row.statuss}</StyledTableCell>
               <StyledTableCell align="right">
-               <Notifications></Notifications>
-               <Notifications></Notifications>
-               <Notifications></Notifications>
+             <Button style={{backgroundColor:green[400],color:'white'}} variant='outlined'>Reciept</Button>
               </StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
-    <Pagination style={{marginTop:'20px'}} count={10} color="primary" />
+    
 
       </StyledView>
     )

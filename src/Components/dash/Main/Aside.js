@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import {Dashboard,VerifiedUserRounded,BarChart,Folder,Receipt,FileCopy,Group,GroupAdd,Work} from '@material-ui/icons';
+import {Dashboard,VerifiedUserRounded,BarChart,Folder,Receipt,FileCopy,Group,GroupAdd,Work,ArrowForward,ViewAgenda} from '@material-ui/icons';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import {withRouter,Link} from 'react-router-dom'
@@ -38,27 +38,17 @@ z-index: 100;
           <ListItemText style={{color:'white'}} primary="Profile" />
         </ListItem>
 
-        <ListItem style={{borderBottom:'1px solid white'}} button>
-          <ListItemIcon>
-            <BarChart style={{color:'white'}} />
-          </ListItemIcon>
-          <ListItemText style={{color:'white'}} primary="Classes" />
-        </ListItem>
-
+       
+        <Link to="/dash/subject">
         <ListItem style={{borderBottom:'1px solid white'}} button>
           <ListItemIcon>
             <Folder style={{color:'white'}} />
           </ListItemIcon>
           <ListItemText style={{color:'white'}} primary="Subjects" />
         </ListItem>
+        </Link>
 
-        <ListItem style={{borderBottom:'1px solid white'}} button>
-          <ListItemIcon>
-            <FileCopy style={{color:'white'}} />
-          </ListItemIcon>
-          <ListItemText style={{color:'white'}} primary="Results" />
-        </ListItem>
-        
+
         <Link to="/dash/staff">
         <ListItem style={{borderBottom:'1px solid white'}} button>
           <ListItemIcon>
@@ -76,6 +66,22 @@ z-index: 100;
         </ListItem>
        </Link>
 
+       <Link to="/dash/result">
+        <ListItem style={{borderBottom:'1px solid white'}} button>
+          <ListItemIcon>
+            <FileCopy style={{color:'white'}} />
+          </ListItemIcon>
+          <ListItemText style={{color:'white'}} primary="Enter Results" />
+        </ListItem>
+        </Link>
+
+        <ListItem style={{borderBottom:'1px solid white'}} button>
+          <ListItemIcon>
+            <ViewAgenda style={{color:'white'}} />
+          </ListItemIcon>
+          <ListItemText style={{color:'white'}} primary="View Results" />
+        </ListItem>
+
        <Link to="/dash/fees">
         <ListItem style={{borderBottom:'1px solid white'}} button>
           <ListItemIcon>
@@ -91,6 +97,13 @@ z-index: 100;
             <Work style={{color:'white'}} />
           </ListItemIcon>
           <ListItemText style={{color:'white'}} primary="Roles" />
+        </ListItem>
+
+        <ListItem style={{borderBottom:'1px solid white'}} button>
+          <ListItemIcon>
+            <ArrowForward style={{color:'white'}} />
+          </ListItemIcon>
+          <ListItemText style={{color:'white'}} primary="Proceed" />
         </ListItem>
         
 

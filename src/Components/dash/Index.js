@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import React,{useEffect,useContext} from 'react'
 import Nav from './Header/Nav'
 import styled from 'styled-components'
 import Aside from './Main/Aside'
@@ -6,6 +6,11 @@ import MainApp from './Main/MainApp'
 import Student from './Student/Student'
 import FeesVarification from './Student/FeeVarification'
 import Staff from './Staff/Staff'
+import Result from './Staff/Result'
+import Subject from './Subject/Index'
+import AppContext from '../../Context/app/appContext'
+import App from '../../App'
+
 
 
 const StyledMain=styled.div`
@@ -34,8 +39,9 @@ flex-direction: row;
 
 
 function Index(props) {
+    const appProps=useContext(AppContext)
     useEffect(() => {
-        console.log(props.match.url)
+        console.log(appProps)
         
     }, [])
     const Dynamic=()=>{
@@ -48,23 +54,42 @@ function Index(props) {
                         return <FeesVarification></FeesVarification>
             case '/dash/staff':
                         return <Staff></Staff>
+            case '/dash/result':
+                        return <Result></Result>
+            case '/dash/subject':
+                            return <Subject></Subject>
         
             default:
                 return <Main></Main>
                 
         }
     }
+    
   return (
     <div style={{
         position: 'relative',
         display:'flex',
         overflow:'hidden'
     }}>
-        <Nav></Nav>
-       <StyledMain>
-           <Aside></Aside>
-           <Dynamic></Dynamic>
-       </StyledMain>
+       {
+           appProps.isLogged&&(
+            <>
+            <Nav></Nav>
+            <StyledMain>
+                <Aside></Aside>
+                <Dynamic></Dynamic>
+            </StyledMain>
+            </>
+           )
+       }
+
+{
+           !appProps.isLogged&&(
+            <>
+            <h1>You Are Not Logged In.........</h1>
+            </>
+           )
+       }
     </div>
   );
 }

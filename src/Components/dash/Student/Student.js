@@ -65,7 +65,6 @@ export default function Student() {
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
           <Tab style={{backgroundColor:'#1E7F95',borderRadius:'10px',color:'white',margin:'20px'}} label="Add Student" {...a11yProps(0)} />
           <Tab style={{backgroundColor:'#1E7F95',borderRadius:'10px',color:'white',margin:'20px'}} label="View All Students" {...a11yProps(1)} />
-          <Tab style={{backgroundColor:'#1E7F95',borderRadius:'10px',color:'white',margin:'20px'}} label="Item Three" {...a11yProps(2)} />
         </Tabs>
 
       <TabPanel value={value} index={0}>
@@ -73,9 +72,6 @@ export default function Student() {
       </TabPanel>
       <TabPanel value={value} index={1}>
         <ViewStudent></ViewStudent>
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        Item Three
       </TabPanel>
     </div>
   );

@@ -60,12 +60,12 @@ const useStyles = makeStyles({
     minWidth: 700,
   },
 });
-export default function ViewStudent() {
+export default function ViewStaff() {
   const classes = useStyles();
     return (
       <StyledView>
         <Typography style={{marginLeft:'10px'}} variant="button" display="block" gutterBottom>
-        Manage Students
+        Manage Staff
       </Typography>
           <Divider></Divider>
           <div className='header'>
@@ -105,11 +105,9 @@ export default function ViewStudent() {
         <TableHead >
           <TableRow style={{backgroundColor:gray[500]}} >
             <StyledTableCell>S/N</StyledTableCell>
-            <StyledTableCell align="right">ID NUMBER</StyledTableCell>
+            <StyledTableCell align="right">FILE NUMBER</StyledTableCell>
             <StyledTableCell align="right">NAME</StyledTableCell>
-            <StyledTableCell align="right">SECTION</StyledTableCell>
-            <StyledTableCell align="right">CLASS</StyledTableCell>
-            <StyledTableCell align="right">STATUS</StyledTableCell>
+            <StyledTableCell align="right">ROLE</StyledTableCell>
             <StyledTableCell align="right">ACTIONS</StyledTableCell>
           </TableRow>
         </TableHead>
@@ -121,8 +119,6 @@ export default function ViewStudent() {
               </StyledTableCell>
               <StyledTableCell align="right">{row.id}</StyledTableCell>
               <StyledTableCell align="right">{row.name}</StyledTableCell>
-              <StyledTableCell align="right">{row.section}</StyledTableCell>
-              <StyledTableCell align="right">{row.classs}</StyledTableCell>
               <StyledTableCell align="right">{row.statuss}</StyledTableCell>
               <StyledTableCell align="right">
                <Notifications></Notifications>
@@ -134,7 +130,7 @@ export default function ViewStudent() {
         </TableBody>
       </Table>
     </TableContainer>
-    <Pagination style={{marginTop:'20px'}} count={10} color="primary" />
+   
 
       </StyledView>
     )

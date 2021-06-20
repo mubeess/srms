@@ -2,7 +2,9 @@ import React,{Children, useReducer,useEffect} from 'react'
 import AppContext from './appContext'
 import appReducer from './appReducer'
 import {
-SET_LOADING
+SET_LOADING,
+SET_ISLOGED,
+SET_USER
 } from '../types'
 
 
@@ -18,6 +20,8 @@ export default function AppState(props){
 const [state,dispatch]=useReducer(appReducer,initState)
 
 const setLoading=()=>dispatch({type:SET_LOADING})
+const setIslogged=()=>dispatch({type:SET_ISLOGED})
+const setUser=(user)=>dispatch({type:SET_USER,payload:user})
 
 return <AppContext.Provider
 value={{
@@ -25,7 +29,9 @@ value={{
     loading:state.loading,
     records:state.records,
     isLogged:state.isLogged,
-    setLoading
+    setLoading,
+    setIslogged,
+    setUser
 }}
 >
 

@@ -12,8 +12,12 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button'
-import Success from './success2.gif'
 import {withRouter,Link} from 'react-router-dom'
+import Alert from '@material-ui/lab/Alert';
+import AlertTitle from '@material-ui/lab/AlertTitle'
+import IconButton from '@material-ui/core/IconButton';
+import Collapse from '@material-ui/core/Collapse';
+import CloseIcon from '@material-ui/icons/Close';
 
 
 const StyledMod=styled.div`
@@ -29,7 +33,7 @@ const StyledMod=styled.div`
 }
 display:flex;
 flex-direction: column;
-height:443px;
+height:143px;
 min-width: 30%;
 background-color: white;
 margin-top: 50px;
@@ -49,7 +53,7 @@ img{
 
 const StyledFees=styled.div`
 display: flex;
-min-height: 400px;
+min-height: 300px;
 width: 70%;
 background-color:#E5E5E5;
 border: 1px thin #1E7F95;
@@ -82,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
- function Verify(props) {
+ function AddSubject(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
 
@@ -95,6 +99,25 @@ const useStyles = makeStyles((theme) => ({
     };
     return (
         <StyledFees>
+             <Collapse in={open}>
+        <Alert
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setOpen(false);
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+        >
+        <AlertTitle>Success</AlertTitle>
+          Succesfully Added Subject!!!
+        </Alert>
+      </Collapse>
         <div className='selection'>
         <FormControl style={{width:'40%'}} variant="outlined" className={classes.formControl}>
         <InputLabel htmlFor="outlined-age-native-simple">SELECT TERM SESSION</InputLabel>
@@ -114,11 +137,11 @@ const useStyles = makeStyles((theme) => ({
 
 
       <FormControl style={{width:'40%'}} variant="outlined" className={classes.formControl}>
-        <InputLabel htmlFor="outlined-age-native-simple">PLEASE SELECT CLASS</InputLabel>
+        <InputLabel htmlFor="outlined-age-native-simple">SELECT CATEGORY</InputLabel>
         <Select
           native
-          value='PLEASE SELECT CLASS'
-          label="PLEASE SELECT CLASS"
+          value='SELECT CATEGORY'
+          label="SELECT CATEGORY"
           inputProps={{
             name:'class',
             id: 'outlined-age-native-simple',
@@ -135,11 +158,11 @@ const useStyles = makeStyles((theme) => ({
 
             <div className='selection'>
         <FormControl style={{width:'40%'}} variant="outlined" className={classes.formControl}>
-        <InputLabel htmlFor="outlined-age-native-simple">SELECT STUDET ID</InputLabel>
+        <InputLabel htmlFor="outlined-age-native-simple">SELECT CLASS</InputLabel>
         <Select
           native
-          value='SELECT STUDET ID'
-          label="SELECT STUDET ID"
+          value='SELECT CLASS'
+          label="SELECT CLASS"
           inputProps={{
             name:'studentid',
             id: 'outlined-age-native-simple',
@@ -150,93 +173,17 @@ const useStyles = makeStyles((theme) => ({
         </Select>
       </FormControl>
 
-       <TextField style={{width:'40%'}} id="outlined-basic" label="PLEASE ENTER TELLER NUMBER" variant="outlined" />
+       <TextField style={{width:'40%'}} id="outlined-basic" label="ENTER SUBJECT NAME" variant="outlined" />
             </div>
 
-
-
-
-
-            <div className='selection'>
-        <FormControl style={{width:'40%'}} variant="outlined" className={classes.formControl}>
-        <InputLabel htmlFor="outlined-age-native-simple">SELECT STUDENT NAME</InputLabel>
-        <Select
-          native
-          value='SELECT STUDENT NAME'
-          label="SELECT STUDENT NAME"
-          inputProps={{
-            name:'age',
-            id: 'outlined-age-native-simple',
-          }}
-        >
-          <option value='Male'> Male</option>
-          <option value='Female'>Female</option>
-        </Select>
-      </FormControl>
-
-
-      <FormControl style={{width:'40%'}} variant="outlined" className={classes.formControl}>
-        <InputLabel htmlFor="outlined-age-native-simple">SELECT PURPOSE OF PAYMENT</InputLabel>
-        <Select
-        multiple
-        multiline
-          native
-          value='SELECT PURPOSE OF PAYMENT'
-          label="SELECT PURPOSE OF PAYMENT"
-          inputProps={{
-            name:'age',
-            id: 'outlined-age-native-simple',
-          }}
-        >
-          <option value='Male'> Male</option>
-          <option value='Female'>Female</option>
-          <option value='Male'> Male</option>
-          <option value='Female'>Female</option>
-        </Select>
-      </FormControl>
-            </div>
        <Button onClick={()=>{
-         handleOpen()
-       }} style={{marginLeft:'70%',marginTop:'20px',marginRight:'20px'}} variant="contained" color='primary'>Verify Fees</Button>
+        setOpen(true)
+       }} style={{marginLeft:'70%',marginTop:'20px',marginRight:'20px'}} variant="contained" color='primary'>Add Subject</Button>
 
 
 
 
-       <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        className={classes.modal}
-        open={open}
-        onClose={handleClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        <Fade in={open}>
-         <StyledMod>
-           <Typography variant="button" display="block" gutterBottom>
-            FEES VERIFICATION
-           </Typography>
-           <Divider style={{width:'100%'}}></Divider>
-         <img src={Success} alt='success'></img>
-         <h3 className='successwrite'>
-           SUCCESS
-         </h3>
-       <Typography variant="overline" display="block" gutterBottom>
-         Payment Verified Successfully 
-      </Typography>
-      <Button onClick={()=>{
-        window.location.pathname = '/reciept';
-      }} style={{background:'green'}} variant="contained" color="primary">
-       Print Reciept
-   </Button>
-
-         </StyledMod> 
-        </Fade>
-      </Modal>
         </StyledFees>
     )
 }
-export default withRouter(Verify)
+export default withRouter(AddSubject)
