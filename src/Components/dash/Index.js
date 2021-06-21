@@ -10,6 +10,7 @@ import Result from './Staff/Result'
 import Subject from './Subject/Index'
 import AppContext from '../../Context/app/appContext'
 import App from '../../App'
+import Roles from './Staff/Roles'
 
 
 
@@ -58,6 +59,8 @@ function Index(props) {
                         return <Result></Result>
             case '/dash/subject':
                             return <Subject></Subject>
+            case '/dash/roles':
+                            return <Roles></Roles>
         
             default:
                 return <Main></Main>

@@ -1,4 +1,4 @@
-import React,{useContext} from 'react'
+import React,{useContext,useState} from 'react'
 import styled from 'styled-components'
 import Typography from '@material-ui/core/Typography';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -94,8 +94,19 @@ const theme = createMuiTheme({
 });
 
 export default function Login(props) {
+  const [username,setUsername]=useState('')
+  const [password,setPassword]=useState('')
   const appProps=useContext(AppContext)
   const classes = useStyles();
+  const handleChangeName=(e)=>{
+    const value=e.target.value
+    setUsername(value)
+  }
+
+  const handleChangePassword=(e)=>{
+    const value=e.target.value
+    setUsername(value)
+  }
     return (
       <ThemeProvider theme={theme}>
         <StyledLogin>
@@ -114,7 +125,7 @@ export default function Login(props) {
                  {/* <TextField style={{marginLeft:'30px'}} id="outlined-basic" label="Outlined" variant="outlined" /> */}
 
                  <TextField
-                 
+                 onChange={handleChangeName}
         style={{marginLeft:'30px',width:'80%'}}
         id="input-with-icon-adornment"
         label="Input Your Id Here"
@@ -128,6 +139,7 @@ export default function Login(props) {
       />
  <Typography style={{marginLeft:'30px',color:'gray',marginTop:'30px'}} variant="overline" display="block"  gutterBottom>Password:</Typography>
 <TextField
+      onChange={handleChangePassword}
         style={{marginLeft:'30px',width:'80%'}}
         id="input-with-icon-adornment"
         type='password'
@@ -147,6 +159,22 @@ export default function Login(props) {
   appProps.setUser({name:'mubarak'})
   appProps.setIslogged()
   props.history.push('dash/main')
+  const user={
+    username,
+    password
+  }
+  // fetch('https://polar-brook-59807.herokuapp.com/admin/login',{
+  //   method:'POST',
+  //   headers:{
+  //     "Content-Type":'application/json'
+  //   },
+  //   body:JSON.stringify(user)
+  // }).then(res=>{
+  //   res.json()
+  //   .then(data=>{
+  //     console.log(data)
+  //   })
+  // })
 }}  className={classes.butt}  style={{marginLeft:'auto',marginTop:'30px',marginRight:'40px'}} variant='outlined' color="secondary">
         Login
       </Button>

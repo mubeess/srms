@@ -34,6 +34,34 @@ const useStyles = makeStyles((theme) => ({
 export default function AddStudent() {
     const classes = useStyles();
     const [isSStudent,setIsStudet]=useState(false)
+    const [term,setTerm]=useState('First Term')
+    const [gender,setGender]=useState('Male')
+    const [state,setState]=useState('Adamawa')
+    const [lga,setLga]=useState('Maiha')
+    const [section,setSection]=useState('Nursery')
+    const [classs,setClass]=useState('Nursery 1')
+    const [category,setCtegory]=useState('Science')
+    const [staff,setStaff]=useState({
+      firstName:'',
+      lastName:'',
+      otherName:'',
+      studentId:'',
+      address:'',
+      kinName:'',
+      kinNumber:'',
+      kinRelation:'',
+      kinAddress:'',
+      dob:''
+    })
+
+
+    const changeValues=(e)=>{
+      const name=e.target.name
+      const value=e.target.value
+      const newStaff = staff;
+      newStaff[`${name}`] = value;
+      setStaff(newStaff)
+    }
 
     return (
        <StyledAdd>
@@ -42,28 +70,33 @@ export default function AddStudent() {
       </Typography>
       <Divider></Divider>
         <div className='personal'>
-        <TextField id="outlined-basic" label="First Name" variant="outlined" />
-        <TextField id="outlined-basic" label="Last Name" variant="outlined" />
-        <TextField id="outlined-basic" label="Other Name" variant="outlined" />
+        <TextField onChange={changeValues} name='firstName' id="outlined-basic" label="First Name" variant="outlined" />
+        <TextField onChange={changeValues} name='lastName' id="outlined-basic" label="Last Name" variant="outlined" />
+        <TextField onChange={changeValues} name='otherName' id="outlined-basic" label="Other Name" variant="outlined" />
         </div>
         <div className='personal'>
           
           <TextField id="date"
+          name='dob'
+          onChange={changeValues}
           style={{width:'22%',marginLeft:'10px'}}
         label="DOB"
         type="date"
         defaultValue="2017-05-24"
          variant="outlined" />
     
-        <TextField style={{width:'22%',}} id="outlined-basic" label="ID Number" variant="outlined" />
+        <TextField name='studentId' onChange={changeValues} style={{width:'22%',}} id="outlined-basic" label="ID Number" variant="outlined" />
         <FormControl style={{width:'22%'}} variant="outlined" className={classes.formControl}>
         <InputLabel htmlFor="outlined-age-native-simple">Gender</InputLabel>
         <Select
+          onChange={(e)=>{
+            setGender(e.target.value)
+          }}
           native
-          value='Gender'
+          value={gender}
           label="Gender"
           inputProps={{
-            name:'age',
+            name:'gender',
             id: 'outlined-age-native-simple',
           }}
         >
@@ -72,7 +105,7 @@ export default function AddStudent() {
         </Select>
       </FormControl>
         </div>
-        <TextField style={{width:'83%',marginLeft:'85px',marginTop:'20px'}} id="outlined-basic" label="Address" variant="outlined" />
+        <TextField name='address' onChange={changeValues} style={{width:'83%',marginLeft:'85px',marginTop:'20px'}} id="outlined-basic" label="Address" variant="outlined" />
         <div className='personal'>
         <FormControl style={{width:'22%'}} variant="outlined" className={classes.formControl}>
         <InputLabel htmlFor="outlined-age-native-simple">Country</InputLabel>
@@ -95,8 +128,11 @@ export default function AddStudent() {
       <FormControl style={{width:'22%'}} variant="outlined" className={classes.formControl}>
         <InputLabel htmlFor="outlined-age-native-simple">State</InputLabel>
         <Select
+          onChange={(e)=>{
+            setState(e.target.value)
+          }}
           native
-          value='Adamawa'
+          value={state}
           label="State"
           inputProps={{
             name: 'state',
@@ -111,8 +147,11 @@ export default function AddStudent() {
       <FormControl style={{width:'22%'}} variant="outlined" className={classes.formControl}>
         <InputLabel htmlFor="outlined-age-native-simple">LGA</InputLabel>
         <Select
+         onChange={(e)=>{
+          setLga(e.target.value)
+        }}
           native
-          value='Maiha'
+          value={lga}
           label="LGA"
           inputProps={{
             name: 'lga',
@@ -129,15 +168,20 @@ export default function AddStudent() {
         <FormControl style={{width:'22%'}} variant="outlined" className={classes.formControl}>
         <InputLabel htmlFor="outlined-age-native-simple">Enrollment Session</InputLabel>
         <Select
+         onChange={(e)=>{
+         setTerm(e.target.value)
+         }}
           native
-          value='First Term'
+          value={term}
           label="Enrollment Session"
           inputProps={{
-            name: 'enrol',
+            name: 'term',
             id: 'outlined-age-native-simple',
           }}
         >
           <option value='First Term'>First Term</option>
+          <option value='Second Term'>Second Term</option>
+          <option value='Third Term'>Third Term</option>
         </Select>
       </FormControl>
 
@@ -145,12 +189,40 @@ export default function AddStudent() {
       <FormControl style={{width:'22%'}} variant="outlined" className={classes.formControl}>
         <InputLabel htmlFor="outlined-age-native-simple">Section</InputLabel>
         <Select
-         onChange={()=>{
-           setIsStudet(true)
+        value={section}
+         onChange={(e)=>{
+           setSection(e.target.value)
+           if (e.target.value=='SSS') {
+            setIsStudet(true)
+           }else{
+             setIsStudet(false)
+           }
+          
          }}
           native
-          value='Jss1'
           label="Section"
+          inputProps={{
+            name: 'section',
+            id: 'outlined-age-native-simple',
+          }}
+        >
+          <option value='JSS'>JSS</option>
+          <option value='SSS'>SSS</option>
+          <option value='Primary'>Primary</option>
+          <option value='NURSERY'>Nursery</option>
+
+        </Select>
+      </FormControl>
+
+      <FormControl style={{width:'22%'}} variant="outlined" className={classes.formControl}>
+        <InputLabel htmlFor="outlined-age-native-simple">Section</InputLabel>
+        <Select
+          onChange={(e)=>{
+            setClass(e.target.value)
+          }}
+          native
+          value={classs}
+          label="Class"
           inputProps={{
             name: 'class',
             id: 'outlined-age-native-simple',
@@ -163,18 +235,25 @@ export default function AddStudent() {
 
 
 
-      <FormControl style={{width:'22%',transition:'1s',opacity:isSStudent?'1':'0'}} variant="outlined" className={classes.formControl}>
+      
+        </div>
+        <div className='personal'>
+        <FormControl style={{width:'22%',transition:'1s',opacity:isSStudent?'1':'0'}} variant="outlined" className={classes.formControl}>
         <InputLabel htmlFor="outlined-age-native-simple">Category</InputLabel>
         <Select
+         onChange={(e)=>{
+           setCtegory(e.target.value)
+         }}
           native
-          value='Jss1'
+          value={category}
           label="Category"
           inputProps={{
-            name: 'class',
+            name: 'category',
             id: 'outlined-age-native-simple',
           }}
         >
-          <option value='Jss1'>Jss1</option>
+          <option value='Science'>Science</option>
+          <option value='Arts'>Arts</option>
         </Select>
       </FormControl>
         </div>
@@ -183,12 +262,23 @@ export default function AddStudent() {
       </Typography>
       <Divider></Divider>
       <div className='personal'>
-        <TextField id="outlined-basic" label="Full Name" variant="outlined" />
-        <TextField id="outlined-basic" label="Phone Number" variant="outlined" />
-        <TextField id="outlined-basic" label="Phone Number" variant="outlined" />
+        <TextField name='kinName' onChange={changeValues} id="outlined-basic" label="Full Name" variant="outlined" />
+        <TextField name='kinNumber' onChange={changeValues} id="outlined-basic" label="Phone Number" variant="outlined" />
+        <TextField name='kinRelation' onChange={changeValues} id="outlined-basic" label="Phone Number" variant="outlined" />
         </div>
-        <TextField style={{width:'83%',marginLeft:'90px',marginTop:'20px'}} id="outlined-basic" label="Address" variant="outlined" />
-        <Button style={{marginLeft:'80%',marginTop:'20px',marginBottom:'20px'}} variant="contained" color='primary'>Add Student</Button>
+        <TextField name='kinAddress' onChange={changeValues} style={{width:'83%',marginLeft:'90px',marginTop:'20px'}} id="outlined-basic" label="Address" variant="outlined" />
+        <Button onClick={()=>{
+          const selector={
+            state,
+            lga,
+            gender,
+            section,
+            classs,
+            term,
+            category
+          }
+          console.log(selector)
+        }} style={{marginLeft:'80%',marginTop:'20px',marginBottom:'20px'}} variant="contained" color='primary'>Add Student</Button>
        </StyledAdd>
     )
 }

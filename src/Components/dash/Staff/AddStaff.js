@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import styled from 'styled-components'
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider'
@@ -33,7 +33,40 @@ const useStyles = makeStyles((theme) => ({
   }));
 export default function AddStaff() {
     const classes = useStyles();
+const [staff,setStaff]=useState({
+  firstName:'',
+  lastName:'',
+  otherName:'',
+  staffId:'',
+  email:'',
+  qualification:'',
+  department:'',
+  phone:'',
+  address:'',
+  accountName:'',
+  bankName:'',
+  bankNumber:'',
+  kinName:'',
+  kinNumber:'',
+  kinRelation:'',
+  kinAddress:'',
+  gender:'',
+  state:'',
+  lga:''
+})
+const changeValues=(e)=>{
+  const name=e.target.name
+  const value=e.target.value
+  let prevStaff=staff
 
+  const newStaff = staff;
+  newStaff[`${name}`] = value;
+  setStaff(newStaff)
+}
+
+const changeSelect=(e)=>{
+  console.log(e.target.value)
+}
     return (
        <StyledAdd>
      <Typography style={{marginLeft:'10px'}} variant="button" display="block" gutterBottom>
@@ -41,22 +74,23 @@ export default function AddStaff() {
       </Typography>
       <Divider></Divider>
         <div className='personal'>
-        <TextField id="outlined-basic" label="First Name" variant="outlined" />
-        <TextField id="outlined-basic" label="Last Name" variant="outlined" />
-        <TextField id="outlined-basic" label="Other Name" variant="outlined" />
+        <TextField name='firstName' onChange={changeValues} id="outlined-basic" label="First Name" variant="outlined" />
+        <TextField name='lastName'  onChange={changeValues} id="outlined-basic" label="Last Name" variant="outlined" />
+        <TextField name='otherName'  onChange={changeValues} id="outlined-basic" label="Other Name" variant="outlined" />
         </div>
         <div className='personal'>
           
-        <TextField style={{marginLeft:'5px'}} id="outlined-basic" label="Staff Id" variant="outlined" />
-        <TextField style={{marginLeft:'5px'}} type='email' id="outlined-basic" label="Email Address" variant="outlined" />
+        <TextField name='staffId'  onChange={changeValues} style={{marginLeft:'5px'}} id="outlined-basic" label="Staff Id" variant="outlined" />
+        <TextField name='email'  onChange={changeValues} style={{marginLeft:'5px'}} type='email' id="outlined-basic" label="Email Address" variant="outlined" />
         <FormControl style={{width:'226px'}}  variant="outlined" className={classes.formControl}>
         <InputLabel htmlFor="outlined-age-native-simple">Gender</InputLabel>
         <Select
+        onChange={changeValues}
           native
           value='Gender'
           label="Gender"
           inputProps={{
-            name:'age',
+            name:'gender',
             id: 'outlined-age-native-simple',
           }}
         >
@@ -69,14 +103,14 @@ export default function AddStaff() {
 
 
         <div className='personal'>
-        <TextField id="outlined-basic" label="Qualificaion" variant="outlined" />
-        <TextField id="outlined-basic" label="Department" variant="outlined" />
-        <TextField id="outlined-basic" label="Phone Number" variant="outlined" />
+        <TextField name='qualification'  onChange={changeValues} id="outlined-basic" label="Qualificaion" variant="outlined" />
+        <TextField name='department'  onChange={changeValues} id="outlined-basic" label="Department" variant="outlined" />
+        <TextField name='phone'  onChange={changeValues} id="outlined-basic" label="Phone Number" variant="outlined" />
         </div>
 
 
 
-        <TextField style={{width:'83%',marginLeft:'85px',marginTop:'20px'}} id="outlined-basic" label="Address" variant="outlined" />
+        <TextField name='address'  onChange={changeValues} style={{width:'83%',marginLeft:'85px',marginTop:'20px'}} id="outlined-basic" label="Address" variant="outlined" />
 
 
         <div className='personal'>
@@ -101,6 +135,7 @@ export default function AddStaff() {
       <FormControl style={{width:'22%'}} variant="outlined" className={classes.formControl}>
         <InputLabel htmlFor="outlined-age-native-simple">State</InputLabel>
         <Select
+          onChange={changeValues}
           native
           value='Adamawa'
           label="State"
@@ -110,6 +145,8 @@ export default function AddStaff() {
           }}
         >
           <option value='Adamawa'>Adamawa</option>
+          <option value='Adamawa'>Adamawa</option>
+          <option value='Adamawa'>Adamawa</option>
         </Select>
       </FormControl>
 
@@ -117,6 +154,7 @@ export default function AddStaff() {
       <FormControl style={{width:'22%'}} variant="outlined" className={classes.formControl}>
         <InputLabel htmlFor="outlined-age-native-simple">LGA</InputLabel>
         <Select
+         onChange={changeValues}
           native
           value='Maiha'
           label="LGA"
@@ -125,6 +163,8 @@ export default function AddStaff() {
             id: 'outlined-age-native-simple',
           }}
         >
+          <option value='Maiha'>Maiha</option>
+          <option value='Maiha'>Maiha</option>
           <option value='Maiha'>Maiha</option>
         </Select>
       </FormControl>
@@ -135,9 +175,9 @@ export default function AddStaff() {
 
 
         <div className='personal'>
-        <TextField id="outlined-basic" label="Bank Name" variant="outlined" />
-        <TextField id="outlined-basic" label="Account Number" variant="outlined" />
-        <TextField id="outlined-basic" label="Account Name" variant="outlined" />
+        <TextField name='bankName'  onChange={changeValues} id="outlined-basic" label="Bank Name" variant="outlined" />
+        <TextField name='bankNumber'  onChange={changeValues} id="outlined-basic" label="Account Number" variant="outlined" />
+        <TextField name='accountName'  onChange={changeValues} id="outlined-basic" label="Account Name" variant="outlined" />
         </div>       
 
 
@@ -148,12 +188,47 @@ export default function AddStaff() {
       </Typography>
       <Divider></Divider>
       <div className='personal'>
-        <TextField id="outlined-basic" label="Full Name" variant="outlined" />
-        <TextField id="outlined-basic" label="Phone Number" variant="outlined" />
-        <TextField id="outlined-basic" label="Phone Number" variant="outlined" />
+        <TextField name='kinName'  onChange={changeValues} id="outlined-basic" label="Full Name" variant="outlined" />
+        <TextField name='kinNumber'  onChange={changeValues} id="outlined-basic" label="Phone Number" variant="outlined" />
+        <TextField name='kinRelation'  onChange={changeValues} id="outlined-basic" label="Relationship" variant="outlined" />
         </div>
-        <TextField style={{width:'83%',marginLeft:'90px',marginTop:'20px'}} id="outlined-basic" label="Address" variant="outlined" />
-        <Button style={{marginLeft:'80%',marginTop:'20px',marginBottom:'20px'}} variant="contained" color='primary'>Add Staff</Button>
+        <TextField name='kinAddress'  onChange={changeValues} style={{width:'83%',marginLeft:'90px',marginTop:'20px'}} id="outlined-basic" label="Address" variant="outlined" />
+        <Button onClick={()=>{
+    const stafff={
+      username:staff.staffId,
+      firstName:staff.firstName,
+      lastName:staff.lastName,
+      email:staff.email,
+      gender:staff.gender,
+      qualification:staff.qualification,
+      department:staff.department,
+      phone:staff.phone,
+      address:staff.address,
+      state:staff.state,
+      lga:staff.lga,
+      bankName:staff.bankName,
+      accountNumber:staff.bankNumber,
+      accountName:staff.accountName,
+      nextKinName:staff.kinName,
+      nextKinPhone1:staff.kinNumber,
+      relationship:staff.kinRelation,
+      nextKinAddress:staff.kinAddress
+
+    }
+  fetch('https://polar-brook-59807.herokuapp.com/admin/register-staff',{
+    method:'POST',
+    headers:{
+      "Content-Type":'application/json'
+    },
+    body:JSON.stringify(stafff)
+  }).then(res=>{
+    res.json()
+    .then(data=>{
+      console.log(data)
+    })
+  })
+
+        }} style={{marginLeft:'80%',marginTop:'20px',marginBottom:'20px'}} variant="contained" color='primary'>Add Staff</Button>
        </StyledAdd>
     )
 }

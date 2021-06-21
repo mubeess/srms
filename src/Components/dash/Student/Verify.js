@@ -1,9 +1,9 @@
-import React from 'react'
+import React,{useState} from 'react'
 import styled from 'styled-components'
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider'
 import TextField from '@material-ui/core/TextField';
-import Select from '@material-ui/core/Select';
+import Selects from '@material-ui/core/Select';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -14,6 +14,7 @@ import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button'
 import Success from './success2.gif'
 import {withRouter,Link} from 'react-router-dom'
+import { Select, Tag } from 'antd';
 
 
 const StyledMod=styled.div`
@@ -84,7 +85,48 @@ const useStyles = makeStyles((theme) => ({
 
  function Verify(props) {
     const classes = useStyles();
+    const [options,setOptions]=React.useState([{ value: 'Tuition Fee' }])
     const [open, setOpen] = React.useState(false);
+    const [classs,setClass]=useState('Primary 1')
+    const [term,setTerm]=useState('First Term')
+    const [studentId,setStudentId]=useState('NIA001')
+    const [studentName,setStudentName]=useState('Mubarak')
+    const [teller,setTeller]=useState('001223')
+    const [section,setSection]=useState('Nursery')
+    const [selectedOptions,setSelected]=React.useState([''])
+
+
+
+    const handleChange = (value) => {
+      // setSubjects(event.target.value);
+      setSelected(value)
+    //  console.log(value)
+    };
+
+
+
+    function tagRender(props) {
+      const { label, value, closable, onClose } = props;
+      const onPreventMouseDown = event => {
+        event.preventDefault();
+        event.stopPropagation();
+      };
+      return (
+        <Tag
+          color='green'
+          onMouseDown={onPreventMouseDown}
+          closable={closable}
+          onClose={onClose}
+          style={{ marginRight: 3,}}
+        >
+          {label}
+        </Tag>
+      );
+    }
+
+
+
+
 
     const handleOpen = () => {
       setOpen(true);
@@ -98,9 +140,12 @@ const useStyles = makeStyles((theme) => ({
         <div className='selection'>
         <FormControl style={{width:'40%'}} variant="outlined" className={classes.formControl}>
         <InputLabel htmlFor="outlined-age-native-simple">SELECT TERM SESSION</InputLabel>
-        <Select
+        <Selects
+         onChange={(e)=>{
+           setTerm(e.target.value)
+         }}
           native
-          value='SELECT TERM SESSION'
+          value={term}
           label="SELECT TERM SESSION"
           inputProps={{
             name:'term',
@@ -109,24 +154,27 @@ const useStyles = makeStyles((theme) => ({
         >
           <option value='First Term'> First Term</option>
           <option value='Female'>Female</option>
-        </Select>
+        </Selects>
       </FormControl>
 
 
       <FormControl style={{width:'40%'}} variant="outlined" className={classes.formControl}>
         <InputLabel htmlFor="outlined-age-native-simple">PLEASE SELECT CLASS</InputLabel>
-        <Select
+        <Selects
+          onChange={(e)=>{
+            setClass(e.target.value)
+          }}
           native
-          value='PLEASE SELECT CLASS'
+          value={classs}
           label="PLEASE SELECT CLASS"
           inputProps={{
             name:'class',
             id: 'outlined-age-native-simple',
           }}
         >
-          <option value='Primary One'> Primary One</option>
-          <option value='Female'>Female</option>
-        </Select>
+          <option value='Primary One'> Primary1</option>
+          <option value='SS1'>SS1</option>
+        </Selects>
       </FormControl>
             </div>
 
@@ -136,9 +184,12 @@ const useStyles = makeStyles((theme) => ({
             <div className='selection'>
         <FormControl style={{width:'40%'}} variant="outlined" className={classes.formControl}>
         <InputLabel htmlFor="outlined-age-native-simple">SELECT STUDET ID</InputLabel>
-        <Select
+        <Selects
+         onChange={(e)=>{
+          setStudentId(e.target.value)
+        }}
           native
-          value='SELECT STUDET ID'
+          value={studentId}
           label="SELECT STUDET ID"
           inputProps={{
             name:'studentid',
@@ -147,10 +198,12 @@ const useStyles = makeStyles((theme) => ({
         >
           <option value='Male'> Male</option>
           <option value='Female'>Female</option>
-        </Select>
+        </Selects>
       </FormControl>
 
-       <TextField style={{width:'40%'}} id="outlined-basic" label="PLEASE ENTER TELLER NUMBER" variant="outlined" />
+       <TextField onChange={(e)=>{
+           setTeller(e.target.value)
+         }} style={{width:'40%'}} id="outlined-basic" label="PLEASE ENTER TELLER NUMBER" variant="outlined" />
             </div>
 
 
@@ -160,43 +213,50 @@ const useStyles = makeStyles((theme) => ({
             <div className='selection'>
         <FormControl style={{width:'40%'}} variant="outlined" className={classes.formControl}>
         <InputLabel htmlFor="outlined-age-native-simple">SELECT STUDENT NAME</InputLabel>
-        <Select
+        <Selects
+         onChange={(e)=>{
+          setStudentName(e.target.value)
+        }}
           native
-          value='SELECT STUDENT NAME'
+          value={studentName}
           label="SELECT STUDENT NAME"
           inputProps={{
             name:'age',
             id: 'outlined-age-native-simple',
           }}
         >
-          <option value='Male'> Male</option>
-          <option value='Female'>Female</option>
-        </Select>
+          <option value='Mubarak'> Mubarak</option>
+          <option value='Isa Musa'>Isa Musa</option>
+        </Selects>
       </FormControl>
 
 
-      <FormControl style={{width:'40%'}} variant="outlined" className={classes.formControl}>
-        <InputLabel htmlFor="outlined-age-native-simple">SELECT PURPOSE OF PAYMENT</InputLabel>
-        <Select
-        multiple
-        multiline
-          native
-          value='SELECT PURPOSE OF PAYMENT'
-          label="SELECT PURPOSE OF PAYMENT"
-          inputProps={{
-            name:'age',
-            id: 'outlined-age-native-simple',
-          }}
-        >
-          <option value='Male'> Male</option>
-          <option value='Female'>Female</option>
-          <option value='Male'> Male</option>
-          <option value='Female'>Female</option>
-        </Select>
-      </FormControl>
+   <FormControl style={{width:'40%'}} variant="outlined" className={classes.formControl}>
+  <div style={{display:'flex',flexDirection:'column'}}>
+ <h4 id="demo-mutiple-chip-label">Purpose Of Payments</h4>
+<Select
+    mode="multiple"
+    showArrow
+    tagRender={tagRender}
+    defaultValue={['Chemistry', 'Physics']}
+    style={{ width: '100%' }}
+    options={options}
+    onChange={handleChange}
+  />
+  </div>
+
+   </FormControl>
             </div>
        <Button onClick={()=>{
-         handleOpen()
+         const selectors={
+           term,
+           studentId,
+           studentName,
+           teller,
+           classs
+         }
+         console.log(selectedOptions)
+        //  handleOpen()
        }} style={{marginLeft:'70%',marginTop:'20px',marginRight:'20px'}} variant="contained" color='primary'>Verify Fees</Button>
 
 

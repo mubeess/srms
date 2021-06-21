@@ -91,14 +91,14 @@ z-index: 100;
         </ListItem>
         </Link>
 
-      
+        <Link to="/dash/roles">
         <ListItem style={{borderBottom:'1px solid white'}} button>
           <ListItemIcon>
             <Work style={{color:'white'}} />
           </ListItemIcon>
           <ListItemText style={{color:'white'}} primary="Roles" />
         </ListItem>
-
+       </Link>
         <ListItem style={{borderBottom:'1px solid white'}} button>
           <ListItemIcon>
             <ArrowForward style={{color:'white'}} />
