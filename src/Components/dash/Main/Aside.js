@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import {Dashboard,VerifiedUserRounded,BarChart,Folder,Receipt,FileCopy,Group,GroupAdd,Work,ArrowForward,ViewAgenda} from '@material-ui/icons';
+import {Dashboard,VerifiedUserRounded,HouseRounded,Folder,Receipt,FileCopy,Group,GroupAdd,Work,ArrowForward,ViewAgenda} from '@material-ui/icons';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import {withRouter,Link} from 'react-router-dom'
@@ -105,7 +105,14 @@ z-index: 100;
           </ListItemIcon>
           <ListItemText style={{color:'white'}} primary="Proceed" />
         </ListItem>
-        
+        <Link to="/dash/classes">
+        <ListItem style={{borderBottom:'1px solid white'}} button>
+          <ListItemIcon>
+            <HouseRounded style={{color:'white'}} />
+          </ListItemIcon>
+          <ListItemText style={{color:'white'}} primary="Class" />
+        </ListItem>
+        </Link>
 
         </StyledAside>
     )

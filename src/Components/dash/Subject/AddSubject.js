@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import styled from 'styled-components'
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider'
@@ -116,9 +116,13 @@ flex-direction: column;
  function AddSubject(props) {
     const classes = useStyles();
     const theme = useTheme();
+    const [section,setSection]=useState('JSS')
+    const [studentClassess,setStudentClass]=useState([{className:'JSS1'}])
+    const [category,setCategory]=useState('Science')
     const [open, setOpen] = React.useState(false);
     const [options,setOptions]=React.useState([{ value: 'Mathematics' }])
     const [selectedOptions,setSelected]=React.useState([''])
+    const [selectedClass,setSelectedClass]=useState('JSS1')
 
 
 
@@ -218,37 +222,61 @@ flex-direction: column;
       </Collapse>
         <div className='selection'>
         <FormControl style={{width:'40%'}} variant="outlined" className={classes.formControl}>
-        <InputLabel htmlFor="outlined-age-native-simple">SELECT TERM SESSION</InputLabel>
+        <InputLabel htmlFor="outlined-age-native-simple">SELECT SECTION</InputLabel>
         <Selects
-         onChange={handleChange2}
+         onChange={(e)=>{
+         console.log(e.target.value)
+         setSection(e.target.value)
+         fetch(`https://polar-brook-59807.herokuapp.com/admin/get-all-classes/?section=${e.target.value}`)
+         .then(res=>{
+           res.json()
+           .then(data=>{
+             console.log(data.message)
+             setStudentClass(data.message)
+           })
+         })
+        //  
+         }}
           native
-          value='SELECT TERM SESSION'
-          label="SELECT TERM SESSION"
+          value={section}
+          label="SELECT SECTION"
           inputProps={{
             name:'session',
             id: 'outlined-age-native-simple',
           }}
         >
-          <option value='First Term'> First Term</option>
-          <option value='Female'>Female</option>
+          <option value='Daycare'>Daycare</option>
+          <option value='Playclass'>Playclass</option>
+          <option value='Kindergartens'>Kindergartens</option>
+          <option value='Grade'>Grade</option>
+          <option value='JSS'>JSS</option>
+          <option value='SSS'>SSS</option>
         </Selects>
       </FormControl>
 
 
       <FormControl style={{width:'40%'}} variant="outlined" className={classes.formControl}>
-        <InputLabel htmlFor="outlined-age-native-simple">SELECT CATEGORY</InputLabel>
+        <InputLabel htmlFor="outlined-age-native-simple">SELECT CLASS</InputLabel>
         <Selects
-         onChange={handleChange2}
+         onChange={(e)=>{
+           console.log(e.target.value)
+           setSelectedClass(e.target.value)
+         }}
           native
-          value='SELECT CATEGORY'
-          label="SELECT CATEGORY"
+          value={selectedClass}
+          label="SELECT CLASS"
           inputProps={{
-            name:'category',
+            name:'class',
             id: 'outlined-age-native-simple',
           }}
         >
-          <option value='Primary One'> Primary One</option>
-          <option value='Female'>Female</option>
+          {/* <option value='Jss 1'>Jss 1</option>
+          <option value='Jss 2'>Jss 2</option> */}
+          {
+            studentClassess.map((student)=>(
+              <option value={student.className}>{student.className}</option>
+            ))
+          }
         </Selects>
       </FormControl>
             </div>
@@ -258,19 +286,25 @@ flex-direction: column;
 
             <div className='selection'>
         <FormControl style={{width:'40%'}} variant="outlined" className={classes.formControl}>
-        <InputLabel htmlFor="outlined-age-native-simple">SELECT CLASS</InputLabel>
+        <InputLabel htmlFor="outlined-age-native-simple">SELECT CATEGORY</InputLabel>
         <Selects
-         onChange={handleChange2}
+
+        disabled={section!=='SSS'}
+         onChange={(e)=>{
+          setCategory(e.target.value)
+          console.log(e.target.value)
+         }}
           native
-          value='SELECT CLASS'
+          value={category}
           label="SELECT CLASS"
           inputProps={{
             name:'class',
             id: 'outlined-age-native-simple',
           }}
         >
-          <option value='Male'> Male</option>
-          <option value='Female'>Female</option>
+          <option value='Science'> Science</option>
+          <option value='Arts'>Arts</option>
+          <option value='Commercial'>Commercial</option>
         </Selects>
       </FormControl>
 
@@ -293,8 +327,26 @@ flex-direction: column;
             </div>
 
        <Button onClick={()=>{
-         console.log(subject,selectedOptions)
-        setOpen(true)
+        // setOpen(true)
+        const myObj={
+          section,
+          category,
+          name:selectedClass,
+          subject:selectedOptions
+        }
+        fetch('https://polar-brook-59807.herokuapp.com/admin/add-curriculum',{
+          method:'POST',
+          headers:{
+            "Content-Type":'application/json'
+          },
+          body:JSON.stringify(myObj)
+        }).then(res=>{
+          res.json()
+          .then(data=>{
+            console.log(data)
+          })
+        })
+        console.log(myObj)
        }} style={{marginLeft:'70%',marginTop:'20px',marginRight:'20px'}} variant="contained" color='primary'>Add Subject</Button>
 
 

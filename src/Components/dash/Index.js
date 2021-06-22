@@ -1,4 +1,4 @@
-import React,{useEffect,useContext} from 'react'
+import React,{useEffect,useContext,useState} from 'react'
 import Nav from './Header/Nav'
 import styled from 'styled-components'
 import Aside from './Main/Aside'
@@ -11,6 +11,9 @@ import Subject from './Subject/Index'
 import AppContext from '../../Context/app/appContext'
 import App from '../../App'
 import Roles from './Staff/Roles'
+import Classes from './Staff/Classes'
+import { Drawer, Button, Radio, Space } from 'antd';
+
 
 
 
@@ -41,6 +44,12 @@ flex-direction: row;
 
 function Index(props) {
     const appProps=useContext(AppContext)
+    const [visible,setVisible]=useState(true)
+
+   function close() {
+       setVisible(false)
+   }
+ 
     useEffect(() => {
         console.log(appProps)
         
@@ -61,13 +70,16 @@ function Index(props) {
                             return <Subject></Subject>
             case '/dash/roles':
                             return <Roles></Roles>
+            case '/dash/classes':
+                                return <Classes></Classes>
         
             default:
                 return <Main></Main>
                 
         }
     }
-    
+      
+  
   return (
     <div style={{
         position: 'relative',
@@ -81,6 +93,17 @@ function Index(props) {
             <StyledMain>
                 <Aside></Aside>
                 <Dynamic></Dynamic>
+                {/* <Drawer
+          title="Manage Classes"
+          placement='top'
+          closable={false}
+          onClose={close}
+          visible={visible}
+        >
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+        </Drawer> */}
             </StyledMain>
             </>
            )
@@ -98,3 +121,16 @@ function Index(props) {
 }
 
 export default Index;
+
+
+
+
+
+
+
+
+
+
+
+
+// const filtered=data.filter(dat=>dat.state.toLowerCase().includes(searchVal.toLowerCase())||dat.lga.toLowerCase().includes(searchVal.toLowerCase())||dat.category.toLowerCase().includes(searchVal.toLowerCase()))

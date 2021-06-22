@@ -38,10 +38,10 @@ export default function AddStudent() {
     const [gender,setGender]=useState('Male')
     const [state,setState]=useState('Adamawa')
     const [lga,setLga]=useState('Maiha')
-    const [section,setSection]=useState('Nursery')
-    const [classs,setClass]=useState('Nursery 1')
-    const [category,setCtegory]=useState('Science')
-    const [staff,setStaff]=useState({
+    const [section,setSection]=useState('Grade')
+    const [classs,setClass]=useState('Grade3')
+    const [category,setCtegory]=useState('none')
+    const [students,setStudets]=useState({
       firstName:'',
       lastName:'',
       otherName:'',
@@ -58,9 +58,9 @@ export default function AddStudent() {
     const changeValues=(e)=>{
       const name=e.target.name
       const value=e.target.value
-      const newStaff = staff;
-      newStaff[`${name}`] = value;
-      setStaff(newStaff)
+      const newStudents = students;
+      newStudents[`${name}`] = value;
+      setStudets(newStudents)
     }
 
     return (
@@ -208,14 +208,13 @@ export default function AddStudent() {
         >
           <option value='JSS'>JSS</option>
           <option value='SSS'>SSS</option>
-          <option value='Primary'>Primary</option>
-          <option value='NURSERY'>Nursery</option>
+          <option value='Grade'>Grade</option>
 
         </Select>
       </FormControl>
 
       <FormControl style={{width:'22%'}} variant="outlined" className={classes.formControl}>
-        <InputLabel htmlFor="outlined-age-native-simple">Section</InputLabel>
+        <InputLabel htmlFor="outlined-age-native-simple">Class</InputLabel>
         <Select
           onChange={(e)=>{
             setClass(e.target.value)
@@ -228,8 +227,9 @@ export default function AddStudent() {
             id: 'outlined-age-native-simple',
           }}
         >
-          <option value='Jss1'>Jss1</option>
-          <option value='Jss2'>Jss2</option>
+          <option value='Grade3'>Grade3</option>
+          <option value='JSS2'>Jss2</option>
+
         </Select>
       </FormControl>
 
@@ -252,6 +252,7 @@ export default function AddStudent() {
             id: 'outlined-age-native-simple',
           }}
         >
+           <option value='none'>none</option>
           <option value='Science'>Science</option>
           <option value='Arts'>Arts</option>
         </Select>
@@ -268,16 +269,38 @@ export default function AddStudent() {
         </div>
         <TextField name='kinAddress' onChange={changeValues} style={{width:'83%',marginLeft:'90px',marginTop:'20px'}} id="outlined-basic" label="Address" variant="outlined" />
         <Button onClick={()=>{
-          const selector={
+          const selectedStudent={
             state,
             lga,
             gender,
             section,
-            classs,
+            currentClass:classs,
             term,
-            category
+            category,
+            firstName:students.firstName,
+            username:students.studentId,
+            lastName:students.lastName,
+            dob:students.dob,
+            otherName:students.otherName,
+            address:students.address,
+            kinName:students.kinName,
+            kinAddress:students.kinAddress,
+            kinRelation:students.kinRelation,
+            kinNumber:students.kinNumber
           }
-          console.log(selector)
+          console.log(selectedStudent)
+          fetch('https://polar-brook-59807.herokuapp.com/admin/register-student',{
+            method:'POST',
+            headers:{
+              "Content-Type":'application/json'
+            },
+            body:JSON.stringify(selectedStudent)
+          }).then(res=>{
+            res.json()
+            .then(data=>{
+              console.log(data)
+            })
+          })
         }} style={{marginLeft:'80%',marginTop:'20px',marginBottom:'20px'}} variant="contained" color='primary'>Add Student</Button>
        </StyledAdd>
     )

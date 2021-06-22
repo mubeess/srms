@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import styled from 'styled-components'
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider'
@@ -89,12 +89,33 @@ const useStyles = makeStyles((theme) => ({
     const [open, setOpen] = React.useState(false);
     const [classs,setClass]=useState('Primary 1')
     const [term,setTerm]=useState('First Term')
-    const [studentId,setStudentId]=useState('NIA001')
+    const [studentId,setStudentId]=useState('None')
     const [studentName,setStudentName]=useState('Mubarak')
-    const [teller,setTeller]=useState('001223')
-    const [section,setSection]=useState('Nursery')
+    const [teller,setTeller]=useState('')
+    const [section,setSection]=useState('SSS')
     const [selectedOptions,setSelected]=React.useState([''])
+    const [allStudent,setAllStudent]=useState([])
+    const [mainStudent,setMain]=useState({class:'None',name:'None'})
+    useEffect(()=>{
+      const payments=[]
+      fetch(`https://polar-brook-59807.herokuapp.com/admin/get-payment-type`)
+          .then(res=>{
+            res.json()
+            .then(data=>{
+              data.message.map(dat=>{
+                let mappDat={value:dat.paymentTypes}
+                payments.push({value:dat.paymentTypes})
+              })
+              
+              
+            })
+            .then(dat=>{
+              setOptions(payments)
+            })
 
+          })
+        
+    },[])
 
 
     const handleChange = (value) => {
@@ -138,7 +159,145 @@ const useStyles = makeStyles((theme) => ({
     return (
         <StyledFees>
         <div className='selection'>
+        
+
         <FormControl style={{width:'40%'}} variant="outlined" className={classes.formControl}>
+        <InputLabel htmlFor="outlined-age-native-simple">SELECT SECTION</InputLabel>
+        <Selects
+         onChange={(e)=>{
+          setSection(e.target.value)
+          fetch(`https://polar-brook-59807.herokuapp.com/admin/get-all-student-according-to-section/?section=${e.target.value}`)
+          .then(res=>{
+            res.json()
+            .then(data=>{
+              setAllStudent(data.students)
+              
+            })
+          })
+        }}
+          native
+          value={section}
+          label="SELECT SECTION"
+          inputProps={{
+            name:'studentid',
+            id: 'outlined-age-native-simple',
+          }}
+        >
+          <option value='JSS'>JSS</option>
+          <option value='SSS'>SSS</option>
+          <option value='Grade'>Grade</option>
+        </Selects>
+      </FormControl>
+
+
+
+        <FormControl style={{width:'40%'}} variant="outlined" className={classes.formControl}>
+        <InputLabel htmlFor="outlined-age-native-simple">SELECT STUDET ID</InputLabel>
+        <Selects
+         onChange={(e)=>{
+          setStudentId(e.target.value)
+        allStudent.map(std=>{
+          if (std.username==e.target.value) {
+            let stdToUse=`${std.firstName+' '+std.lastName}`;
+            setClass(std.currentClass)
+            setStudentName(stdToUse)
+            console.log(mainStudent)
+          }else{
+            setClass('None')
+            setStudentName('None')
+          }
+            
+          })
+         
+        }}
+          native
+          value={studentId}
+          label="SELECT STUDET ID"
+          inputProps={{
+            name:'studentid',
+            id: 'outlined-age-native-simple',
+          }}
+        >
+           <option  value='none'>None</option>
+          {
+          allStudent.length>=1&&(
+            allStudent.map((std,ind)=>(
+              <option key={ind} value={std.username}>{std.username}</option>
+            ))
+          )
+         }
+         
+
+        </Selects>
+      </FormControl>
+
+
+
+    
+
+
+     
+            </div>
+
+
+
+
+            <div className='selection'>
+        
+            <FormControl style={{width:'40%'}} variant="outlined" className={classes.formControl}>
+        <InputLabel htmlFor="outlined-age-native-simple">CLASS</InputLabel>
+        <Selects
+          disabled
+          onChange={(e)=>{
+            setClass(e.target.value)
+          }}
+          native
+          value={classs}
+          label="CLASS"
+          inputProps={{
+            name:'class',
+            id: 'outlined-age-native-simple',
+          }}
+        >
+          <option value={classs}>{classs}</option>
+        </Selects>
+      </FormControl>
+
+
+
+       <TextField onChange={(e)=>{
+           setTeller(e.target.value)
+         }} style={{width:'40%'}} id="outlined-basic" label="PLEASE ENTER TELLER NUMBER" variant="outlined" />
+            </div>
+
+
+
+
+
+            <div className='selection'>
+        <FormControl style={{width:'40%'}} variant="outlined" className={classes.formControl}>
+        <InputLabel htmlFor="outlined-age-native-simple">STUDENT NAME</InputLabel>
+        <Selects
+        disabled
+         onChange={(e)=>{
+          setStudentName(e.target.value)
+        }}
+          native
+          value={studentName}
+          label="STUDENT NAME"
+          inputProps={{
+            name:'name',
+            id: 'outlined-age-native-simple',
+          }}
+        >
+          <option value={studentName}>{studentName}</option>
+        </Selects>
+      </FormControl>
+
+
+
+
+      <FormControl style={{width:'40%'}} variant="outlined" className={classes.formControl}>
         <InputLabel htmlFor="outlined-age-native-simple">SELECT TERM SESSION</InputLabel>
         <Selects
          onChange={(e)=>{
@@ -157,107 +316,54 @@ const useStyles = makeStyles((theme) => ({
         </Selects>
       </FormControl>
 
-
-      <FormControl style={{width:'40%'}} variant="outlined" className={classes.formControl}>
-        <InputLabel htmlFor="outlined-age-native-simple">PLEASE SELECT CLASS</InputLabel>
-        <Selects
-          onChange={(e)=>{
-            setClass(e.target.value)
-          }}
-          native
-          value={classs}
-          label="PLEASE SELECT CLASS"
-          inputProps={{
-            name:'class',
-            id: 'outlined-age-native-simple',
-          }}
-        >
-          <option value='Primary One'> Primary1</option>
-          <option value='SS1'>SS1</option>
-        </Selects>
-      </FormControl>
             </div>
 
-
-
-
-            <div className='selection'>
+    <div style={{width:'100%',marginTop:'20px',marginLeft:'50px'}}>
         <FormControl style={{width:'40%'}} variant="outlined" className={classes.formControl}>
-        <InputLabel htmlFor="outlined-age-native-simple">SELECT STUDET ID</InputLabel>
-        <Selects
-         onChange={(e)=>{
-          setStudentId(e.target.value)
-        }}
-          native
-          value={studentId}
-          label="SELECT STUDET ID"
-          inputProps={{
-            name:'studentid',
-            id: 'outlined-age-native-simple',
-          }}
-        >
-          <option value='Male'> Male</option>
-          <option value='Female'>Female</option>
-        </Selects>
-      </FormControl>
-
-       <TextField onChange={(e)=>{
-           setTeller(e.target.value)
-         }} style={{width:'40%'}} id="outlined-basic" label="PLEASE ENTER TELLER NUMBER" variant="outlined" />
-            </div>
-
-
-
-
-
-            <div className='selection'>
-        <FormControl style={{width:'40%'}} variant="outlined" className={classes.formControl}>
-        <InputLabel htmlFor="outlined-age-native-simple">SELECT STUDENT NAME</InputLabel>
-        <Selects
-         onChange={(e)=>{
-          setStudentName(e.target.value)
-        }}
-          native
-          value={studentName}
-          label="SELECT STUDENT NAME"
-          inputProps={{
-            name:'age',
-            id: 'outlined-age-native-simple',
-          }}
-        >
-          <option value='Mubarak'> Mubarak</option>
-          <option value='Isa Musa'>Isa Musa</option>
-        </Selects>
-      </FormControl>
-
-
-   <FormControl style={{width:'40%'}} variant="outlined" className={classes.formControl}>
   <div style={{display:'flex',flexDirection:'column'}}>
  <h4 id="demo-mutiple-chip-label">Purpose Of Payments</h4>
 <Select
     mode="multiple"
     showArrow
     tagRender={tagRender}
-    defaultValue={['Chemistry', 'Physics']}
+    defaultValue={['tuition fee']}
     style={{ width: '100%' }}
     options={options}
     onChange={handleChange}
   />
   </div>
-
+  
+  
    </FormControl>
-            </div>
-       <Button onClick={()=>{
+  
+
+   <Button onClick={()=>{
          const selectors={
            term,
            studentId,
            studentName,
            teller,
-           classs
+           className:classs,
+           purposeOfPayment:selectedOptions
          }
-         console.log(selectedOptions)
+         fetch('https://polar-brook-59807.herokuapp.com/admin/verify-payment',{
+          method:'POST',
+          headers:{
+            "Content-Type":'application/json'
+          },
+          body:JSON.stringify(selectors)
+        }).then(res=>{
+          res.json()
+          .then(data=>{
+            console.log(data)
+          })
+        })
         //  handleOpen()
-       }} style={{marginLeft:'70%',marginTop:'20px',marginRight:'20px'}} variant="contained" color='primary'>Verify Fees</Button>
+       }} style={{marginRight:'20px',width:'30%',marginLeft:'50px',marginTop:'20px'}} 
+       variant="contained" color='primary'>Verify Fees</Button>
+   
+        </div>
+      
 
 
 
