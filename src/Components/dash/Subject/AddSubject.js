@@ -296,9 +296,9 @@ flex-direction: column;
          }}
           native
           value={category}
-          label="SELECT CLASS"
+          label="SELECT CATEGORY"
           inputProps={{
-            name:'class',
+            name:'category',
             id: 'outlined-age-native-simple',
           }}
         >

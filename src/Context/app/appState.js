@@ -13,7 +13,8 @@ export default function AppState(props){
         user:{},
         loading:false,
         records:[],
-        isLogged:false
+        isLogged:false,
+        reciept:{}
      
         
     }
@@ -31,7 +32,8 @@ value={{
     isLogged:state.isLogged,
     setLoading,
     setIslogged,
-    setUser
+    setUser,
+    reciept:state.reciept
 }}
 >
 

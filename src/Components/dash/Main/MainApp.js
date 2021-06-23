@@ -6,7 +6,7 @@ import { Fade,Slide } from "react-awesome-reveal";
 import LockRoundedIcon from '@material-ui/icons/LockRounded';
 import {Dashboard,VerifiedUserRounded,BarChart,Folder,Receipt,FileCopy,Group,GroupAdd,VerifiedUser,SingleBed, FolderOpen} from '@material-ui/icons';
 import PieCharts from './PieCharts';
-
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const StyledMain=styled.div`
        background:transparent;
@@ -29,6 +29,13 @@ const StyledMain=styled.div`
         .charts{
             display: grid;
             grid-template-columns: 1fr;
+        }
+        .loader{
+            width: '100%';
+            min-height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
 `;
@@ -71,6 +78,13 @@ export default function MainApp() {
     },[])
     return (
         <StyledMain>
+        {
+            details.length==0&&(
+                <div className='loader'>
+                   <CircularProgress color='primary' />
+                </div>
+            )
+        }
          <div className='icons'>
          <Fade triggerOnce cascade>
          {

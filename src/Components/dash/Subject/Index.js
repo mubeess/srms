@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { Button, Divider } from '@material-ui/core';
 import AddSubject from './AddSubject';
+import RegisteredSubject from './RegisteredSubject';
 
 
 function TabPanel(props) {
@@ -77,7 +78,7 @@ export default function Subject() {
       <AddSubject></AddSubject>
       </TabPanel>
       <TabPanel value={value} index={1}>
-      <h1>mmmmm</h1>
+      <RegisteredSubject></RegisteredSubject>
       </TabPanel>
     </div>
   );

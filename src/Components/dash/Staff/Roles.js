@@ -14,7 +14,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Logo from '../Header/logo.png'
-
+import Backdrop from '@material-ui/core/Backdrop';
 
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -23,6 +23,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { CircularProgress } from '@material-ui/core';
+import {Alert} from 'antd'
 
 const StyledRole=styled.div`
        background:#f9f9f9;
@@ -105,8 +107,19 @@ const useStyles = makeStyles((theme) => ({
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
+  },
 }));
 export default function Roles() {
+  const [open, setOpen] = React.useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleToggle = () => {
+    setOpen(!open);
+  };
   const [staff,setStaff]=useState('')
   const [staffId,setStaffId]=useState('')
   const [allStaff,setAllStaff]=useState([])
@@ -258,6 +271,7 @@ export default function Roles() {
   role,
   teach:[{class:classs,subject,category}]
 }
+handleToggle()
 fetch(`https://polar-brook-59807.herokuapp.com/admin/set-role/?id=${staff}`,{
   method:'PUT',
   headers:{
@@ -268,7 +282,15 @@ fetch(`https://polar-brook-59807.herokuapp.com/admin/set-role/?id=${staff}`,{
   res.json()
   .then(data=>{
     console.log(data)
+    handleClose()
+    alert('Role Added')
+  }).catch(er=>{
+    handleClose()
+    alert('Errorr')
   })
+}).catch(err=>{
+  handleClose()
+    alert('Errorr')
 })
       console.log(myObj)
     }} style={{marginLeft:'70%',marginTop:'10px'}}  variant="contained" color='primary'>Add Role</Button>
@@ -277,27 +299,49 @@ fetch(`https://polar-brook-59807.herokuapp.com/admin/set-role/?id=${staff}`,{
       </div>
 
 
+ <Divider style={{width:'80%',marginTop:'20px',marginLeft:'20px'}}></Divider>
+
+<Typography style={{
+      color:'black',
+      width: '80%'
+    }} variant='h6' align='center' gutterBottom>Registered Staff</Typography>
+<Divider style={{width:'80%',marginLeft:'20px'}}></Divider>
+
+   {
+     allStaff.length>=1&&(
+       allStaff.map((staf,ind)=>(
+        <div key={ind} className='mainDetail'>
+        <img src={Logo} alt='logo'></img>
+        <Typography style={{
+                   color:'black'
+                 }} variant='button' align='left' gutterBottom>{staf.firstName+' '+staf.lastName}</Typography>
+                 
+        <Typography style={{
+                   color:'black',
+                   marginLeft:'50px'
+                 }} variant='button' align='center' gutterBottom>{staf.username}</Typography>
+         <Typography style={{
+                   color:'black',
+                   marginLeft:'50px'
+                 }} variant='overline' align='center' gutterBottom>{staf.role.map(rol=>(rol))}</Typography>
+          <Button style={{marginLeft:'50px',backgroundColor:'#F39C77',color:'white'}} variant="contained">Deactivate</Button>
+          <Button style={{marginLeft:'30px',backgroundColor:'green',color:'white'}} variant="contained">Edit</Button>
+          <Button style={{marginLeft:'30px',backgroundColor:'red',color:'white'}} variant="contained">Drop</Button>
+        </div>
+       ))
+     )
+   }
+   {
+     allStaff.length==0&&(
+       <div style={{width:'80%',minHeight:'200px',display:'flex',justifyContent:'center',alignItems:'center'}}>
+      <CircularProgress color='primary' />
+      </div>
+     )
+   }
 
 
 
-    <div className='mainDetail'>
-    <img src={Logo} alt='logo'></img>
-    <Typography style={{
-               color:'black'
-             }} variant='button' align='left' gutterBottom>Mubarak Ibrahim</Typography>
-             
-    <Typography style={{
-               color:'black',
-               marginLeft:'50px'
-             }} variant='button' align='center' gutterBottom>NAI/001</Typography>
-     <Typography style={{
-               color:'black',
-               marginLeft:'50px'
-             }} variant='overline' align='center' gutterBottom>Teacher</Typography>
-      <Button style={{marginLeft:'50px',backgroundColor:'#F39C77',color:'white'}} variant="contained">Deactivate</Button>
-      <Button style={{marginLeft:'30px',backgroundColor:'green',color:'white'}} variant="contained">Edit</Button>
-      <Button style={{marginLeft:'30px',backgroundColor:'red',color:'white'}} variant="contained">Drop</Button>
-    </div>
+    
 
 
 
@@ -305,7 +349,9 @@ fetch(`https://polar-brook-59807.herokuapp.com/admin/set-role/?id=${staff}`,{
    
 
 
-
+<Backdrop className={classes.backdrop} open={open}>
+        <CircularProgress color="inherit" />
+ </Backdrop>
 
   
         </StyledRole>

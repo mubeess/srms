@@ -66,7 +66,7 @@ export default function ViewStaff() {
     return (
       <StyledView>
         <Typography style={{marginLeft:'10px'}} variant="button" display="block" gutterBottom>
-        Manage Students
+        Payment Details
       </Typography>
           <Divider></Divider>
           <div className='header'>

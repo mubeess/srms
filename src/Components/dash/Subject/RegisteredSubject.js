@@ -13,7 +13,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import {EditRounded,DeleteForeverRounded,ViewArrayRounded} from '@material-ui/icons'
 import gray from '@material-ui/core/colors/grey'
-
+import Pagination from '@material-ui/lab/Pagination';
 
 
 const StyledTableCell = withStyles((theme) => ({
@@ -60,14 +60,10 @@ const useStyles = makeStyles({
     minWidth: 700,
   },
 });
-export default function ViewStudent() {
+export default function RegisterdSubject(){
   const classes = useStyles();
     return (
       <StyledView>
-        <Typography style={{marginLeft:'10px'}} variant="button" display="block" gutterBottom>
-        Manage Students
-      </Typography>
-          <Divider></Divider>
           <div className='header'>
           <Typography style={{marginLeft:'10px'}} variant="caption" display="block" gutterBottom>
       Show
@@ -105,11 +101,10 @@ export default function ViewStudent() {
         <TableHead >
           <TableRow style={{backgroundColor:gray[500]}} >
             <StyledTableCell>S/N</StyledTableCell>
-            <StyledTableCell align="right">ID NUMBER</StyledTableCell>
             <StyledTableCell align="right">NAME</StyledTableCell>
             <StyledTableCell align="right">SECTION</StyledTableCell>
             <StyledTableCell align="right">CLASS</StyledTableCell>
-            <StyledTableCell align="right">STATUS</StyledTableCell>
+            <StyledTableCell align="right">CATEGORY</StyledTableCell>
             <StyledTableCell align="right">ACTIONS</StyledTableCell>
           </TableRow>
         </TableHead>
@@ -119,13 +114,12 @@ export default function ViewStudent() {
               <StyledTableCell component="th" scope="row">
                 {ind+1}
               </StyledTableCell>
-              <StyledTableCell align="right">{row.id}</StyledTableCell>
               <StyledTableCell align="right">{row.name}</StyledTableCell>
               <StyledTableCell align="right">{row.section}</StyledTableCell>
               <StyledTableCell align="right">{row.classs}</StyledTableCell>
               <StyledTableCell align="right">{row.statuss}</StyledTableCell>
               <StyledTableCell align="right">
-              <ViewArrayRounded style={{backgroundColor:'#F39C77',color:'white',marginRight:'10px',cursor:'pointer'}}></ViewArrayRounded>
+               <ViewArrayRounded style={{backgroundColor:'#F39C77',color:'white',marginRight:'10px',cursor:'pointer'}}></ViewArrayRounded>
                <EditRounded style={{backgroundColor:'green',color:'white',marginRight:'10px',cursor:'pointer'}}></EditRounded>
                <DeleteForeverRounded style={{backgroundColor:'red',color:'white',marginRight:'10px',cursor:'pointer'}}></DeleteForeverRounded>
               </StyledTableCell>
@@ -134,7 +128,6 @@ export default function ViewStudent() {
         </TableBody>
       </Table>
     </TableContainer>
-   
 
       </StyledView>
     )

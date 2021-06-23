@@ -1,5 +1,11 @@
 import React,{useState} from 'react'
 import { Drawer, Button, Radio, Space } from 'antd';
+import styled from 'styled-components'
+
+const StyledDraw=styled.div`
+display: flex;
+
+`;
 
 export default function Classes() {
   const [visible,setVisible]=useState(true)
@@ -15,9 +21,7 @@ export default function Classes() {
           onClose={close}
           visible={visible}
         >
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
+         <StyledDraw></StyledDraw>
         </Drawer>
         </div>
     )
