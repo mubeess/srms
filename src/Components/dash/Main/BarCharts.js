@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent,useState,useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const data = [
@@ -46,14 +46,39 @@ const data = [
   },
 ];
 
-export default class BarCharts extends PureComponent {
-  render() {
-    return (
-      <ResponsiveContainer width="100%" height="100%">
+export default function BarCharts() {
+  const [myData,setMyData]=useState([])
+  useEffect(()=>{
+    let allData=[]
+    fetch('https://polar-brook-59807.herokuapp.com/admin/get-paid-student-statistics')
+    .then(res=>{
+        res.json()
+        .then(data=>{
+            data.map((dat,ind)=>{
+             const myObj= {
+                name:dat.class,
+                paid:dat.paid,
+                unpaid:dat.unPaid,
+              }
+              allData.push(myObj)
+              // setMyData(myObj)
+              
+            })
+            
+            
+        }).then(dt=>{
+          console.log(allData)
+          setMyData(allData)
+        })
+       
+    })
+  },[])
+  return (
+    <ResponsiveContainer width="100%" height="100%">
         <BarChart
           width={500}
           height={300}
-          data={data}
+          data={myData}
           margin={{
             top: 5,
             right: 30,
@@ -66,10 +91,12 @@ export default class BarCharts extends PureComponent {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="pv" fill="#8884d8" background={{ fill: '#eee' }} />
-          <Bar dataKey="uv" fill="#82ca9d" />
+          <Bar dataKey="paid" fill="#8884d8" background={{ fill: '#eee' }} />
+          <Bar dataKey="unpaid" fill="#82ca9d" />
         </BarChart>
       </ResponsiveContainer>
-    );
-  }
+  )
 }
+
+
+

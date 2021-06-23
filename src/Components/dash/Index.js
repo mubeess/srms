@@ -44,11 +44,15 @@ flex-direction: row;
 
 function Index(props) {
     const appProps=useContext(AppContext)
-    const [visible,setVisible]=useState(true)
+    const [visible,setVisible]=useState(false)
 
    function close() {
        setVisible(false)
    }
+
+   function open() {
+    setVisible(true)
+}
  
     useEffect(() => {
         console.log(appProps)
@@ -70,8 +74,6 @@ function Index(props) {
                             return <Subject></Subject>
             case '/dash/roles':
                             return <Roles></Roles>
-            case '/dash/classes':
-                                return <Classes></Classes>
         
             default:
                 return <Main></Main>
@@ -91,9 +93,9 @@ function Index(props) {
             <>
             <Nav></Nav>
             <StyledMain>
-                <Aside></Aside>
+                <Aside open={open}></Aside>
                 <Dynamic></Dynamic>
-                {/* <Drawer
+                <Drawer
           title="Manage Classes"
           placement='top'
           closable={false}
@@ -103,7 +105,7 @@ function Index(props) {
           <p>Some contents...</p>
           <p>Some contents...</p>
           <p>Some contents...</p>
-        </Drawer> */}
+        </Drawer>
             </StyledMain>
             </>
            )

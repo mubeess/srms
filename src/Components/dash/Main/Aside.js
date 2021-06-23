@@ -105,14 +105,16 @@ z-index: 100;
           </ListItemIcon>
           <ListItemText style={{color:'white'}} primary="Proceed" />
         </ListItem>
-        <Link to="/dash/classes">
-        <ListItem style={{borderBottom:'1px solid white'}} button>
+        
+        <ListItem onClick={()=>{
+          props.open()
+        }} style={{borderBottom:'1px solid white'}} button>
           <ListItemIcon>
             <HouseRounded style={{color:'white'}} />
           </ListItemIcon>
           <ListItemText style={{color:'white'}} primary="Class" />
         </ListItem>
-        </Link>
+        
 
         </StyledAside>
     )

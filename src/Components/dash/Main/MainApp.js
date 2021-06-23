@@ -28,7 +28,7 @@ const StyledMain=styled.div`
         }
         .charts{
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr;
         }
 
 `;
@@ -86,9 +86,9 @@ export default function MainApp() {
         <div style={{width:'100%',height:'60vh'}}>
         <BarCharts></BarCharts>
         </div>
-        <div style={{width:'100%',height:'60vh'}}>
+        {/* <div style={{width:'100%',height:'60vh'}}>
         <PieCharts></PieCharts>
-        </div>
+        </div> */}
          </div>
         </StyledMain>
     )
