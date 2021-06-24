@@ -16,10 +16,14 @@ min-height: 60vh;
 background-color:transparent;
 box-shadow: 0px 0px 2px rgba(0,0,0,0.5);
 .personal{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    margin-top: 10px;
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding:5px;
+    width:90%;
+    margin-left: auto;
+    margin-right: auto;
+    /* flex-direction: row; */
+    /* justify-content: space-evenly; */
 }
 `;
 const useStyles = makeStyles((theme) => ({
@@ -70,23 +74,23 @@ export default function AddStudent() {
       </Typography>
       <Divider></Divider>
         <div className='personal'>
-        <TextField onChange={changeValues} name='firstName' id="outlined-basic" label="First Name" variant="outlined" />
-        <TextField onChange={changeValues} name='lastName' id="outlined-basic" label="Last Name" variant="outlined" />
-        <TextField onChange={changeValues} name='otherName' id="outlined-basic" label="Other Name" variant="outlined" />
+        <TextField style={{width:'99%'}} onChange={changeValues} name='firstName' id="outlined-basic" label="First Name" variant="outlined" />
+        <TextField style={{width:'99%'}} onChange={changeValues} name='lastName' id="outlined-basic" label="Last Name" variant="outlined" />
+        <TextField style={{width:'99%'}} onChange={changeValues} name='otherName' id="outlined-basic" label="Other Name" variant="outlined" />
         </div>
         <div className='personal'>
           
           <TextField id="date"
           name='dob'
           onChange={changeValues}
-          style={{width:'22%',marginLeft:'10px'}}
+          style={{width:'99%'}}
         label="DOB"
         type="date"
         defaultValue="2017-05-24"
          variant="outlined" />
     
-        <TextField name='studentId' onChange={changeValues} style={{width:'22%',}} id="outlined-basic" label="ID Number" variant="outlined" />
-        <FormControl style={{width:'22%'}} variant="outlined" className={classes.formControl}>
+        <TextField name='studentId' onChange={changeValues} style={{width:'99%'}} id="outlined-basic" label="ID Number" variant="outlined" />
+        <FormControl style={{width:'99%'}} variant="outlined">
         <InputLabel htmlFor="outlined-age-native-simple">Gender</InputLabel>
         <Select
           onChange={(e)=>{
@@ -105,9 +109,11 @@ export default function AddStudent() {
         </Select>
       </FormControl>
         </div>
-        <TextField name='address' onChange={changeValues} style={{width:'83%',marginLeft:'85px',marginTop:'20px'}} id="outlined-basic" label="Address" variant="outlined" />
         <div className='personal'>
-        <FormControl style={{width:'22%'}} variant="outlined" className={classes.formControl}>
+        <TextField  name='address' onChange={changeValues} style={{gridColumn:'1/4'}} id="outlined-basic" label="Address" variant="outlined" />
+        </div>
+        <div className='personal'>
+        <FormControl style={{width:'99%'}} variant="outlined" className={classes.formControl}>
         <InputLabel htmlFor="outlined-age-native-simple">Country</InputLabel>
         <Select
          disabled
@@ -125,7 +131,7 @@ export default function AddStudent() {
       </FormControl>
 
 
-      <FormControl style={{width:'22%'}} variant="outlined" className={classes.formControl}>
+      <FormControl style={{width:'99%'}} variant="outlined" className={classes.formControl}>
         <InputLabel htmlFor="outlined-age-native-simple">State</InputLabel>
         <Select
           onChange={(e)=>{
@@ -144,7 +150,7 @@ export default function AddStudent() {
       </FormControl>
 
 
-      <FormControl style={{width:'22%'}} variant="outlined" className={classes.formControl}>
+      <FormControl style={{width:'99%'}} variant="outlined" className={classes.formControl}>
         <InputLabel htmlFor="outlined-age-native-simple">LGA</InputLabel>
         <Select
          onChange={(e)=>{
@@ -165,7 +171,7 @@ export default function AddStudent() {
 
 
         <div className='personal'>
-        <FormControl style={{width:'22%'}} variant="outlined" className={classes.formControl}>
+        <FormControl style={{width:'99%'}} variant="outlined" className={classes.formControl}>
         <InputLabel htmlFor="outlined-age-native-simple">Enrollment Session</InputLabel>
         <Select
          onChange={(e)=>{
@@ -186,7 +192,7 @@ export default function AddStudent() {
       </FormControl>
 
 
-      <FormControl style={{width:'22%'}} variant="outlined" className={classes.formControl}>
+      <FormControl style={{width:'99%'}} variant="outlined" className={classes.formControl}>
         <InputLabel htmlFor="outlined-age-native-simple">Section</InputLabel>
         <Select
         value={section}
@@ -213,7 +219,7 @@ export default function AddStudent() {
         </Select>
       </FormControl>
 
-      <FormControl style={{width:'22%'}} variant="outlined" className={classes.formControl}>
+      <FormControl style={{width:'99%'}} variant="outlined" className={classes.formControl}>
         <InputLabel htmlFor="outlined-age-native-simple">Class</InputLabel>
         <Select
           onChange={(e)=>{
@@ -238,7 +244,7 @@ export default function AddStudent() {
       
         </div>
         <div className='personal'>
-        <FormControl style={{width:'22%',transition:'1s',opacity:isSStudent?'1':'0'}} variant="outlined" className={classes.formControl}>
+        <FormControl hidden={!isSStudent} style={{width:'99%',transition:'1s',opacity:isSStudent?'1':'0'}} variant="outlined" className={classes.formControl}>
         <InputLabel htmlFor="outlined-age-native-simple">Category</InputLabel>
         <Select
          onChange={(e)=>{
@@ -263,11 +269,13 @@ export default function AddStudent() {
       </Typography>
       <Divider></Divider>
       <div className='personal'>
-        <TextField name='kinName' onChange={changeValues} id="outlined-basic" label="Full Name" variant="outlined" />
-        <TextField name='kinNumber' onChange={changeValues} id="outlined-basic" label="Phone Number" variant="outlined" />
-        <TextField name='kinRelation' onChange={changeValues} id="outlined-basic" label="Phone Number" variant="outlined" />
+        <TextField style={{width:'99%'}} name='kinName' onChange={changeValues} id="outlined-basic" label="Full Name" variant="outlined" />
+        <TextField style={{width:'99%'}} name='kinNumber' onChange={changeValues} id="outlined-basic" label="Phone Number" variant="outlined" />
+        <TextField style={{width:'99%'}} name='kinRelation' onChange={changeValues} id="outlined-basic" label="Phone Number" variant="outlined" />
         </div>
-        <TextField name='kinAddress' onChange={changeValues} style={{width:'83%',marginLeft:'90px',marginTop:'20px'}} id="outlined-basic" label="Address" variant="outlined" />
+        <div className='personal'>
+        <TextField name='kinAddress' onChange={changeValues} style={{gridColumn:'1/4'}} id="outlined-basic" label="Address" variant="outlined" />
+        </div>
         <Button onClick={()=>{
           const selectedStudent={
             state,

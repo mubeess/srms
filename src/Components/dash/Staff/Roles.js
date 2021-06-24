@@ -127,12 +127,15 @@ export default function Roles() {
   const [classs,setClasss]=useState('JSS1')
   const [category,setCategory]=useState('None')
   const [subject,setSubject]=useState('Mathematics')
+  const [isEmpty,setIsEmpty]=useState(false)
   useEffect(()=>{
     fetch(`https://polar-brook-59807.herokuapp.com/admin/get-all-staff`)
     .then(res=>{
       res.json()
       .then(data=>{
-        console.log(data.message)
+        if (data.message.length==0) {
+          setIsEmpty(true)
+        }
         setAllStaff(data.message)
       })
       
@@ -333,8 +336,9 @@ fetch(`https://polar-brook-59807.herokuapp.com/admin/set-role/?id=${staff}`,{
    }
    {
      allStaff.length==0&&(
-       <div style={{width:'80%',minHeight:'200px',display:'flex',justifyContent:'center',alignItems:'center'}}>
+       <div style={{width:'80%',minHeight:'200px',display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column'}}>
       <CircularProgress color='primary' />
+      <h4 style={{opacity:isEmpty?'1':'0',transition:'0.4s'}}>No Data In Staff List</h4>
       </div>
      )
    }

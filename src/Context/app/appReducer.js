@@ -1,7 +1,8 @@
 import {
     SET_LOADING,
     SET_ISLOGED,
-    SET_USER
+    SET_USER,
+    SET_RECIEPT
 }from '../types'
 
 

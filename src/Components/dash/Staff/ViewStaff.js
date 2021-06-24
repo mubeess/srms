@@ -1,6 +1,6 @@
 import { Divider,Typography, Input,Button,TextField} from '@material-ui/core';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import styled from 'styled-components'
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -14,6 +14,7 @@ import Paper from '@material-ui/core/Paper';
 import Notifications from '@material-ui/icons/Notifications'
 import gray from '@material-ui/core/colors/grey'
 import Pagination from '@material-ui/lab/Pagination';
+import {EditRounded,DeleteForeverRounded,ViewArrayRounded} from '@material-ui/icons'
 
 
 const StyledTableCell = withStyles((theme) => ({
@@ -48,13 +49,6 @@ background-color:transparent;
 
 `;
 
-const rows = [
-{id:'001',name:'Mubarak Ibrahim',section:'Junior',classs:'JSS1',statuss:'Active'},
-{id:'002',name:'Musa Ibrahim',section:'Junior',classs:'JSS1',statuss:'Active'},
-{id:'003',name:'Nibrass Koltal',section:'Play Class',classs:'NURSERY',statuss:'Active'},
-{id:'004',name:'Mutafa dotzee',section:'Drop Out',classs:'DROP OUT',statuss:'NOT Active'}
-];
-
 const useStyles = makeStyles({
   table: {
     minWidth: 700,
@@ -62,6 +56,25 @@ const useStyles = makeStyles({
 });
 export default function ViewStaff() {
   const classes = useStyles();
+  const[allStaff,setAllStaff]=useState([])
+  // const [filtered,setFiltered]=useState('')
+  const [searchVal,setSearchVal]=useState('')
+
+
+  const filtered= allStaff.length==0?allStaff:allStaff.filter(dat=>dat.firstName.toLowerCase().includes(searchVal.toLowerCase())||dat.lastName.toLowerCase().includes(searchVal.toLowerCase())||dat.username.toLowerCase().includes(searchVal.toLowerCase())||dat.role[0].toLowerCase().includes(searchVal.toLowerCase()))
+
+  useEffect(()=>{
+    fetch(`https://polar-brook-59807.herokuapp.com/admin/get-all-staff`)
+    .then(res=>{
+      res.json()
+      .then(data=>{
+        setAllStaff(data.message)   
+       
+      })
+      
+
+    })
+  },[])
     return (
       <StyledView>
         <Typography style={{marginLeft:'10px'}} variant="button" display="block" gutterBottom>
@@ -69,13 +82,8 @@ export default function ViewStaff() {
       </Typography>
           <Divider></Divider>
           <div className='header'>
-          <Typography style={{marginLeft:'10px'}} variant="caption" display="block" gutterBottom>
-      Show
-      </Typography>
-      <Input style={{width:'40px',height:'30px',marginLeft:'20px'}} color='primary' type='number'></Input>
-      <Typography style={{marginLeft:'10px'}} variant="caption" display="block" gutterBottom>
-      entries
-      </Typography>
+         
+     
 <Button style={{backgroundColor:'#1E7F95',marginLeft:'20px',height:'30px'}} variant="contained" color="primary">
   PDF
 </Button>
@@ -86,11 +94,15 @@ export default function ViewStaff() {
   csv
 </Button>
 <TextField
+        onChange={(e)=>{
+         setSearchVal(e.target.value)
+         console.log(filtered)
+        }}
         color='#FFC305'
         style={{marginLeft:'30px',width:'40%',marginRight:'10px',marginTop:'5px'}}
         id="input-with-icon-adornment"
         type='search'
-        label="Search By Id or Name"
+        label="Search By Id, Name, Or Role "
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
@@ -112,21 +124,56 @@ export default function ViewStaff() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row,ind) => (
+          {filtered.length>=1&&(
+           filtered.map((row,ind) => (
             <StyledTableRow key={ind}>
               <StyledTableCell component="th" scope="row">
                 {ind+1}
               </StyledTableCell>
-              <StyledTableCell align="right">{row.id}</StyledTableCell>
-              <StyledTableCell align="right">{row.name}</StyledTableCell>
-              <StyledTableCell align="right">{row.statuss}</StyledTableCell>
+              <StyledTableCell align="right">{row.username}</StyledTableCell>
+              <StyledTableCell align="right">{row.firstName+" "+row.lastName}</StyledTableCell>
+              <StyledTableCell align="right">{row.role.map(rl=>(rl))}</StyledTableCell>
               <StyledTableCell align="right">
-               <Notifications></Notifications>
-               <Notifications></Notifications>
-               <Notifications></Notifications>
+              <ViewArrayRounded style={{color:'#F39C77',marginRight:'10px',cursor:'pointer'}}></ViewArrayRounded>
+               <EditRounded style={{color:'green',marginRight:'10px',cursor:'pointer'}}></EditRounded>
+               <DeleteForeverRounded onClick={()=>{
+                 const userId=row._id;
+                 fetch(`https://polar-brook-59807.herokuapp.com/admin/remove-staff/?id=${userId}`,{
+                  method:'DELETE',
+                  headers:{
+                    "Content-Type":'application/json'
+                  }
+                })
+                 .then(res=>{
+                   res.json()
+                   .then(data=>{
+                     fetch(`https://polar-brook-59807.herokuapp.com/admin/get-all-staff`)
+                    .then(res=>{
+                      res.json()
+                      .then(data=>{
+                        setAllStaff(data.message)
+                        console.log(data.message)
+                      })
+                      
+                
+                    })
+                   })
+                   
+             
+                 })
+                 console.log(row._id)
+               }} style={{color:'red',marginRight:'10px',cursor:'pointer'}}></DeleteForeverRounded>
               </StyledTableCell>
             </StyledTableRow>
-          ))}
+          ))
+          )
+          
+         }
+         {
+           allStaff.length==0&&(
+             <h4 style={{textAlign:'center'}}>No any Staff Added Yet</h4>
+           )
+         }
         </TableBody>
       </Table>
     </TableContainer>

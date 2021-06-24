@@ -1,6 +1,6 @@
 import { Divider,Typography, Input,Button,TextField} from '@material-ui/core';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import styled from 'styled-components'
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -63,6 +63,25 @@ const useStyles = makeStyles({
 });
 export default function ViewStaff() {
   const classes = useStyles();
+  const[allPaid,setAllPaid]=useState([])
+  // const [filtered,setFiltered]=useState('')
+  const [searchVal,setSearchVal]=useState('')
+  
+  const filtered= allPaid.length==0?allPaid:allPaid.filter(dat=>dat.studentName.toLowerCase().includes(searchVal.toLowerCase())||dat.studentId.toLowerCase().includes(searchVal.toLowerCase())||dat.term.toLowerCase().includes(searchVal.toLowerCase())||dat.teller.toLowerCase().includes(searchVal.toLowerCase())||dat.className.toLowerCase().includes(searchVal.toLowerCase()))
+
+  useEffect(()=>{
+    fetch(`https://polar-brook-59807.herokuapp.com/admin/get-all-paid-student`)
+    .then(res=>{
+      res.json()
+      .then(data=>{
+        setAllPaid(data.message)
+        console.log(data.message)
+      })
+  
+    })
+  
+  
+  },[])
     return (
       <StyledView>
         <Typography style={{marginLeft:'10px'}} variant="button" display="block" gutterBottom>
@@ -70,13 +89,6 @@ export default function ViewStaff() {
       </Typography>
           <Divider></Divider>
           <div className='header'>
-          <Typography style={{marginLeft:'10px'}} variant="caption" display="block" gutterBottom>
-      Show
-      </Typography>
-      <Input style={{width:'40px',height:'30px',marginLeft:'20px'}} color='primary' type='number'></Input>
-      <Typography style={{marginLeft:'10px'}} variant="caption" display="block" gutterBottom>
-      entries
-      </Typography>
 <Button style={{backgroundColor:'#1E7F95',marginLeft:'20px',height:'30px'}} variant="contained" color="primary">
   PDF
 </Button>
@@ -87,11 +99,14 @@ export default function ViewStaff() {
   csv
 </Button>
 <TextField
+        onChange={(e)=>{
+          setSearchVal(e.target.value)
+        }}
         color='#FFC305'
         style={{marginLeft:'30px',width:'40%',marginRight:'10px',marginTop:'5px'}}
         id="input-with-icon-adornment"
         type='search'
-        label="Search By Id or Name"
+        label="Search By Id, Name, Teller_No, Term, Or Class"
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
@@ -108,28 +123,36 @@ export default function ViewStaff() {
             <StyledTableCell>S/N</StyledTableCell>
             <StyledTableCell align="right">ID NUMBER</StyledTableCell>
             <StyledTableCell align="right">NAME</StyledTableCell>
-            <StyledTableCell align="right">SECTION</StyledTableCell>
+            <StyledTableCell align="right">TERM</StyledTableCell>
             <StyledTableCell align="right">CLASS</StyledTableCell>
-            <StyledTableCell align="right">STATUS</StyledTableCell>
-            <StyledTableCell align="right">ACTIONS</StyledTableCell>
+            <StyledTableCell align="right">TELLER_NO</StyledTableCell>
+            <StyledTableCell align="right">PURPOSE</StyledTableCell>
+            <StyledTableCell align="right">ACTION</StyledTableCell>
+
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row,ind) => (
-            <StyledTableRow key={ind}>
-              <StyledTableCell component="th" scope="row">
-                {ind+1}
-              </StyledTableCell>
-              <StyledTableCell align="right">{row.id}</StyledTableCell>
-              <StyledTableCell align="right">{row.name}</StyledTableCell>
-              <StyledTableCell align="right">{row.section}</StyledTableCell>
-              <StyledTableCell align="right">{row.classs}</StyledTableCell>
-              <StyledTableCell align="right">{row.statuss}</StyledTableCell>
-              <StyledTableCell align="right">
-             <Button style={{backgroundColor:green[400],color:'white'}} variant='outlined'>Reciept</Button>
-              </StyledTableCell>
-            </StyledTableRow>
-          ))}
+          {
+          allPaid.length>=1&&(
+            filtered.map((row,ind) => (
+              <StyledTableRow key={ind}>
+                <StyledTableCell component="th" scope="row">
+                  {ind+1}
+                </StyledTableCell>
+                <StyledTableCell align="right">{row.studentId}</StyledTableCell>
+                <StyledTableCell align="right">{row.studentName}</StyledTableCell>
+                <StyledTableCell align="right">{row.term}</StyledTableCell>
+                <StyledTableCell align="right">{row.className}</StyledTableCell>
+                <StyledTableCell align="right">{row.teller}</StyledTableCell>
+                <StyledTableCell align="right">{row.purposeOfPayment.map(pup=>(`${pup+" || "}`))}</StyledTableCell>
+                <StyledTableCell align="right">
+               <Button style={{backgroundColor:green[400],color:'white'}} variant='outlined'>Reciept</Button>
+                </StyledTableCell>
+              </StyledTableRow>
+            ))
+          )
+          
+          }
         </TableBody>
       </Table>
     </TableContainer>
