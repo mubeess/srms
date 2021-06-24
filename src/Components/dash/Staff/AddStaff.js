@@ -16,10 +16,12 @@ min-height: 60vh;
 background-color:transparent;
 box-shadow: 0px 0px 2px rgba(0,0,0,0.5);
 .personal{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    margin-top: 10px;
+  display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding:5px;
+    width:90%;
+    margin-left: auto;
+    margin-right: auto;
 }
 `;
 const useStyles = makeStyles((theme) => ({
@@ -74,15 +76,15 @@ const changeSelect=(e)=>{
       </Typography>
       <Divider></Divider>
         <div className='personal'>
-        <TextField name='firstName' onChange={changeValues} id="outlined-basic" label="First Name" variant="outlined" />
-        <TextField name='lastName'  onChange={changeValues} id="outlined-basic" label="Last Name" variant="outlined" />
-        <TextField name='otherName'  onChange={changeValues} id="outlined-basic" label="Other Name" variant="outlined" />
+        <TextField style={{width:'99%'}}  name='firstName' onChange={changeValues} id="outlined-basic" label="First Name" variant="outlined" />
+        <TextField style={{width:'99%'}}  name='lastName'  onChange={changeValues} id="outlined-basic" label="Last Name" variant="outlined" />
+        <TextField style={{width:'99%'}}  name='otherName'  onChange={changeValues} id="outlined-basic" label="Other Name" variant="outlined" />
         </div>
         <div className='personal'>
           
-        <TextField name='staffId'  onChange={changeValues} style={{marginLeft:'5px'}} id="outlined-basic" label="Staff Id" variant="outlined" />
-        <TextField name='email'  onChange={changeValues} style={{marginLeft:'5px'}} type='email' id="outlined-basic" label="Email Address" variant="outlined" />
-        <FormControl style={{width:'226px'}}  variant="outlined" className={classes.formControl}>
+        <TextField style={{width:'99%'}}  name='staffId'  onChange={changeValues}  id="outlined-basic" label="Staff Id" variant="outlined" />
+        <TextField style={{width:'99%'}}  name='email'  onChange={changeValues}  type='email' id="outlined-basic" label="Email Address" variant="outlined" />
+        <FormControl style={{width:'99%'}}   variant="outlined">
         <InputLabel htmlFor="outlined-age-native-simple">Gender</InputLabel>
         <Select
         onChange={changeValues}
@@ -103,15 +105,15 @@ const changeSelect=(e)=>{
 
 
         <div className='personal'>
-        <TextField name='qualification'  onChange={changeValues} id="outlined-basic" label="Qualificaion" variant="outlined" />
-        <TextField name='department'  onChange={changeValues} id="outlined-basic" label="Department" variant="outlined" />
-        <TextField name='phone'  onChange={changeValues} id="outlined-basic" label="Phone Number" variant="outlined" />
+        <TextField style={{width:'99%'}}  name='qualification'  onChange={changeValues} id="outlined-basic" label="Qualificaion" variant="outlined" />
+        <TextField style={{width:'99%'}}  name='department'  onChange={changeValues} id="outlined-basic" label="Department" variant="outlined" />
+        <TextField style={{width:'99%'}}  name='phone'  onChange={changeValues} id="outlined-basic" label="Phone Number" variant="outlined" />
         </div>
 
 
-
-        <TextField name='address'  onChange={changeValues} style={{width:'83%',marginLeft:'85px',marginTop:'20px'}} id="outlined-basic" label="Address" variant="outlined" />
-
+       <div className='personal'>
+        <TextField name='address'  onChange={changeValues} style={{gridColumn:'1/4',width:'100%'}} id="outlined-basic" label="Address" variant="outlined" />
+        </div>
 
         <div className='personal'>
         <FormControl style={{width:'22%'}} variant="outlined" className={classes.formControl}>
@@ -230,5 +232,5 @@ const changeSelect=(e)=>{
 
         }} style={{marginLeft:'80%',marginTop:'20px',marginBottom:'20px'}} variant="contained" color='primary'>Add Staff</Button>
        </StyledAdd>
-    )
+    ) 
 }

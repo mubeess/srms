@@ -8,7 +8,6 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button'
 import {withRouter,Link} from 'react-router-dom'
@@ -25,6 +24,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import Chip from '@material-ui/core/Chip';
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { notification } from 'antd';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -57,6 +59,10 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
+}
 }));
 
 
@@ -120,6 +126,7 @@ flex-direction: column;
     const [studentClassess,setStudentClass]=useState([{className:'JSS1'}])
     const [category,setCategory]=useState('Science')
     const [open, setOpen] = React.useState(false);
+    const [open2, setOpen2] = React.useState(false);
     const [options,setOptions]=React.useState([{ value: 'Mathematics' }])
     const [selectedOptions,setSelected]=React.useState([''])
     const [selectedClass,setSelectedClass]=useState('JSS1')
@@ -328,6 +335,7 @@ flex-direction: column;
 
        <Button onClick={()=>{
         // setOpen(true)
+        setOpen2(true)
         const myObj={
           section,
           category,
@@ -343,14 +351,28 @@ flex-direction: column;
         }).then(res=>{
           res.json()
           .then(data=>{
+            setOpen2(false)
+            setOpen(true)
+            setTimeout(() => {
+              setOpen(false) 
+            }, 3000);
             console.log(data)
+          }).catch(err=>{
+            alert('An Error Occured')
           })
+        }).catch(err=>{
+          alert('An Error Occured')
         })
-        console.log(myObj)
+
        }} style={{marginLeft:'70%',marginTop:'20px',marginRight:'20px'}} variant="contained" color='primary'>Add Subject</Button>
 
 
+      
 
+
+<Backdrop style={{display:'flex',flexDirection:'column'}} className={classes.backdrop} open={open2}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
 
         </StyledFees>
     )

@@ -7,6 +7,9 @@ import TextField from '@material-ui/core/TextField';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import LockRoundedIcon from '@material-ui/icons/LockRounded';
 import AppContext from '../../Context/app/appContext'
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { notification } from 'antd';
 import { makeStyles,  fade,
   ThemeProvider,
   withStyles,
@@ -83,8 +86,12 @@ const useStyles = makeStyles((theme)=>(
       '&:hover': {
         boxShadow: '0 3px 5px 2px #FFC305',
       },
-    }
+    },
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: '#fff',
   }
+}
 ))
 const theme = createMuiTheme({
   palette: {
@@ -96,8 +103,20 @@ const theme = createMuiTheme({
 export default function Login(props) {
   const [username,setUsername]=useState('')
   const [password,setPassword]=useState('')
+  const [isSuccess,setIsSuccess]=useState(false)
   const appProps=useContext(AppContext)
   const classes = useStyles();
+
+  const [open, setOpen] = React.useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleToggle = () => {
+    setOpen(!open);
+  };
+
+
+
   const handleChangeName=(e)=>{
     const value=e.target.value
     setUsername(value)
@@ -105,17 +124,17 @@ export default function Login(props) {
 
   const handleChangePassword=(e)=>{
     const value=e.target.value
-    setUsername(value)
+    setPassword(value)
   }
     return (
       <ThemeProvider theme={theme}>
         <StyledLogin>
             <div className='login-container'>
-             {/* <div className='login-header'>
+             <div className='login-header'>
              <Typography style={{
                color:'gray'
-             }} variant="h4" align='center' gutterBottom>Admin Login</Typography>
-             </div> */}
+             }} variant="h6" align='center' gutterBottom>Admin Login</Typography>
+             </div>
              <div className='login-details'>
                  <div className='logo'>
                      <img src='logo.png' alt='logo'></img>
@@ -155,32 +174,73 @@ export default function Login(props) {
 
 
 <Button onClick={()=>{
-  console.log(appProps)
-  appProps.setUser({name:'mubarak'})
-  appProps.setIslogged()
-  props.history.push('dash/main')
+  console.log(username,password)
+  handleToggle()
+  // appProps.setIslogged()
+  // props.history.push('dash/main')
   const user={
     username,
     password
   }
-  // fetch('https://polar-brook-59807.herokuapp.com/admin/login',{
-  //   method:'POST',
-  //   headers:{
-  //     "Content-Type":'application/json'
-  //   },
-  //   body:JSON.stringify(user)
-  // }).then(res=>{
-  //   res.json()
-  //   .then(data=>{
-  //     console.log(data)
-  //   })
-  // })
+  fetch('https://polar-brook-59807.herokuapp.com/admin/login',{
+    method:'POST',
+    headers:{
+      "Content-Type":'application/json'
+    },
+    body:JSON.stringify(user)
+  }).then(res=>{
+    res.json()
+    .then(data=>{
+      console.log(data)
+      // setIsSuccess(true)
+      if (data.success==false) {
+      handleClose()
+
+      notification.open({
+        message: 'An Error Occured',
+        description:data.message.toUpperCase(),
+        onClick: () => {
+          notification.close()
+        },
+        type:'error'
+      });
+
+      appProps.setIslogged()
+
+      props.history.push('dash/main')
+     }
+     
+
+
+
+
+      // setTimeout(() => {
+      //   handleClose()
+      //   setIsSuccess(false)
+      // }, 6000);
+      // appProps.setUser()
+      
+    })
+  })
 }}  className={classes.butt}  style={{marginLeft:'auto',marginTop:'30px',marginRight:'40px'}} variant='outlined' color="secondary">
         Login
       </Button>
                  </div>
              </div>
             </div>
+          
+
+         <Backdrop style={{display:'flex',flexDirection:'column'}} className={classes.backdrop} open={open}>
+        <CircularProgress color="inherit" />
+        <Typography style={{
+               color:'white',
+               marginTop:'10px',
+               opacity:isSuccess?'1':'0',
+               transition:'0.6s'
+             }} variant="button" align='center' gutterBottom>Please Wait While Your Dashboard Is Beign Set Up!!!</Typography>
+      </Backdrop>
+
+
         </StyledLogin>
         </ThemeProvider>
     )

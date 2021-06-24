@@ -152,8 +152,7 @@ function Index(props) {
         display:'flex',
         overflow:'hidden'
     }}>
-       {
-           appProps.isLogged&&(
+       
             <>
             <Nav></Nav>
             <StyledMain>
@@ -330,16 +329,8 @@ function Index(props) {
        
             </StyledMain>
             </>
-           )
-       }
+        
 
-{
-           !appProps.isLogged&&(
-            <>
-            <h1>You Are Not Logged In.........</h1>
-            </>
-           )
-       }
     </div>
   );
 }
