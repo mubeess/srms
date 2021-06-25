@@ -72,7 +72,7 @@ export default function SelectSubject(props) {
 
   useEffect(()=>{
    
-    fetch(`https://polar-brook-59807.herokuapp.com/teacher/teacher-subjects/?id=60d50c775aebdc0015eb079c`)
+    fetch(`https://polar-brook-59807.herokuapp.com/teacher/teacher-subjects/?id=60d611651cf936001540a2a0`)
     .then(res=>{
       res.json()
       .then(data=>{
@@ -128,7 +128,7 @@ export default function SelectSubject(props) {
                 <StyledTableCell component="th" scope="row">
                   {ind+1}
                 </StyledTableCell>
-                <StyledTableCell align="right">{row.subject.map(sbj=>(`${sbj+'||'}`))}</StyledTableCell>
+                <StyledTableCell align="right">{row.subject[ind]}</StyledTableCell>
                 <StyledTableCell align="right">{row.category}</StyledTableCell>
                 <StyledTableCell align="right">{row.class}</StyledTableCell>
                 <StyledTableCell align="right">

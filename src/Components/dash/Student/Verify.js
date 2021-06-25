@@ -196,18 +196,25 @@ const useStyles = makeStyles((theme) => ({
         <Selects
          onChange={(e)=>{
           setStudentId(e.target.value)
-        allStudent.map(std=>{
-          if (std.username==e.target.value) {
-            let stdToUse=`${std.firstName+' '+std.lastName}`;
-            setClass(std.currentClass)
-            setStudentName(stdToUse)
-            console.log(mainStudent)
-          }else{
-            setClass('None')
-            setStudentName('None')
-          }
+          const currentStd=allStudent.filter(std=>std.username==e.target.value)
+          console.log(currentStd)
+          const FullName=`${currentStd[0].firstName+" "+currentStd[0].lastName}`;
+          setStudentName(FullName)
+          setClass(currentStd[0].currentClass)
+
+      //   allStudent.map(std=>{
+      // console.log(std.username)
+      //     if (std.username==e.target.value) {
+      //       let stdToUse=`${std.firstName+' '+std.lastName}`;
+      //       setClass(std.currentClass)
+      //       setStudentName(stdToUse)
+      //       console.log(mainStudent)
+      //     }else{
+      //       setClass('None')
+      //       setStudentName('None')
+      //     }
             
-          })
+      //     })
          
         }}
           native

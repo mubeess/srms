@@ -18,6 +18,7 @@ import blue from '@material-ui/core/colors/blue'
 import Pagination from '@material-ui/lab/Pagination';
 import Alert from '@material-ui/lab/Alert';
 import AppContext from '../../../Context/app/appContext'
+import StylesTable from './StyledTable'
 
 
 const StyledTableCell = withStyles((theme) => ({
@@ -133,108 +134,172 @@ export default function FinalResult(props) {
           props.students.students.length>=1&&(
           
             props.students.students.map((row,ind) => (
-              <StyledTableRow  key={ind}>
-                <StyledTableCell component="th" scope="row">
-                  {ind+1}
-                </StyledTableCell>
-                <StyledTableCell style={{width:'20%'}} align="center">{row.username}</StyledTableCell>
-                <StyledTableCell align="center">{row.firstName+" "+row.lastName}</StyledTableCell>
-                <StyledTableCell align="center">
-                <div className='inp'>
-                    <input
-                    style={{border:`2px solid ${ca1}`}}
-                    onBlur={
-                      (e)=>{
-                        const myObj={
-                          key:'ca1',
-                          id:row.studentId,
-                          value:parseInt(e.target.value)
+           <StylesTable key={ind} row={row} ind={ind}></StylesTable>
+              // <StyledTableRow  key={ind}>
+              //   <StyledTableCell component="th" scope="row">
+              //     {ind+1}
+              //   </StyledTableCell>
+              //   <StyledTableCell style={{width:'20%'}} align="center">{row.username}</StyledTableCell>
+              //   <StyledTableCell align="center">{row.firstName+" "+row.lastName}</StyledTableCell>
+              //   <StyledTableCell align="center">
+              //   <div className='inp'>
+              //       <input
+              //       style={{border:`2px solid ${ca1}`}}
+              //       onBlur={
+              //         (e)=>{
+              //           const myObj={
+              //             key:'ca1',
+              //             id:row._id,
+              //             value:parseInt(e.target.value)
         
-                        }
-                        fetch('https://polar-brook-59807.herokuapp.com/teacher/insert-one-result',{
-                        method:'POST',
-                        headers:{
-                          "Content-Type":'application/json'
-                        },
-                        body:JSON.stringify(myObj)   
-                      }).then(res=>{
-                        res.json()
-                        .then(data=>{
-                          // appProps.setUser({})
-                          setCa1('green')
-                         console.log(data)
-                        })
+              //           }
+              //           fetch('https://polar-brook-59807.herokuapp.com/teacher/insert-one-result',{
+              //           method:'POST',
+              //           headers:{
+              //             "Content-Type":'application/json'
+              //           },
+              //           body:JSON.stringify(myObj)   
+              //         }).then(res=>{
+              //           res.json()
+              //           .then(data=>{
+              //             // appProps.setUser({})
+              //             setCa1('green')
                        
-                      })
-                      }
-                    }
-                     name='ca1' placeholder={row.ca1}  type='text'></input>
-                </div>
-                 </StyledTableCell>
-                 <StyledTableCell align="center">
-                 <div className='inp'>
-                    <input
-                     onBlur={
-                      (e)=>{
-                const myObj={
-                  key:'ca2',
-                  id:row.studentId,
-                  value:parseInt(e.target.value)
+              //           })
+                       
+              //         })
+              //         console.log(myObj)
+              //         }
+                      
+              //       }
+              //        name='ca1' placeholder={row.ca1}  type='text'></input>
+              //   </div>
+              //    </StyledTableCell>
+              //    <StyledTableCell align="center">
+              //    <div className='inp'>
+              //       <input
+              //           style={{border:`2px solid ${ca2}`}}
+              //        onBlur={
+              //         (e)=>{
+              //   const myObj={
+              //     key:'ca2',
+              //     id:row._id,
+              //     value:parseInt(e.target.value)
 
-                }
-                fetch('https://polar-brook-59807.herokuapp.com/teacher/insert-one-result',{
-                method:'POST',
-                headers:{
-                  "Content-Type":'application/json'
-                },
-                body:JSON.stringify(myObj)   
-              }).then(res=>{
-                res.json()
-                .then(data=>{
-                  // appProps.setUser({})
-                 console.log(data)
-                })
+              //   }
+              //   fetch('https://polar-brook-59807.herokuapp.com/teacher/insert-one-result',{
+              //   method:'POST',
+              //   headers:{
+              //     "Content-Type":'application/json'
+              //   },
+              //   body:JSON.stringify(myObj)   
+              // }).then(res=>{
+              //   res.json()
+              //   .then(data=>{
+              //     // appProps.setUser({})
+              //    setCa2('green')
+              //   })
                
-              })
-                      }
-                    }
-                    name='ca2' placeholder={row.ca2} type='text'></input>
-                </div>
-                 </StyledTableCell>
-                 <StyledTableCell align="center">
-                 <div className='inp'>
-                    <input
-                     onBlur={
-                      (e)=>{
-                        console.log(e.target.value)
-                      }
-                    }
-                    name='ca3' placeholder={row.ca3} type='text'></input>
-                </div>
-                </StyledTableCell>
-                 <StyledTableCell align="center">
-                 <div className='inp'>
-                    <input 
-                     onBlur={
-                      (e)=>{
-                        console.log(e.target.value)
-                      }
-                    }
-                    name='ca4' placeholder={row.ca4} type='text'></input>
-                </div>
-                 </StyledTableCell>
-                 <StyledTableCell align="center">
-                 <div className='inp'>
-                    <input 
-                     onBlur={
-                      (e)=>{
-                        console.log(e.target.value)
-                      }
-                    }
-                    name='exam' placeholder={row.exam} type='text'></input>
-                </div>
-                 </StyledTableCell>
-              </StyledTableRow>
+              // })
+              //         }
+              //       }
+              //       name='ca2' placeholder={row.ca2} type='text'></input>
+              //   </div>
+              //    </StyledTableCell>
+              //    <StyledTableCell align="center">
+              //    <div className='inp'>
+              //       <input
+              //        style={{border:`2px solid ${ca3}`}}
+              //        onBlur={
+              //         (e)=>{
+              //   const myObj={
+              //     key:'ca3',
+              //     id:row._id,
+              //     value:parseInt(e.target.value)
+
+              //   }
+              //   fetch('https://polar-brook-59807.herokuapp.com/teacher/insert-one-result',{
+              //   method:'POST',
+              //   headers:{
+              //     "Content-Type":'application/json'
+              //   },
+              //   body:JSON.stringify(myObj)   
+              // }).then(res=>{
+              //   res.json()
+              //   .then(data=>{
+              //     // appProps.setUser({})
+              //    setCa3('green')
+              //   })
+               
+              // })
+              //         }
+              //       }
+              //       name='ca3' placeholder={row.ca3} type='text'></input>
+              //   </div>
+              //   </StyledTableCell>
+              //    <StyledTableCell align="center">
+              //    <div className='inp'>
+              //       <input 
+              //        style={{border:`2px solid ${ca4}`}}
+              //        onBlur={
+              //         (e)=>{
+              //   const myObj={
+              //     key:'ca4',
+              //     id:row._id,
+              //     value:parseInt(e.target.value)
+
+              //   }
+              //   fetch('https://polar-brook-59807.herokuapp.com/teacher/insert-one-result',{
+              //   method:'POST',
+              //   headers:{
+              //     "Content-Type":'application/json'
+              //   },
+              //   body:JSON.stringify(myObj)   
+              // }).then(res=>{
+              //   res.json()
+              //   .then(data=>{
+              //     // appProps.setUser({})
+              //    setCa4('green')
+              //   })
+               
+              // })
+              //         }
+              //       }
+              //       name='ca4' placeholder={row.ca4} type='text'></input>
+              //   </div>
+              //    </StyledTableCell>
+              //    <StyledTableCell align="center">
+              //    <div className='inp'>
+              //       <input 
+              //         style={{border:`2px solid ${exam}`}}
+              //         onBlur={
+              //          (e)=>{
+              //    const myObj={
+              //      key:'exam',
+              //      id:row._id,
+              //      value:parseInt(e.target.value)
+ 
+              //    }
+              //    fetch('https://polar-brook-59807.herokuapp.com/teacher/insert-one-result',{
+              //    method:'POST',
+              //    headers:{
+              //      "Content-Type":'application/json'
+              //    },
+              //    body:JSON.stringify(myObj)   
+              //  }).then(res=>{
+              //    res.json()
+              //    .then(data=>{
+              //      // appProps.setUser({})
+              //     setExam('green')
+              //    })
+                
+              //  })
+              //          }
+              //        }
+              //       name='exam' placeholder={row.exam} type='text'></input>
+              //   </div>
+              //    </StyledTableCell>
+              // </StyledTableRow>
             ))
 
 

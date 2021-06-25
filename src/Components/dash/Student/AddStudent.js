@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
   }));
 export default function AddStudent() {
     const classes = useStyles();
+    const [allClasses,setAllClasses]=useState([])
     const [isSStudent,setIsStudet]=useState(false)
     const [term,setTerm]=useState('First Term')
     const [gender,setGender]=useState('Male')
@@ -203,6 +204,15 @@ export default function AddStudent() {
            }else{
              setIsStudet(false)
            }
+           fetch(`https://polar-brook-59807.herokuapp.com/admin/get-all-classes/?section=${e.target.value}`)
+      .then(res=>{
+        res.json()
+        .then(data=>{
+          console.log(data.message)
+          setAllClasses(data.message)
+          // setStudentClass(data.message)
+        })
+      })
           
          }}
           native
@@ -212,9 +222,12 @@ export default function AddStudent() {
             id: 'outlined-age-native-simple',
           }}
         >
+           <option value='Kindergartens'>Kindergartens</option>
+          <option value='Playclass'>Playclass</option>
+          <option value='Grade'>Grade</option>
           <option value='JSS'>JSS</option>
           <option value='SSS'>SSS</option>
-          <option value='Grade'>Grade</option>
+       
 
         </Select>
       </FormControl>
@@ -224,6 +237,8 @@ export default function AddStudent() {
         <Select
           onChange={(e)=>{
             setClass(e.target.value)
+            
+            
           }}
           native
           value={classs}
@@ -233,11 +248,18 @@ export default function AddStudent() {
             id: 'outlined-age-native-simple',
           }}
         >
-          <option value='Grade3'>Grade3</option>
-          <option value='JSS2'>Jss2</option>
+          <option value='none'>None</option>
+          {
+            allClasses.length>=1&&(
+              allClasses.map((cls,ind)=>(
+                <option key={ind} value={cls.className}>{cls.className}</option>
+              ))
+            )
+          }
+          {/* <option value='JSS2'>Jss2</option>
           <option value='SSs2'>SS2</option>
           <option value='JSS3'>Jss3</option>
-          <option value='JSS1'>JSS1</option>
+          <option value='JSS1'>JSS1</option> */}
 
         </Select>
       </FormControl>
