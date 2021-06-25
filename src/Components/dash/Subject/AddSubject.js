@@ -364,7 +364,7 @@ flex-direction: column;
           alert('An Error Occured')
         })
 
-       }} style={{marginLeft:'70%',marginTop:'20px',marginRight:'20px'}} variant="contained" color='primary'>Add Subject</Button>
+       }} style={{marginLeft:'70%',marginTop:'20px',marginRight:'40px',backgroundColor:'#1E7F95'}} variant="contained" color='primary'>Add Subject</Button>
 
 
       

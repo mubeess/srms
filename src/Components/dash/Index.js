@@ -24,6 +24,7 @@ import { Divider } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import {EditRounded,DeleteForeverRounded,ViewArrayRounded} from '@material-ui/icons'
 
 
 const StyledDraw=styled.div`
@@ -105,9 +106,10 @@ flex-direction: row;
 function Index(props) {
     const appProps=useContext(AppContext)
     const [visible,setVisible]=useState(false)
-    const [section,setSection]=useState('Playclass')
-    const [category,setCategory]=useState('None')
+    const [section,setSection]=useState('None')
+    const [category,setCategory]=useState('none')
     const [classs,setClass]=useState('')
+    const [allClasses,setAllClassess]=useState([])
     const classes = useStyles();
 
    function close() {
@@ -119,7 +121,13 @@ function Index(props) {
 }
  
     useEffect(() => {
-        console.log(appProps)
+        fetch('https://polar-brook-59807.herokuapp.com/admin/get-every-class')
+        .then(res=>{
+          res.json()
+          .then(data=>{
+            setAllClassess(data.message)
+          })
+        })
         
     }, [])
     const Dynamic=()=>{
@@ -185,6 +193,7 @@ function Index(props) {
             id: 'outlined-age-native-simple',
           }}
         >  
+           <option value='none'>None</option>
            <option value='Playclass'>Playclass</option>
            <option value='Kindergartens'>Kindergartens</option>
            <option value='Grade'>Grade</option>
@@ -228,12 +237,47 @@ function Index(props) {
       }} name='className' id="outlined-basic" label="Class Name" variant="outlined" />
 
       <Button onClick={()=>{
-          const myObj={
+          const myObj=section=='SSS'?{
               section,
               category,
-              classs
+              className:classs
+          }:{
+            className:classs,
+            section
           }
           console.log(myObj)
+
+
+          fetch('https://polar-brook-59807.herokuapp.com/admin/create-class',{
+            method:'POST',
+            headers:{
+            "Content-Type":'application/json'
+            },
+            body:JSON.stringify(myObj)
+            }).then(res=>{
+            res.json()
+            .then(data=>{
+            console.log(data)
+
+            fetch('https://polar-brook-59807.herokuapp.com/admin/get-every-class')
+        .then(res=>{
+          res.json()
+          .then(data=>{
+            setAllClassess(data.message)
+          })
+        })
+
+            }).catch(err=>{
+            alert('An Error Occured')
+            })
+            }).catch(err=>{
+            alert('An Error Occured')
+            })
+
+
+
+
+
       }} style={{width:'15%',height:'40px',marginTop:'20px',marginLeft:'20px'}} variant="contained" color='primary'>Add Class</Button>
          </div>
 
@@ -244,84 +288,63 @@ function Index(props) {
              }} variant='h6' align='center' gutterBottom>Registered Classes</Typography>
       <Divider style={{width:'100%'}}></Divider>
 <div style={{display:'grid',gridTemplateColumns:'1fr 1fr'}}>
-<div className='mainDetail'>
+
+
+{
+  allClasses.length>=1&&(
+    allClasses.map((dat,ind)=>(
+      <div className='mainDetail' style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr'}}>
+      <Typography style={{
+                 color:'black'
+               }} variant='button' align='left' gutterBottom>{ind+1}</Typography>
+               
+      <Typography style={{
+                 color:'black',
+                 marginLeft:'50px'
+               }} variant='button' align='left' gutterBottom>{dat.className}</Typography>
+            <DeleteForeverRounded onClick={()=>{
+                   const myObj={
+                     id:dat._id
+                   }
+                     fetch(`https://polar-brook-59807.herokuapp.com/admin/delete-class`,{
+                      method:'DELETE',
+                      headers:{
+                        "Content-Type":'application/json'
+                      },
+                      body:JSON.stringify(myObj)
+                    })
+                     .then(res=>{
+                       res.json()
+                       .then(data=>{
+                         console.log(data)
+                         fetch('https://polar-brook-59807.herokuapp.com/admin/get-every-class')
+                       .then(res=>{
+                        res.json()
+                       .then(data=>{
+                        setAllClassess(data.message)
+                        })
+        })
+                       })
+                       
+                 
+                     })
+                 }} style={{color:'red',cursor:'pointer',marginLeft:'20px'}}></DeleteForeverRounded>
+      </div>
+  
+    ))
+  )
+}
+
+{
+  allClasses.length==0&&(
     <Typography style={{
-               color:'black'
-             }} variant='button' align='left' gutterBottom>1</Typography>
-             
-    <Typography style={{
-               color:'black',
-               marginLeft:'50px'
-             }} variant='button' align='center' gutterBottom>SS3</Typography>
-     <Typography style={{
-               color:'black',
-               marginLeft:'50px'
-             }} variant='overline' align='center' gutterBottom>Science</Typography>
-      <Button style={{marginLeft:'50px',backgroundColor:'#F39C77',color:'white'}} variant="contained">View</Button>
-      <Button style={{marginLeft:'30px',backgroundColor:'green',color:'white'}} variant="contained">Edit</Button>
-      <Button style={{marginLeft:'30px',backgroundColor:'red',color:'white'}} variant="contained">Drop</Button>
-    </div>
+      color:'black',
+      margin:'0 auto',
+      width:'100%'
+    }} variant='h6' align='center' gutterBottom>No Data Added Yet</Typography>
+  )
+}
 
-
-
-    <div className='mainDetail'>
-    <Typography style={{
-               color:'black'
-             }} variant='button' align='left' gutterBottom>1</Typography>
-             
-    <Typography style={{
-               color:'black',
-               marginLeft:'50px'
-             }} variant='button' align='center' gutterBottom>SS3</Typography>
-     <Typography style={{
-               color:'black',
-               marginLeft:'50px'
-             }} variant='overline' align='center' gutterBottom>Science</Typography>
-      <Button style={{marginLeft:'50px',backgroundColor:'#F39C77',color:'white'}} variant="contained">View</Button>
-      <Button style={{marginLeft:'30px',backgroundColor:'green',color:'white'}} variant="contained">Edit</Button>
-      <Button style={{marginLeft:'30px',backgroundColor:'red',color:'white'}} variant="contained">Drop</Button>
-    </div>
-
-
-
-
-    <div className='mainDetail'>
-    <Typography style={{
-               color:'black'
-             }} variant='button' align='left' gutterBottom>1</Typography>
-             
-    <Typography style={{
-               color:'black',
-               marginLeft:'50px'
-             }} variant='button' align='center' gutterBottom>SS3</Typography>
-     <Typography style={{
-               color:'black',
-               marginLeft:'50px'
-             }} variant='overline' align='center' gutterBottom>Science</Typography>
-      <Button style={{marginLeft:'50px',backgroundColor:'#F39C77',color:'white'}} variant="contained">View</Button>
-      <Button style={{marginLeft:'30px',backgroundColor:'green',color:'white'}} variant="contained">Edit</Button>
-      <Button style={{marginLeft:'30px',backgroundColor:'red',color:'white'}} variant="contained">Drop</Button>
-    </div>
-
-
-
-    <div className='mainDetail'>
-    <Typography style={{
-               color:'black'
-             }} variant='button' align='left' gutterBottom>1</Typography>
-             
-    <Typography style={{
-               color:'black',
-               marginLeft:'50px'
-             }} variant='button' align='center' gutterBottom>SS3</Typography>
-     <Typography style={{
-               color:'black',
-               marginLeft:'50px'
-             }} variant='overline' align='center' gutterBottom>Science</Typography>
-      <Button style={{marginLeft:'50px',backgroundColor:'#F39C77',color:'white'}} variant="contained">View</Button>
-      <Button style={{marginLeft:'30px',backgroundColor:'green',color:'white'}} variant="contained">Edit</Button>
-      <Button style={{marginLeft:'30px',backgroundColor:'red',color:'white'}} variant="contained">Drop</Button>
-    </div>
 </div>
         
      </StyledDraw>

@@ -24,8 +24,32 @@ export default function AddNew() {
             <Divider></Divider>
             <TextField style={{width:'70%',margin:'20px'}} onChange={(e)=>{
                 setSubject(e.target.value)
+                
             }} name='name' id="outlined-basic" label="Subject Name" variant="outlined" />
-            <Button style={{width:'40%',margin:'20px'}} color='primary' variant='contained'>Add New Subject</Button>
+            <Button onClick={()=>{
+
+const myObj={
+    subject
+}
+fetch('https://polar-brook-59807.herokuapp.com/admin/create-subject',{
+method:'POST',
+headers:{
+"Content-Type":'application/json'
+},
+body:JSON.stringify(myObj)
+}).then(res=>{
+res.json()
+.then(data=>{
+console.log(data)
+}).catch(err=>{
+alert('An Error Occured')
+})
+}).catch(err=>{
+alert('An Error Occured')
+})
+
+
+            }} style={{width:'40%',margin:'20px',backgroundColor:'#1E7F95'}} color='primary' variant='contained'>Add New Subject</Button>
         </StyledAdd>
     )
 }

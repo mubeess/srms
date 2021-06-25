@@ -1,6 +1,6 @@
 import { Divider,Typography, Input,Button,TextField} from '@material-ui/core';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import styled from 'styled-components'
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -62,16 +62,21 @@ const useStyles = makeStyles({
 });
 export default function RegisterdSubject(){
   const classes = useStyles();
+  const [allSubjects,setAllSubjects]=useState([])
+
+  useEffect(()=>{
+    fetch('https://polar-brook-59807.herokuapp.com/admin/get-all-subject')
+    .then(res=>{
+      res.json()
+      .then(data=>{
+        setAllSubjects(data.message)
+        console.log(data)
+      })
+    })
+  },[])
     return (
       <StyledView>
           <div className='header'>
-          <Typography style={{marginLeft:'10px'}} variant="caption" display="block" gutterBottom>
-      Show
-      </Typography>
-      <Input style={{width:'40px',height:'30px',marginLeft:'20px'}} color='primary' type='number'></Input>
-      <Typography style={{marginLeft:'10px'}} variant="caption" display="block" gutterBottom>
-      entries
-      </Typography>
 <Button style={{backgroundColor:'#1E7F95',marginLeft:'20px',height:'30px'}} variant="contained" color="primary">
   PDF
 </Button>
@@ -102,29 +107,58 @@ export default function RegisterdSubject(){
           <TableRow style={{backgroundColor:gray[500]}} >
             <StyledTableCell>S/N</StyledTableCell>
             <StyledTableCell align="right">NAME</StyledTableCell>
-            <StyledTableCell align="right">SECTION</StyledTableCell>
-            <StyledTableCell align="right">CLASS</StyledTableCell>
-            <StyledTableCell align="right">CATEGORY</StyledTableCell>
             <StyledTableCell align="right">ACTIONS</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row,ind) => (
-            <StyledTableRow key={ind}>
-              <StyledTableCell component="th" scope="row">
-                {ind+1}
-              </StyledTableCell>
-              <StyledTableCell align="right">{row.name}</StyledTableCell>
-              <StyledTableCell align="right">{row.section}</StyledTableCell>
-              <StyledTableCell align="right">{row.classs}</StyledTableCell>
-              <StyledTableCell align="right">{row.statuss}</StyledTableCell>
-              <StyledTableCell align="right">
-               <ViewArrayRounded style={{backgroundColor:'#F39C77',color:'white',marginRight:'10px',cursor:'pointer'}}></ViewArrayRounded>
-               <EditRounded style={{backgroundColor:'green',color:'white',marginRight:'10px',cursor:'pointer'}}></EditRounded>
-               <DeleteForeverRounded style={{backgroundColor:'red',color:'white',marginRight:'10px',cursor:'pointer'}}></DeleteForeverRounded>
-              </StyledTableCell>
-            </StyledTableRow>
-          ))}
+          {
+          
+           allSubjects.length>=1&&(
+            allSubjects.map((row,ind) => (
+              <StyledTableRow key={ind}>
+                <StyledTableCell component="th" scope="row">
+                  {ind+1}
+                </StyledTableCell>
+                <StyledTableCell align="right">{row.subject}</StyledTableCell>
+                <StyledTableCell align="right">
+                 <ViewArrayRounded style={{color:'#F39C77',marginRight:'10px',cursor:'pointer'}}></ViewArrayRounded>
+                 <EditRounded style={{color:'green',marginRight:'10px',cursor:'pointer'}}></EditRounded>
+                 <DeleteForeverRounded onClick={()=>{
+                   const myObj={
+                     id:row._id
+                   }
+                     fetch(`https://polar-brook-59807.herokuapp.com/admin/delete-single-subject`,{
+                      method:'DELETE',
+                      headers:{
+                        "Content-Type":'application/json'
+                      },
+                      body:JSON.stringify(myObj)
+                    })
+                     .then(res=>{
+                       res.json()
+                       .then(data=>{
+                         console.log(data)
+                        fetch('https://polar-brook-59807.herokuapp.com/admin/get-all-subject')
+                        .then(res=>{
+                          res.json()
+                          .then(data=>{
+                            setAllSubjects(data.message)
+                            console.log(data)
+                          })
+                        })
+                       })
+                       
+                 
+                     })
+                 }} style={{color:'red',marginRight:'10px',cursor:'pointer'}}></DeleteForeverRounded>
+                </StyledTableCell>
+              </StyledTableRow>
+            ))
+
+
+           )
+        
+          }
         </TableBody>
       </Table>
     </TableContainer>

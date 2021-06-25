@@ -123,7 +123,7 @@ export default function Roles() {
   const [staff,setStaff]=useState('')
   const [staffId,setStaffId]=useState('')
   const [allStaff,setAllStaff]=useState([])
-  const [role,setRole]=useState('Burser')
+  const [role,setRole]=useState('None')
   const [classs,setClasss]=useState('JSS1')
   const [category,setCategory]=useState('none')
   const [subject,setSubject]=useState('Mathematics')
@@ -272,7 +272,7 @@ export default function Roles() {
         role
 }:{
   role,
-  teach:[{class:classs,subject:[subject],category}]
+  teach:{class:classs,subject:[subject],category}
 }
 console.log(myObj)
 handleToggle()
@@ -326,7 +326,7 @@ fetch(`https://polar-brook-59807.herokuapp.com/admin/set-role/?id=${staff}`,{
          <Typography style={{
                    color:'black',
                    marginLeft:'50px'
-                 }} variant='overline' align='center' gutterBottom>{staf.role.map(rol=>(rol))}</Typography>
+                 }} variant='overline' align='center' gutterBottom>{staf.role.map(rol=>(`${rol+'**'}`))}</Typography>
           <Button style={{marginLeft:'50px',backgroundColor:'#F39C77',color:'white'}} variant="contained">Deactivate</Button>
           <Button style={{marginLeft:'30px',backgroundColor:'green',color:'white'}} variant="contained">Edit</Button>
           <Button style={{marginLeft:'30px',backgroundColor:'red',color:'white'}} variant="contained">Drop</Button>
