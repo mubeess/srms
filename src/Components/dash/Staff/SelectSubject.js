@@ -1,7 +1,7 @@
 import { Divider,Typography, Input,Button,TextField} from '@material-ui/core';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
-import React from 'react'
+import React,{useState,useEffect,useContext} from 'react'
 import styled from 'styled-components'
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -16,6 +16,7 @@ import Edit from '@material-ui/icons/Edit'
 import gray from '@material-ui/core/colors/grey'
 import blue from '@material-ui/core/colors/blue'
 import Pagination from '@material-ui/lab/Pagination';
+import AppContext from '../../../Context/app/appContext'
 
 
 const StyledTableCell = withStyles((theme) => ({
@@ -65,7 +66,26 @@ const useStyles = makeStyles({
   },
 });
 export default function SelectSubject(props) {
+  const [subjects,setSubjects]=useState([])
   const classes = useStyles();
+  const appProps=useContext(AppContext)
+
+  useEffect(()=>{
+   
+    fetch(`https://polar-brook-59807.herokuapp.com/teacher/teacher-subjects/?id=60d50c775aebdc0015eb079c`)
+    .then(res=>{
+      res.json()
+      .then(data=>{
+      console.log(data)
+      setSubjects(data.subjects)
+      })
+      
+
+    })
+
+  },[])
+
+
     return (
       <StyledView>
         <Typography style={{marginLeft:'10px'}} variant="button" display="block" gutterBottom>
@@ -73,13 +93,7 @@ export default function SelectSubject(props) {
       </Typography>
           <Divider></Divider>
           <div className='header'>
-          <Typography style={{marginLeft:'10px'}} variant="caption" display="block" gutterBottom>
-      Show
-      </Typography>
-      <Input style={{width:'40px',height:'30px',marginLeft:'20px'}} color='primary' type='number'></Input>
-      <Typography style={{marginLeft:'10px'}} variant="caption" display="block" gutterBottom>
-      entries
-      </Typography>
+          
 <TextField
         color='#FFC305'
         style={{marginLeft:'auto',width:'40%',marginRight:'10px',marginTop:'5px'}}
@@ -101,42 +115,69 @@ export default function SelectSubject(props) {
           <TableRow style={{backgroundColor:gray[500]}} >
             <StyledTableCell>S/N</StyledTableCell>
             <StyledTableCell align="right">SUBJECT</StyledTableCell>
-            <StyledTableCell align="right">SECTION</StyledTableCell>
+            <StyledTableCell align="right">CATEGORY</StyledTableCell>
             <StyledTableCell align="right">CLASS</StyledTableCell>
             <StyledTableCell align="right">ACTIONS</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row,ind) => (
-            <StyledTableRow key={ind}>
-              <StyledTableCell component="th" scope="row">
-                {ind+1}
-              </StyledTableCell>
-              <StyledTableCell align="right">{row.name}</StyledTableCell>
-              <StyledTableCell align="right">{row.section}</StyledTableCell>
-              <StyledTableCell align="right">{row.classs}</StyledTableCell>
-              <StyledTableCell align="right">
-              {/* <Button
-                variant="contained"
-                color="primary"
-                onClick={()=>{
-                    props.handleNext()
-                }}
-                className={classes.button}
-              >
-               Enter Results
-              </Button> */}
-              {/* <Edit onClick={()=>{
-                    props.handleNext()
-                }}></Edit> */}
-        <IconButton style={{backgroundColor:gray[500]}} onClick={()=>{
-                    props.handleNext()
-                }} color="primary" aria-label="upload picture" component="span">
-         <Edit></Edit>
-        </IconButton>
-               </StyledTableCell>
-            </StyledTableRow>
-          ))}
+          {
+          subjects.length>=1&&(
+            subjects.map((row,ind) => (
+              <StyledTableRow key={ind}>
+                <StyledTableCell component="th" scope="row">
+                  {ind+1}
+                </StyledTableCell>
+                <StyledTableCell align="right">{row.subject.map(sbj=>(`${sbj+'||'}`))}</StyledTableCell>
+                <StyledTableCell align="right">{row.category}</StyledTableCell>
+                <StyledTableCell align="right">{row.class}</StyledTableCell>
+                <StyledTableCell align="right">
+                {/* <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={()=>{
+                      props.handleNext()
+                  }}
+                  className={classes.button}
+                >
+                 Enter Results
+                </Button> */}
+                {/* <Edit onClick={()=>{
+                      props.handleNext()
+                  }}></Edit> */}
+          <IconButton style={{backgroundColor:gray[500]}} onClick={()=>{
+
+              const myObj={
+                class:row.class,
+                subject:row.subject[ind],
+                category:row.category.toLowerCase()
+              }
+              console.log(myObj)
+               fetch('https://polar-brook-59807.herokuapp.com/teacher/fetch-students-result',{
+                method:'POST',
+                headers:{
+                  "Content-Type":'application/json'
+                },
+                body:JSON.stringify(myObj)
+              }).then(res=>{
+                res.json()
+                .then(data=>{
+                  // appProps.setUser({})
+                  props.handleStudents({students:data.students,details:{subject:row.subject[ind],class:row.class}})
+                  props.handleNext()
+                })
+               
+              })
+                      // props.handleNext()
+                  }} color="primary" aria-label="upload picture" component="span">
+           <Edit></Edit>
+          </IconButton>
+                 </StyledTableCell>
+              </StyledTableRow>
+            ))
+            
+          )
+         }
         </TableBody>
       </Table>
     </TableContainer>

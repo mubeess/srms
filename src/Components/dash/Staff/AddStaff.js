@@ -116,7 +116,7 @@ const changeSelect=(e)=>{
         </div>
 
         <div className='personal'>
-        <FormControl style={{width:'22%'}} variant="outlined" className={classes.formControl}>
+        <FormControl style={{width:'99%'}} variant="outlined" >
         <InputLabel htmlFor="outlined-age-native-simple">Country</InputLabel>
         <Select
          disabled
@@ -134,7 +134,7 @@ const changeSelect=(e)=>{
       </FormControl>
 
 
-      <FormControl style={{width:'22%'}} variant="outlined" className={classes.formControl}>
+      <FormControl style={{width:'99%'}} variant="outlined" >
         <InputLabel htmlFor="outlined-age-native-simple">State</InputLabel>
         <Select
           onChange={changeValues}
@@ -153,7 +153,7 @@ const changeSelect=(e)=>{
       </FormControl>
 
 
-      <FormControl style={{width:'22%'}} variant="outlined" className={classes.formControl}>
+      <FormControl style={{width:'99%'}} variant="outlined">
         <InputLabel htmlFor="outlined-age-native-simple">LGA</InputLabel>
         <Select
          onChange={changeValues}
@@ -177,9 +177,9 @@ const changeSelect=(e)=>{
 
 
         <div className='personal'>
-        <TextField name='bankName'  onChange={changeValues} id="outlined-basic" label="Bank Name" variant="outlined" />
-        <TextField name='bankNumber'  onChange={changeValues} id="outlined-basic" label="Account Number" variant="outlined" />
-        <TextField name='accountName'  onChange={changeValues} id="outlined-basic" label="Account Name" variant="outlined" />
+        <TextField style={{width:'99%'}} name='bankName'  onChange={changeValues} id="outlined-basic" label="Bank Name" variant="outlined" />
+        <TextField style={{width:'99%'}} name='bankNumber'  onChange={changeValues} id="outlined-basic" label="Account Number" variant="outlined" />
+        <TextField style={{width:'99%'}} name='accountName'  onChange={changeValues} id="outlined-basic" label="Account Name" variant="outlined" />
         </div>       
 
 
@@ -190,11 +190,13 @@ const changeSelect=(e)=>{
       </Typography>
       <Divider></Divider>
       <div className='personal'>
-        <TextField name='kinName'  onChange={changeValues} id="outlined-basic" label="Full Name" variant="outlined" />
-        <TextField name='kinNumber'  onChange={changeValues} id="outlined-basic" label="Phone Number" variant="outlined" />
-        <TextField name='kinRelation'  onChange={changeValues} id="outlined-basic" label="Relationship" variant="outlined" />
+        <TextField style={{width:'99%'}} name='kinName'  onChange={changeValues} id="outlined-basic" label="Full Name" variant="outlined" />
+        <TextField style={{width:'99%'}} name='kinNumber'  onChange={changeValues} id="outlined-basic" label="Phone Number" variant="outlined" />
+        <TextField style={{width:'99%'}} name='kinRelation'  onChange={changeValues} id="outlined-basic" label="Relationship" variant="outlined" />
         </div>
-        <TextField name='kinAddress'  onChange={changeValues} style={{width:'83%',marginLeft:'90px',marginTop:'20px'}} id="outlined-basic" label="Address" variant="outlined" />
+        <div className='personal'>
+        <TextField name='kinAddress'  onChange={changeValues} style={{gridColumn:'1/4',width:'100%'}} id="outlined-basic" label="Address" variant="outlined" />
+        </div>
         <Button onClick={()=>{
     const stafff={
       username:staff.staffId,

@@ -68,7 +68,8 @@ export default function ViewStaff() {
     .then(res=>{
       res.json()
       .then(data=>{
-        setAllStaff(data.message)   
+        setAllStaff(data.message) 
+        console.log(data.message)  
        
       })
       

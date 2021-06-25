@@ -235,6 +235,9 @@ export default function AddStudent() {
         >
           <option value='Grade3'>Grade3</option>
           <option value='JSS2'>Jss2</option>
+          <option value='SSs2'>SS2</option>
+          <option value='JSS3'>Jss3</option>
+          <option value='JSS1'>JSS1</option>
 
         </Select>
       </FormControl>

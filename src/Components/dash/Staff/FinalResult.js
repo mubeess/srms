@@ -1,7 +1,7 @@
 import { Divider,Typography, Input,Button,TextField} from '@material-ui/core';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
-import React from 'react'
+import React,{useContext,useEffect,useState} from 'react'
 import styled from 'styled-components'
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -17,6 +17,7 @@ import gray from '@material-ui/core/colors/grey'
 import blue from '@material-ui/core/colors/blue'
 import Pagination from '@material-ui/lab/Pagination';
 import Alert from '@material-ui/lab/Alert';
+import AppContext from '../../../Context/app/appContext'
 
 
 const StyledTableCell = withStyles((theme) => ({
@@ -94,6 +95,10 @@ const useStyles = makeStyles({
 });
 export default function FinalResult(props) {
   const classes = useStyles();
+  const appProps=useContext(AppContext)
+  useEffect(()=>{
+ console.log(props.students)
+  },[])
     return (
       <StyledView>
           <Alert severity="warning">You Can't Edit These Result Aftre Final Submission!!!</Alert>
@@ -101,7 +106,7 @@ export default function FinalResult(props) {
         <Button color='default' variant='contained'>Result Script</Button>
         
         <Typography style={{marginLeft:'10px'}} variant="button" display="block" gutterBottom>
-       English Languauge   || JSS1
+       {props.students.details.subject || 'none'} || {props.students.details.class||'none'}
       </Typography>
           <Divider></Divider>
           <TableContainer  style={{marginTop:'20px'}} component={Paper}>
@@ -119,40 +124,47 @@ export default function FinalResult(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row,ind) => (
-            <StyledTableRow  key={ind}>
-              <StyledTableCell component="th" scope="row">
-                {ind+1}
-              </StyledTableCell>
-              <StyledTableCell style={{width:'20%'}} align="center">{row.name}</StyledTableCell>
-              <StyledTableCell align="center">{row.section}</StyledTableCell>
-              <StyledTableCell align="center">
-              <div className='inp'>
-                  <input type='text'></input>
-              </div>
-               </StyledTableCell>
-               <StyledTableCell align="center">
-               <div className='inp'>
-                  <input type='text'></input>
-              </div>
-               </StyledTableCell>
-               <StyledTableCell align="center">
-               <div className='inp'>
-                  <input type='text'></input>
-              </div>
-              </StyledTableCell>
-               <StyledTableCell align="center">
-               <div className='inp'>
-                  <input type='text'></input>
-              </div>
-               </StyledTableCell>
-               <StyledTableCell align="center">
-               <div className='inp'>
-                  <input type='text'></input>
-              </div>
-               </StyledTableCell>
-            </StyledTableRow>
-          ))}
+          {
+          props.students.students.length>=1&&(
+          
+            props.students.students.map((row,ind) => (
+              <StyledTableRow  key={ind}>
+                <StyledTableCell component="th" scope="row">
+                  {ind+1}
+                </StyledTableCell>
+                <StyledTableCell style={{width:'20%'}} align="center">{row.username}</StyledTableCell>
+                <StyledTableCell align="center">{row.firstName+" "+row.lastName}</StyledTableCell>
+                <StyledTableCell align="center">
+                <div className='inp'>
+                    <input type='text'></input>
+                </div>
+                 </StyledTableCell>
+                 <StyledTableCell align="center">
+                 <div className='inp'>
+                    <input type='text'></input>
+                </div>
+                 </StyledTableCell>
+                 <StyledTableCell align="center">
+                 <div className='inp'>
+                    <input type='text'></input>
+                </div>
+                </StyledTableCell>
+                 <StyledTableCell align="center">
+                 <div className='inp'>
+                    <input type='text'></input>
+                </div>
+                 </StyledTableCell>
+                 <StyledTableCell align="center">
+                 <div className='inp'>
+                    <input type='text'></input>
+                </div>
+                 </StyledTableCell>
+              </StyledTableRow>
+            ))
+
+
+          )
+          }
         </TableBody>
       </Table>
     </TableContainer>

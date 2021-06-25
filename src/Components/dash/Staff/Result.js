@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import styled from 'styled-components'
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
@@ -81,7 +81,14 @@ export default function Result() {
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
     const [skipped, setSkipped] = React.useState(new Set());
+    const [students, setStudents] = React.useState({});
     const steps = getSteps();
+    
+
+   function handleStudents(std) {
+     setStudents(std)
+     console.log(students)
+   }
 
     const isStepOptional = (step) => {
         return step === 1;
@@ -160,12 +167,12 @@ export default function Result() {
             {/* <Typography className={classes.instructions}></Typography> */}
             {
              activeStep===0&&(
-               <SelectSubject handleNext={handleNext}></SelectSubject>
+               <SelectSubject handleStudents={(std)=>handleStudents(std)} handleNext={handleNext}></SelectSubject>
              )
             }
             {
              activeStep===1&&(
-              <FinalResult></FinalResult>
+              <FinalResult students={students}></FinalResult>
              )
             }
             <div>

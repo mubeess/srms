@@ -4,7 +4,8 @@ import appReducer from './appReducer'
 import {
 SET_LOADING,
 SET_ISLOGED,
-SET_USER
+SET_USER,
+SET_STUDENT_RESULT
 } from '../types'
 
 
@@ -14,7 +15,8 @@ export default function AppState(props){
         loading:false,
         records:[],
         isLogged:false,
-        reciept:{}
+        reciept:{},
+        studentsResult:[]
      
         
     }
@@ -23,6 +25,7 @@ const [state,dispatch]=useReducer(appReducer,initState)
 const setLoading=()=>dispatch({type:SET_LOADING})
 const setIslogged=()=>dispatch({type:SET_ISLOGED})
 const setUser=(user)=>dispatch({type:SET_USER,payload:user})
+const setStudentsResults=(results)=>dispatch({type:SET_STUDENT_RESULT,payload:results})
 
 return <AppContext.Provider
 value={{
@@ -33,7 +36,9 @@ value={{
     setLoading,
     setIslogged,
     setUser,
-    reciept:state.reciept
+    reciept:state.reciept,
+    setStudentsResults,
+    studentsResult:state.studentsResult
 }}
 >
 

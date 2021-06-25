@@ -91,7 +91,7 @@ const useStyles = makeStyles((theme)=>(
       zIndex: theme.zIndex.drawer + 1,
       color: '#fff',
   }
-}
+} 
 ))
 const theme = createMuiTheme({
   palette: {
@@ -175,6 +175,9 @@ export default function Login(props) {
 
 <Button onClick={()=>{
   console.log(username,password)
+  // appProps.setIslogged()
+
+      // props.history.push('dash/main')
   handleToggle()
   // appProps.setIslogged()
   // props.history.push('dash/main')
@@ -193,7 +196,7 @@ export default function Login(props) {
     .then(data=>{
       console.log(data)
       // setIsSuccess(true)
-      if (data.success==false) {
+      if (data.success==false) { 
       handleClose()
 
       notification.open({

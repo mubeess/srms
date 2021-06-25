@@ -2,7 +2,8 @@ import {
     SET_LOADING,
     SET_ISLOGED,
     SET_USER,
-    SET_RECIEPT
+    SET_RECIEPT,
+    SET_STUDENT_RESULT
 }from '../types'
 
 
@@ -24,6 +25,11 @@ const AppReducer= (state,action)=>{
                     return {
                         ...state,
                         user:action.payload
+                    }
+            case SET_STUDENT_RESULT:
+                    return {
+                        ...state,
+                        studentsResult:action.payload
                     }
         default:
         return state;

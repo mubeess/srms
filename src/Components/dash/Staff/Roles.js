@@ -125,7 +125,7 @@ export default function Roles() {
   const [allStaff,setAllStaff]=useState([])
   const [role,setRole]=useState('Burser')
   const [classs,setClasss]=useState('JSS1')
-  const [category,setCategory]=useState('None')
+  const [category,setCategory]=useState('none')
   const [subject,setSubject]=useState('Mathematics')
   const [isEmpty,setIsEmpty]=useState(false)
   useEffect(()=>{
@@ -272,8 +272,9 @@ export default function Roles() {
         role
 }:{
   role,
-  teach:[{class:classs,subject,category}]
+  teach:[{class:classs,subject:[subject],category}]
 }
+console.log(myObj)
 handleToggle()
 fetch(`https://polar-brook-59807.herokuapp.com/admin/set-role/?id=${staff}`,{
   method:'PUT',
@@ -295,7 +296,6 @@ fetch(`https://polar-brook-59807.herokuapp.com/admin/set-role/?id=${staff}`,{
   handleClose()
     alert('Errorr')
 })
-      console.log(myObj)
     }} style={{marginLeft:'70%',marginTop:'10px'}}  variant="contained" color='primary'>Add Role</Button>
     </div>
     
