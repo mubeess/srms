@@ -1,4 +1,5 @@
 import React,{useEffect,useState} from 'react'
+import {withRouter} from 'react-router-dom'
 import styled from 'styled-components'
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
@@ -77,7 +78,7 @@ const StyledResult=styled.div`
 
 `;
 
-export default function Result() {
+ function Result(props) {
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
     const [skipped, setSkipped] = React.useState(new Set());
@@ -185,7 +186,9 @@ export default function Result() {
                   <>
                   <Button
                   variant="contained"
-                  onClick={handleNext}
+                  onClick={()=>{
+                    window.location.reload()
+                  }}
                   style={{margin:'20px'}}
                   
                 >
@@ -213,3 +216,4 @@ export default function Result() {
         </ThemeProvider>
     )
 }
+export default withRouter(Result)

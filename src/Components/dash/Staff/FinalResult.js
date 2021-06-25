@@ -96,6 +96,11 @@ const useStyles = makeStyles({
 export default function FinalResult(props) {
   const classes = useStyles();
   const appProps=useContext(AppContext)
+  const [ca1,setCa1]=useState('black')
+  const [ca2,setCa2]=useState('black')
+  const [ca3,setCa3]=useState('black')
+  const [ca4,setCa4]=useState('black')
+  const [exam,setExam]=useState('black')
   useEffect(()=>{
  console.log(props.students)
   },[])
@@ -136,27 +141,97 @@ export default function FinalResult(props) {
                 <StyledTableCell align="center">{row.firstName+" "+row.lastName}</StyledTableCell>
                 <StyledTableCell align="center">
                 <div className='inp'>
-                    <input type='text'></input>
+                    <input
+                    style={{border:`2px solid ${ca1}`}}
+                    onBlur={
+                      (e)=>{
+                        const myObj={
+                          key:'ca1',
+                          id:row.studentId,
+                          value:parseInt(e.target.value)
+        
+                        }
+                        fetch('https://polar-brook-59807.herokuapp.com/teacher/insert-one-result',{
+                        method:'POST',
+                        headers:{
+                          "Content-Type":'application/json'
+                        },
+                        body:JSON.stringify(myObj)   
+                      }).then(res=>{
+                        res.json()
+                        .then(data=>{
+                          // appProps.setUser({})
+                          setCa1('green')
+                         console.log(data)
+                        })
+                       
+                      })
+                      }
+                    }
+                     name='ca1' placeholder={row.ca1}  type='text'></input>
                 </div>
                  </StyledTableCell>
                  <StyledTableCell align="center">
                  <div className='inp'>
-                    <input type='text'></input>
+                    <input
+                     onBlur={
+                      (e)=>{
+                const myObj={
+                  key:'ca2',
+                  id:row.studentId,
+                  value:parseInt(e.target.value)
+
+                }
+                fetch('https://polar-brook-59807.herokuapp.com/teacher/insert-one-result',{
+                method:'POST',
+                headers:{
+                  "Content-Type":'application/json'
+                },
+                body:JSON.stringify(myObj)   
+              }).then(res=>{
+                res.json()
+                .then(data=>{
+                  // appProps.setUser({})
+                 console.log(data)
+                })
+               
+              })
+                      }
+                    }
+                    name='ca2' placeholder={row.ca2} type='text'></input>
                 </div>
                  </StyledTableCell>
                  <StyledTableCell align="center">
                  <div className='inp'>
-                    <input type='text'></input>
+                    <input
+                     onBlur={
+                      (e)=>{
+                        console.log(e.target.value)
+                      }
+                    }
+                    name='ca3' placeholder={row.ca3} type='text'></input>
                 </div>
                 </StyledTableCell>
                  <StyledTableCell align="center">
                  <div className='inp'>
-                    <input type='text'></input>
+                    <input 
+                     onBlur={
+                      (e)=>{
+                        console.log(e.target.value)
+                      }
+                    }
+                    name='ca4' placeholder={row.ca4} type='text'></input>
                 </div>
                  </StyledTableCell>
                  <StyledTableCell align="center">
                  <div className='inp'>
-                    <input type='text'></input>
+                    <input 
+                     onBlur={
+                      (e)=>{
+                        console.log(e.target.value)
+                      }
+                    }
+                    name='exam' placeholder={row.exam} type='text'></input>
                 </div>
                  </StyledTableCell>
               </StyledTableRow>
