@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import {Dashboard,VerifiedUserRounded,HouseRounded,Folder,Receipt,FileCopy,Group,GroupAdd,Work,ArrowForward,ViewAgenda} from '@material-ui/icons';
+import {Dashboard,VerifiedUserRounded,HouseRounded,Folder,Receipt,FileCopy,Group,GroupAdd,Work,ArrowForward,ViewAgenda,Schedule,School} from '@material-ui/icons';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import {withRouter,Link} from 'react-router-dom'
@@ -11,13 +11,15 @@ import Divider from '@material-ui/core/Divider';
 
 const StyledAside=styled.div`
 width: 20%;
-height: 95%;
+height: 90%;
 background-color:#1E7F95;
 margin-top: 10px;
 display: flex;
 flex-direction: column;
 position: fixed;
 z-index: 100;
+overflow-y: scroll;
+margin-bottom: 10px;
 `;
  function Aside(props) {
     return (
@@ -114,6 +116,15 @@ z-index: 100;
           </ListItemIcon>
           <ListItemText style={{color:'white'}} primary="Class" />
         </ListItem>
+
+        <Link to="/dash/cognitive">
+        <ListItem  style={{borderBottom:'1px solid white'}} button>
+          <ListItemIcon>
+            <Schedule style={{color:'white'}} />
+          </ListItemIcon>
+          <ListItemText style={{color:'white'}} primary="Cognitive Domain" />
+        </ListItem>
+        </Link>
         
 
         </StyledAside>

@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import styled from 'styled-components'
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider'
@@ -35,6 +35,24 @@ const useStyles = makeStyles((theme) => ({
   }));
 export default function AddStaff() {
     const classes = useStyles();
+   
+
+
+    // useEffect(()=>{
+
+    //   fetch(`https://polar-brook-59807.herokuapp.com/admin/get-all-classes/?section=${e.target.value}`)
+    //   .then(res=>{
+    //     res.json()
+    //     .then(data=>{
+    //       console.log(data.message)
+    //       setStudentClass(data.message)
+    //     })
+    //   })
+
+    // },[])
+
+
+
 const [staff,setStaff]=useState({
   firstName:'',
   lastName:'',

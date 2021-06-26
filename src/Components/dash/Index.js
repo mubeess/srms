@@ -25,6 +25,7 @@ import Typography from '@material-ui/core/Typography'
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {EditRounded,DeleteForeverRounded,ViewArrayRounded} from '@material-ui/icons'
+import Cognitive from './cognitive/Cognitive'
 
 
 const StyledDraw=styled.div`
@@ -146,6 +147,8 @@ function Index(props) {
                             return <Subject></Subject>
             case '/dash/roles':
                             return <Roles></Roles>
+            case '/dash/cognitive':
+                            return <Cognitive></Cognitive>
         
             default:
                 return <Main></Main>
