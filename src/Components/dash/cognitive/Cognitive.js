@@ -9,18 +9,22 @@ import InboxIcon from '@material-ui/icons/Inbox';
 import DraftsIcon from '@material-ui/icons/Drafts';
 import {FormatListNumbered,ConfirmationNumber} from '@material-ui/icons'
 import Select from '@material-ui/core/Select';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles,withStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Logo from '../Header/logo.png'
 import Backdrop from '@material-ui/core/Backdrop';
+import gray from '@material-ui/core/colors/grey'
+import StylesTable from './StyledTable'
 
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { CircularProgress } from '@material-ui/core';
@@ -71,6 +75,49 @@ const StyledRole=styled.div`
 }
 
 `;
+
+
+const StyledView=styled.div`
+width: 80%;
+min-height: 60vh;
+background-color:transparent;
+margin-left:20px;
+
+.header{
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    
+}
+.inp{
+    input{
+        width: 60%;
+        border-radius:0px;
+        border:1px solid gray;
+        height: 20px;
+    }
+}
+table{
+    border-spacing:0px;
+}
+table th{
+    padding: 0px;
+    text-align: center;
+    margin: 0px;
+    
+}
+table td{
+    padding: 10px;
+    text-align:center;
+    margin: 30px;
+    border-right: 1px solid gray;
+    border-bottom: 1px solid gray;
+}
+table tr{
+    text-align:center;
+    margin:0px;
+}
+`;
 // const useStyles = makeStyles({
 //     root: {
 //       width:'90%',
@@ -111,7 +158,26 @@ const useStyles = makeStyles((theme) => ({
     zIndex: theme.zIndex.drawer + 1,
     color: '#fff',
   },
+  table: {
+    minWidth: 700,
+  },
 }));
+
+
+
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    color: theme.palette.common.white,
+  },
+  body: {
+    fontSize: 14,
+  },
+}))(TableCell);
+
+
+
+
+
 export default function Cognitive() {
   const [open, setOpen] = React.useState(false);
   const handleClose = () => {
@@ -263,7 +329,7 @@ export default function Cognitive() {
                      res.json()
                      .then(data=>{
                       setCognitive(data.result)
-                       
+                       console.log(data)
                      })
                    })
                   })
@@ -284,7 +350,76 @@ export default function Cognitive() {
       color:'black',
       width: '80%'
     }} variant='h6' align='center' gutterBottom>Student's List</Typography>
-<Divider style={{width:'80%',marginLeft:'20px'}}></Divider>
+<Divider style={{width:'80%',marginLeft:'20px',marginTop:'10px'}}></Divider>
+
+
+
+<StyledView>
+    
+        <Typography style={{marginLeft:'10px'}} variant="button" display="block" gutterBottom>
+       {classs} || {category}
+      </Typography>
+          <Divider></Divider>
+      <TableContainer  style={{marginTop:'20px'}} component={Paper}>
+      <Table className={classes.table} aria-label="customized table">
+        <TableHead >
+          <TableRow style={{backgroundColor:gray[500]}} >
+            <StyledTableCell>S/N</StyledTableCell>
+            <StyledTableCell style={{width:'20%'}}  align="center">STUDENT ID</StyledTableCell>
+            <StyledTableCell style={{width:'20%'}}  align="center">NAME</StyledTableCell>
+              {
+                cognitiveValue.length>=1&&(
+                cognitiveValue.map((cog,ind)=>(
+                  <StyledTableCell key={ind} align="center">{cog.name}</StyledTableCell>
+                )))
+              }
+            <StyledTableCell style={{width:'20%'}} align="center">Remarks</StyledTableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+
+          {
+            allStudents.length>=1&&(
+              allStudents.map((row,ind)=>(
+                <StylesTable key={ind} row={row} ind={ind}></StylesTable>
+              ))
+            )
+          }
+          {
+          // props.students.students.length>=1&&(
+          
+          //   props.students.students.map((row,ind) => (
+          //  <StylesTable key={ind} row={row} ind={ind}></StylesTable>
+           
+          //   ))
+
+
+          // )
+          }
+        </TableBody>
+      </Table>
+    </TableContainer>
+  
+
+
+
+    <Button
+                  variant="contained"
+                  style={{margin:'20px'}}
+                  
+                >
+                  Save and Continue
+                </Button>
+
+                  <Button
+                variant="contained"
+                color="primary"
+               
+              >
+               Final Submission
+              </Button>
+
+      </StyledView>
 
 
 
