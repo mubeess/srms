@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import {Dashboard,VerifiedUserRounded,HouseRounded,Folder,Receipt,FileCopy,Group,GroupAdd,Work,ArrowForward,ViewAgenda,Schedule,School} from '@material-ui/icons';
+import {Dashboard,VerifiedUserRounded,HouseRounded,Folder,Receipt,FileCopy,Group,GroupAdd,Work,ArrowForward,ViewAgenda,Schedule,School,Assessment,Assignment} from '@material-ui/icons';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import {withRouter,Link} from 'react-router-dom'
@@ -32,13 +32,15 @@ margin-bottom: 10px;
           <ListItemText style={{color:'white'}} primary="Dashboard"/>
         </ListItem>
         </Link>
-
+      
+        <Link to="/dash/profile">
         <ListItem style={{borderBottom:'1px solid white'}} button>
           <ListItemIcon>
             <VerifiedUserRounded style={{color:'white'}} />
           </ListItemIcon>
           <ListItemText style={{color:'white'}} primary="Profile" />
         </ListItem>
+        </Link>
 
        
         <Link to="/dash/subject">
@@ -123,6 +125,17 @@ margin-bottom: 10px;
             <Schedule style={{color:'white'}} />
           </ListItemIcon>
           <ListItemText style={{color:'white'}} primary="Cognitive Domain" />
+        </ListItem>
+        </Link>
+
+
+
+        <Link to="/dash/assignment">
+        <ListItem  style={{borderBottom:'1px solid white'}} button>
+          <ListItemIcon>
+            <Assignment style={{color:'white'}} />
+          </ListItemIcon>
+          <ListItemText style={{color:'white'}} primary="Post Assignment"/>
         </ListItem>
         </Link>
         

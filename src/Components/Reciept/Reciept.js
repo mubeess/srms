@@ -1,8 +1,9 @@
-import React from 'react'
+import React,{useContext, useEffect,useState} from 'react'
 import styled from 'styled-components'
 import Logo from './logo.png'
 import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
+import AppContext from '../../Context/app/appContext'
 const StyledReciept=styled.div`
 width: 100%;
 height: 100vh;
@@ -62,6 +63,8 @@ align-items: center;
 `;
 
 export default function Reciept() {
+    const appProps=useContext(AppContext)
+   
     return (
        <StyledReciept>
            <div className='mainReciept'>
@@ -69,7 +72,9 @@ export default function Reciept() {
             <img src={Logo} alt='back'></img>
             </div>
             
-           <Typography style={{marginLeft:'auto'}} variant="overline" display="block" gutterBottom>
+           <Typography onClick={()=>{
+                 console.log(appProps)
+           }} style={{marginLeft:'auto'}} variant="overline" display="block" gutterBottom>
         PMB:5432
           </Typography>
            <div className='address'>
@@ -99,7 +104,7 @@ export default function Reciept() {
       <div className='studentDetails'>
           <div className='singleDetails'>
           <Typography style={{marginRight:'70px',}} variant="caption" display="block" gutterBottom>
-      STUDENT ID: NIA/09/001
+      STUDENT ID: {appProps.reciept[0].studentId}
       </Typography>
       <Typography style={{marginLeft:'auto'}} variant="caption" display="block" gutterBottom>
       DATE:12/06/2021
@@ -110,20 +115,20 @@ export default function Reciept() {
 
           <div className='singleDetails'>
       <Typography style={{marginRight:'70px'}}  variant="caption" display="block" gutterBottom>
-      NAME: AMINU ABUBAKAR
+      NAME: {appProps.reciept[0].studentName}
       </Typography>
       <Typography style={{marginLeft:'auto'}} variant="caption" display="block" gutterBottom>
-      CLASS:JSS 1
+      CLASS:{appProps.reciept[0].className}
       </Typography>
       </div>
 
 
       <div className='singleDetails'>
       <Typography style={{marginRight:'70px'}}  variant="caption" display="block" gutterBottom>
-    TELLER NO: 23456
+    TELLER NO: {appProps.reciept[0].teller}
       </Typography>
       <Typography style={{marginLeft:'auto'}} variant="caption" display="block" gutterBottom>
-      TERM:SECOND
+      TERM:{appProps.reciept[0].term}
       </Typography>
       </div>
       </div>
@@ -138,36 +143,20 @@ export default function Reciept() {
       AMOUNT
       </Typography>
       </div>
+    {
+        appProps.reciept[0].purposeOfPayment.map((dat,ind)=>(
 
-      <div className='singleDetails'>
-      <Typography style={{marginRight:'70px'}}  variant="caption" display="block" gutterBottom>
-      FEES PAYMENT
-      </Typography>
-      <Typography style={{marginLeft:'auto'}} variant="caption" display="block" gutterBottom>
-      N50,000
-      </Typography>
-      </div>
-
-
-      <div className='singleDetails'>
-      <Typography style={{marginRight:'70px'}}  variant="caption" display="block" gutterBottom>
-      PURPOSE:
-      </Typography>
-      <Typography style={{marginLeft:'auto'}} variant="caption" display="block" gutterBottom>
-      AMOUNT
-      </Typography>
-      </div>
-
-
-      <div className='singleDetails'>
-      <Typography style={{marginRight:'70px'}}  variant="caption" display="block" gutterBottom>
-      PURPOSE:
-      </Typography>
-      <Typography style={{marginLeft:'auto'}} variant="caption" display="block" gutterBottom>
-      AMOUNT
-      </Typography>
-      </div>
-
+            <div className='singleDetails'>
+            <Typography style={{marginRight:'70px'}}  variant="caption" display="block" gutterBottom>
+            {dat}
+            </Typography>
+            <Typography style={{marginLeft:'auto'}} variant="caption" display="block" gutterBottom>
+            N50,000
+            </Typography>
+            </div>
+        ))
+    }
+      
 
       </div>
 

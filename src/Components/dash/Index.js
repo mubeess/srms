@@ -26,6 +26,9 @@ import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {EditRounded,DeleteForeverRounded,ViewArrayRounded} from '@material-ui/icons'
 import Cognitive from './cognitive/Cognitive'
+import Assignments from './Assignment/Assignment'
+import Profile from './Profile/Profile'
+import Reciept from '../Reciept/Reciept'
 
 
 const StyledDraw=styled.div`
@@ -149,6 +152,12 @@ function Index(props) {
                             return <Roles></Roles>
             case '/dash/cognitive':
                             return <Cognitive></Cognitive>
+             case '/dash/assignment':
+                              return <Assignments></Assignments>
+             case '/dash/profile':
+                                return <Profile></Profile>
+              case '/dash/reciept':
+                                  return <Reciept></Reciept>
         
             default:
                 return <Main></Main>

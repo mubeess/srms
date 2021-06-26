@@ -31,6 +31,11 @@ const AppReducer= (state,action)=>{
                         ...state,
                         studentsResult:action.payload
                     }
+            case SET_RECIEPT:
+                    return {
+                        ...state,
+                        reciept:action.payload
+                    }
         default:
         return state;
     }

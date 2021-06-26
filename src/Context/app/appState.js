@@ -5,7 +5,8 @@ import {
 SET_LOADING,
 SET_ISLOGED,
 SET_USER,
-SET_STUDENT_RESULT
+SET_STUDENT_RESULT,
+SET_RECIEPT
 } from '../types'
 
 
@@ -15,7 +16,7 @@ export default function AppState(props){
         loading:false,
         records:[],
         isLogged:false,
-        reciept:{},
+        reciept:[],
         studentsResult:[]
      
         
@@ -26,6 +27,7 @@ const setLoading=()=>dispatch({type:SET_LOADING})
 const setIslogged=()=>dispatch({type:SET_ISLOGED})
 const setUser=(user)=>dispatch({type:SET_USER,payload:user})
 const setStudentsResults=(results)=>dispatch({type:SET_STUDENT_RESULT,payload:results})
+const setReCiept=(student)=>dispatch({type:SET_RECIEPT,payload:student})
 
 return <AppContext.Provider
 value={{
@@ -36,9 +38,10 @@ value={{
     setLoading,
     setIslogged,
     setUser,
-    reciept:state.reciept,
     setStudentsResults,
-    studentsResult:state.studentsResult
+    studentsResult:state.studentsResult,
+    setReCiept,
+    reciept:state.reciept
 }}
 >
 

@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useContext} from 'react'
 import styled from 'styled-components'
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider'
@@ -15,6 +15,7 @@ import Button from '@material-ui/core/Button'
 import Success from './success2.gif'
 import {withRouter,Link} from 'react-router-dom'
 import { Select, Tag } from 'antd';
+import AppContext from '../../../Context/app/appContext'
 
 
 const StyledMod=styled.div`
@@ -96,7 +97,14 @@ const useStyles = makeStyles((theme) => ({
     const [selectedOptions,setSelected]=React.useState([''])
     const [allStudent,setAllStudent]=useState([])
     const [mainStudent,setMain]=useState({class:'None',name:'None'})
-    useEffect(()=>{
+    const appProps=useContext(AppContext)
+    
+
+    useEffect(() => {
+      let isMounted = true;               // note mutable flag
+      // someAsyncOperation().then(data => {
+      //   if (isMounted) setState(data);    // add conditional check
+      // })
       const payments=[]
       fetch(`https://polar-brook-59807.herokuapp.com/admin/get-payment-type`)
           .then(res=>{
@@ -110,12 +118,34 @@ const useStyles = makeStyles((theme) => ({
               
             })
             .then(dat=>{
-              setOptions(payments)
+              if (isMounted) setOptions(payments)
             })
 
           })
+
+      return () => { isMounted = false }; // use cleanup to toggle value, if unmounted
+    }, []); 
+
+    // useEffect(()=>{
+    //   const payments=[]
+    //   fetch(`https://polar-brook-59807.herokuapp.com/admin/get-payment-type`)
+    //       .then(res=>{
+    //         res.json()
+    //         .then(data=>{
+    //           data.message.map(dat=>{
+    //             let mappDat={value:dat.paymentTypes}
+    //             payments.push({value:dat.paymentTypes})
+    //           })
+              
+              
+    //         })
+    //         .then(dat=>{
+    //           setOptions(payments)
+    //         })
+
+    //       })
         
-    },[])
+    // },[])
 
 
     const handleChange = (value) => {
@@ -362,10 +392,10 @@ const useStyles = makeStyles((theme) => ({
         }).then(res=>{
           res.json()
           .then(data=>{
-            console.log(data)
+            handleOpen()
           })
         })
-        //  handleOpen()
+       
        }} style={{marginRight:'20px',width:'30%',marginLeft:'50px',marginTop:'20px'}} 
        variant="contained" color='primary'>Verify Fees</Button>
    
@@ -401,7 +431,17 @@ const useStyles = makeStyles((theme) => ({
          Payment Verified Successfully 
       </Typography>
       <Button onClick={()=>{
-        window.location.pathname = '/reciept';
+           const selectors={
+            term,
+            studentId,
+            studentName,
+            teller,
+            className:classs,
+            purposeOfPayment:selectedOptions
+          }
+        appProps.setReCiept([selectors])
+        props.history.push('reciept')
+        // window.location.pathname = '/reciept';
       }} style={{background:'green'}} variant="contained" color="primary">
        Print Reciept
    </Button>

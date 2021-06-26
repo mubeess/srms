@@ -406,7 +406,9 @@ export default function Cognitive() {
     <Button
                   variant="contained"
                   style={{margin:'20px'}}
-                  
+                  onClick={()=>{
+                    window.location.reload()
+                  }}
                 >
                   Save and Continue
                 </Button>

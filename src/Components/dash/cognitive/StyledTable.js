@@ -58,11 +58,10 @@ export default function StyledTable(props) {
                         const myObj={
                           cognitive:{
                            "neatenes":e.target.value,
-                           "Puntuality":'',
-                           "Hard Working":''
+                       
                           },
                           id:props.row._id,
-                          Remaks:""
+                       
         
                         }
                         fetch('https://polar-brook-59807.herokuapp.com/admin/update-student-cognitive',{
@@ -101,12 +100,12 @@ export default function StyledTable(props) {
                       (e)=>{
                         const myObj={
                           cognitive:{
-                           "neatenes":'',
+                         
                            "Puntuality":e.target.value,
-                           "Hard Working":''
+                         
                           },
                           id:props.row._id,
-                          Remaks:""
+                       
         
                         }
                         fetch('https://polar-brook-59807.herokuapp.com/admin/update-student-cognitive',{
@@ -144,12 +143,10 @@ export default function StyledTable(props) {
                       (e)=>{
                         const myObj={
                           cognitive:{
-                           "neatenes":'',
-                           "Puntuality":'',
-                           "Hard Working":e.target.value
+                           "Hard working":e.target.value
                           },
                           id:props.row._id,
-                          Remaks:""
+                        
         
                         }
                         fetch('https://polar-brook-59807.herokuapp.com/admin/update-student-cognitive',{
@@ -187,11 +184,6 @@ export default function StyledTable(props) {
                     onBlur={
                       (e)=>{
                         const myObj={
-                          cognitive:{
-                           "neatenes":'',
-                           "Puntuality":'',
-                           "Hard Working":''
-                          },
                           id:props.row._id,
                           Remaks:`${e.target.value}`
         
