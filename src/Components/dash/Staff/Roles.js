@@ -24,7 +24,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { CircularProgress } from '@material-ui/core';
-import {Alert} from 'antd'
+import { notification } from 'antd';
 
 const StyledRole=styled.div`
        background:#f9f9f9;
@@ -169,7 +169,7 @@ export default function Roles() {
           {
             allStaff.length>=1&&(
               allStaff.map((dat,ind)=>(
-                <option key={ind} value={dat.username}>{dat.username}</option>
+                <option key={ind} value={dat._id}>{dat.username}</option>
               ))
             )
           }
@@ -285,16 +285,49 @@ fetch(`https://polar-brook-59807.herokuapp.com/admin/set-role/?id=${staff}`,{
 }).then(res=>{
   res.json()
   .then(data=>{
-    console.log(data)
+    notification.open({
+      message: `Successfuly Added A Role`,
+      description:'Role Added',
+      onClick: () => {
+        notification.close()
+      },
+      type:'success'
+    });
+    fetch(`https://polar-brook-59807.herokuapp.com/admin/get-all-staff`)
+    .then(res=>{
+      res.json()
+      .then(data=>{
+        if (data.message.length==0) {
+          setIsEmpty(true)
+        }
+        setAllStaff(data.message)
+      })
+      
+
+    })
+
     handleClose()
-    alert('Role Added')
   }).catch(er=>{
     handleClose()
-    alert('Errorr')
+    notification.open({
+      message: 'An Error Occured',
+      description:'Error',
+      onClick: () => {
+        notification.close()
+      },
+      type:'error'
+    });
   })
 }).catch(err=>{
   handleClose()
-    alert('Errorr')
+  notification.open({
+    message: 'An Error Occured',
+    description:'Error',
+    onClick: () => {
+      notification.close()
+    },
+    type:'error'
+  });
 })
     }} style={{marginLeft:'70%',marginTop:'10px'}}  variant="contained" color='primary'>Add Role</Button>
     </div>

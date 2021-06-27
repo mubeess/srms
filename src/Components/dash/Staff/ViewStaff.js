@@ -1,6 +1,6 @@
 import { Divider,Typography, Input,Button,TextField} from '@material-ui/core';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import React,{useEffect,useState} from 'react'
+import React,{useEffect,useState,useRef} from 'react'
 import styled from 'styled-components'
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -15,6 +15,8 @@ import Notifications from '@material-ui/icons/Notifications'
 import gray from '@material-ui/core/colors/grey'
 import Pagination from '@material-ui/lab/Pagination';
 import {EditRounded,DeleteForeverRounded,ViewArrayRounded} from '@material-ui/icons'
+import { CSVLink } from 'react-csv'
+import {useReactToPrint} from 'react-to-print'
 
 
 const StyledTableCell = withStyles((theme) => ({
@@ -59,6 +61,14 @@ export default function ViewStaff() {
   const[allStaff,setAllStaff]=useState([])
   // const [filtered,setFiltered]=useState('')
   const [searchVal,setSearchVal]=useState('')
+  const componentRef=useRef()
+
+  const handlePrint=useReactToPrint({
+    content:()=>componentRef.current,
+    copyStyles:true
+
+})
+
 
 
   const filtered= allStaff.length==0?allStaff:allStaff.filter(dat=>dat.firstName.toLowerCase().includes(searchVal.toLowerCase())||dat.lastName.toLowerCase().includes(searchVal.toLowerCase())||dat.username.toLowerCase().includes(searchVal.toLowerCase())||dat.role[0].toLowerCase().includes(searchVal.toLowerCase()))
@@ -85,15 +95,13 @@ export default function ViewStaff() {
           <div className='header'>
          
      
-<Button style={{backgroundColor:'#1E7F95',marginLeft:'20px',height:'30px'}} variant="contained" color="primary">
+<Button onClick={handlePrint} style={{backgroundColor:'#1E7F95',marginLeft:'20px',height:'30px'}} variant="contained" color="primary">
   PDF
 </Button>
 <Button style={{backgroundColor:'#1E7F95',marginLeft:'20px',height:'30px'}}  variant="contained" color="primary">
-  EXCELL
+<CSVLink data={filtered} filename='staff'>Excell</CSVLink>
 </Button>
-<Button style={{backgroundColor:'#1E7F95',marginLeft:'20px',height:'30px'}}  variant="contained" color="primary">
-  csv
-</Button>
+
 <TextField
         onChange={(e)=>{
          setSearchVal(e.target.value)
@@ -113,8 +121,8 @@ export default function ViewStaff() {
         }}
       />
           </div>
-          <TableContainer style={{marginTop:'20px'}} component={Paper}>
-      <Table className={classes.table} aria-label="customized table">
+          <TableContainer ref={componentRef} style={{marginTop:'20px'}} component={Paper}>
+      <Table  className={classes.table} aria-label="customized table">
         <TableHead >
           <TableRow style={{backgroundColor:gray[500]}} >
             <StyledTableCell>S/N</StyledTableCell>
@@ -133,7 +141,7 @@ export default function ViewStaff() {
               </StyledTableCell>
               <StyledTableCell align="right">{row.username}</StyledTableCell>
               <StyledTableCell align="right">{row.firstName+" "+row.lastName}</StyledTableCell>
-              <StyledTableCell align="right">{row.role.map(rl=>(rl))}</StyledTableCell>
+              <StyledTableCell align="right">{row.role.map(rl=>(`${rl+'**'}`))}</StyledTableCell>
               <StyledTableCell align="right">
               <ViewArrayRounded style={{color:'#F39C77',marginRight:'10px',cursor:'pointer'}}></ViewArrayRounded>
                <EditRounded style={{color:'green',marginRight:'10px',cursor:'pointer'}}></EditRounded>

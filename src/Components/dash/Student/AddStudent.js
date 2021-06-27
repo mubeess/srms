@@ -10,6 +10,10 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button'
 import NativeSelect from '@material-ui/core/NativeSelect';
+
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { notification } from 'antd';
+import Backdrop from '@material-ui/core/Backdrop';
 const StyledAdd= styled.div`
 width: 100%;
 min-height: 60vh;
@@ -34,8 +38,20 @@ const useStyles = makeStyles((theme) => ({
     selectEmpty: {
       marginTop: theme.spacing(2),
     },
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: '#fff',
+  }
   }));
 export default function AddStudent() {
+
+  const [open, setOpen] = React.useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleToggle = () => {
+    setOpen(!open);
+  };
     const classes = useStyles();
     const [allClasses,setAllClasses]=useState([])
     const [isSStudent,setIsStudet]=useState(false)
@@ -296,12 +312,13 @@ export default function AddStudent() {
       <div className='personal'>
         <TextField style={{width:'99%'}} name='kinName' onChange={changeValues} id="outlined-basic" label="Full Name" variant="outlined" />
         <TextField style={{width:'99%'}} name='kinNumber' onChange={changeValues} id="outlined-basic" label="Phone Number" variant="outlined" />
-        <TextField style={{width:'99%'}} name='kinRelation' onChange={changeValues} id="outlined-basic" label="Phone Number" variant="outlined" />
+        <TextField style={{width:'99%'}} name='kinRelation' onChange={changeValues} id="outlined-basic" label="Relationship" variant="outlined" />
         </div>
         <div className='personal'>
         <TextField name='kinAddress' onChange={changeValues} style={{gridColumn:'1/4'}} id="outlined-basic" label="Address" variant="outlined" />
         </div>
         <Button onClick={()=>{
+          handleToggle()
           const selectedStudent={
             state,
             lga,
@@ -331,10 +348,56 @@ export default function AddStudent() {
           }).then(res=>{
             res.json()
             .then(data=>{
-              console.log(data)
+              if (data.message) {
+                handleClose()
+              notification.open({
+               message: 'Successfuly Added A Student',
+               description:'Student Created',
+               onClick: () => {
+                 notification.close()
+               },
+               type:'success'
+             });
+              } else {
+                notification.open({
+                  message: 'An Error Occured',
+                  description:'Error',
+                  onClick: () => {
+                    notification.close()
+                  },
+                  type:'error'
+                });
+          handleClose()
+              }
+            }).catch(err=>{
+              notification.open({
+                message: 'An Error Occured',
+                description:'Error',
+                onClick: () => {
+                  notification.close()
+                },
+                type:'error'
+              });
+        handleClose()
             })
+          }).catch(err=>{
+            notification.open({
+              message: 'An Error Occured',
+              description:'Error',
+              onClick: () => {
+                notification.close()
+              },
+              type:'error'
+            });
+        handleClose()
           })
         }} style={{marginLeft:'80%',marginTop:'20px',marginBottom:'20px'}} variant="contained" color='primary'>Add Student</Button>
+
+
+
+<Backdrop style={{display:'flex',flexDirection:'column'}} className={classes.backdrop} open={open}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
        </StyledAdd>
     )
 }

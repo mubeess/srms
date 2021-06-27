@@ -1,6 +1,6 @@
 import { Divider,Typography, Input,Button,TextField} from '@material-ui/core';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import React,{useEffect,useState} from 'react'
+import React,{useEffect,useState,useRef} from 'react'
 import styled from 'styled-components'
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -14,6 +14,7 @@ import Paper from '@material-ui/core/Paper';
 import {EditRounded,DeleteForeverRounded,ViewArrayRounded} from '@material-ui/icons'
 import gray from '@material-ui/core/colors/grey'
 import { CSVLink } from 'react-csv'
+import {useReactToPrint} from 'react-to-print'
 
 
 
@@ -67,6 +68,14 @@ const[allStudents,setAllStudents]=useState([])
 // const [filtered,setFiltered]=useState('')
 const [searchVal,setSearchVal]=useState('')
 
+const componentRef=useRef()
+
+const handlePrint=useReactToPrint({
+    content:()=>componentRef.current,
+    copyStyles:true
+
+})
+
 
 const filtered=allStudents.filter(dat=>dat.firstName.toLowerCase().includes(searchVal.toLowerCase())||dat.lastName.toLowerCase().includes(searchVal.toLowerCase())||dat.username.toLowerCase().includes(searchVal.toLowerCase())||dat.section.toLowerCase().includes(searchVal.toLowerCase())||dat.currentClass.toLowerCase().includes(searchVal.toLowerCase()))
 
@@ -91,14 +100,11 @@ useEffect(()=>{
       </Typography>
           <Divider></Divider>
           <div className='header'>
-<Button style={{backgroundColor:'#1E7F95',marginLeft:'20px',height:'30px'}} variant="contained" color="primary">
+<Button onClick={handlePrint} style={{backgroundColor:'#1E7F95',marginLeft:'20px',height:'30px'}} variant="contained" color="primary">
   PDF
 </Button>
 <Button style={{backgroundColor:'#1E7F95',marginLeft:'20px',height:'30px'}}  variant="contained" color="primary">
-<CSVLink data={allStudents} filename='data'>Excell</CSVLink>
-</Button>
-<Button style={{backgroundColor:'#1E7F95',marginLeft:'20px',height:'30px'}}  variant="contained" color="primary">
-  csv
+<CSVLink data={filtered} filename='students'>Excell</CSVLink>
 </Button>
 <TextField
       onChange={(e)=>{
@@ -118,7 +124,7 @@ useEffect(()=>{
         }}
       />
           </div>
-          <TableContainer style={{marginTop:'20px'}} component={Paper}>
+          <TableContainer ref={componentRef} style={{marginTop:'20px'}} component={Paper}>
       <Table className={classes.table} aria-label="customized table">
         <TableHead >
           <TableRow style={{backgroundColor:gray[500]}} >

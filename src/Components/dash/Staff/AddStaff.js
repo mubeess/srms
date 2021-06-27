@@ -10,6 +10,9 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button'
 import NativeSelect from '@material-ui/core/NativeSelect';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { notification } from 'antd';
+import Backdrop from '@material-ui/core/Backdrop';
 const StyledAdd= styled.div`
 width: 100%;
 min-height: 60vh;
@@ -32,11 +35,21 @@ const useStyles = makeStyles((theme) => ({
     selectEmpty: {
       marginTop: theme.spacing(2),
     },
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: '#fff',
+  }
   }));
 export default function AddStaff() {
     const classes = useStyles();
    
-
+    const [open, setOpen] = React.useState(false);
+    const handleClose = () => {
+      setOpen(false);
+    };
+    const handleToggle = () => {
+      setOpen(!open);
+    };
 
     // useEffect(()=>{
 
@@ -216,6 +229,7 @@ const changeSelect=(e)=>{
         <TextField name='kinAddress'  onChange={changeValues} style={{gridColumn:'1/4',width:'100%'}} id="outlined-basic" label="Address" variant="outlined" />
         </div>
         <Button onClick={()=>{
+          handleToggle()
     const stafff={
       username:staff.staffId,
       firstName:staff.firstName,
@@ -246,11 +260,43 @@ const changeSelect=(e)=>{
   }).then(res=>{
     res.json()
     .then(data=>{
-      console.log(data)
+     handleClose()
+     notification.open({
+      message: 'Successfuly Created A Staff',
+      description:'Staff Created',
+      onClick: () => {
+        notification.close()
+      },
+      type:'success'
+    });
+    }).catch(err=>{
+      notification.open({
+        message: 'An Error Occured',
+        description:'Error',
+        onClick: () => {
+          notification.close()
+        },
+        type:'error'
+      });
+handleClose()
     })
+  }).catch(err=>{
+    notification.open({
+      message: 'An Error Occured',
+      description:'Error',
+      onClick: () => {
+        notification.close()
+      },
+      type:'error'
+    });
+handleClose()
   })
 
         }} style={{marginLeft:'80%',marginTop:'20px',marginBottom:'20px'}} variant="contained" color='primary'>Add Staff</Button>
+
+<Backdrop style={{display:'flex',flexDirection:'column'}} className={classes.backdrop} open={open}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
        </StyledAdd>
     ) 
 }
