@@ -14,6 +14,7 @@ import Paper from '@material-ui/core/Paper';
 import {EditRounded,DeleteForeverRounded,ViewArrayRounded} from '@material-ui/icons'
 import gray from '@material-ui/core/colors/grey'
 import Pagination from '@material-ui/lab/Pagination';
+import { CSVLink } from 'react-csv'
 
 
 const StyledTableCell = withStyles((theme) => ({
@@ -81,7 +82,7 @@ export default function RegisterdSubject(){
   PDF
 </Button>
 <Button style={{backgroundColor:'#1E7F95',marginLeft:'20px',height:'30px'}}  variant="contained" color="primary">
-  EXCELL
+<CSVLink data={allSubjects} filename='allsubject'>Excell</CSVLink>
 </Button>
 <Button style={{backgroundColor:'#1E7F95',marginLeft:'20px',height:'30px'}}  variant="contained" color="primary">
   csv

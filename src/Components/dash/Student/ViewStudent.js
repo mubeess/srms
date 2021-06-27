@@ -13,6 +13,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import {EditRounded,DeleteForeverRounded,ViewArrayRounded} from '@material-ui/icons'
 import gray from '@material-ui/core/colors/grey'
+import { CSVLink } from 'react-csv'
 
 
 
@@ -94,7 +95,7 @@ useEffect(()=>{
   PDF
 </Button>
 <Button style={{backgroundColor:'#1E7F95',marginLeft:'20px',height:'30px'}}  variant="contained" color="primary">
-  EXCELL
+<CSVLink data={allStudents} filename='data'>Excell</CSVLink>
 </Button>
 <Button style={{backgroundColor:'#1E7F95',marginLeft:'20px',height:'30px'}}  variant="contained" color="primary">
   csv

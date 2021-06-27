@@ -1,9 +1,12 @@
-import React,{useContext, useEffect,useState} from 'react'
+import React,{useContext, useEffect,useState,useRef} from 'react'
+import {withRouter} from 'react-router-dom'
+import {useReactToPrint} from 'react-to-print'
 import styled from 'styled-components'
 import Logo from './logo.png'
 import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
 import AppContext from '../../Context/app/appContext'
+import { Button } from '@material-ui/core'
 const StyledReciept=styled.div`
 width: 100%;
 height: 100vh;
@@ -62,12 +65,19 @@ align-items: center;
 
 `;
 
-export default function Reciept() {
+ function Reciept(props) {
     const appProps=useContext(AppContext)
+    const componentRef=useRef()
+
+    const handlePrint=useReactToPrint({
+        content:()=>componentRef.current,
+        copyStyles:true
+    
+    })
    
     return (
-       <StyledReciept>
-           <div className='mainReciept'>
+       <StyledReciept ref={componentRef}>
+           <div  className='mainReciept'>
             <div className='back' style={{zIndex:'0'}}>
             <img src={Logo} alt='back'></img>
             </div>
@@ -178,6 +188,12 @@ export default function Reciept() {
       BURSARY SIGNATURE
       </Typography>
            </div>
+
+           <Button onClick={()=>{
+               handlePrint()
+               props.history.push('fees')
+           }} color='primary' variant='contained' style={{width:'150px'}}>Print Reciept</Button>
        </StyledReciept>
     )
 }
+export default withRouter(Reciept)
