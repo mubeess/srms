@@ -46,6 +46,7 @@ export default function StyledTable(props) {
                 <StyledTableCell component="th" scope="row">
                   {props.ind+1}
                 </StyledTableCell>
+              
                 <StyledTableCell style={{width:'20%'}} align="center">{props.row.username}</StyledTableCell>
                 <StyledTableCell align="center">{props.row.firstName+" "+props.row.lastName}</StyledTableCell>
                 <StyledTableCell align="center">
@@ -103,6 +104,7 @@ export default function StyledTable(props) {
               }).then(res=>{
                 res.json()
                 .then(data=>{
+                  console.log(data)
                   // appProps.setUser({})
                  setCa2('green')
                 })

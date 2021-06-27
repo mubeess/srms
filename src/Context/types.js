@@ -3,3 +3,4 @@ export const SET_ISLOGED='SET_ISLOGED';
 export const SET_USER='SET_USER';
 export const SET_RECIEPT='SET_RECIEPT';
 export const SET_STUDENT_RESULT='SET_STUDENT_RESULT';
+export const SET_ATTENDANCE='SET_ATTENDANCE';

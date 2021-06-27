@@ -348,7 +348,7 @@ export default function AddStudent() {
           }).then(res=>{
             res.json()
             .then(data=>{
-              if (data.message) {
+              if (data.success) {
                 handleClose()
               notification.open({
                message: 'Successfuly Added A Student',

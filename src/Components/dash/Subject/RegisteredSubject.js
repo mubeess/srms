@@ -84,9 +84,6 @@ export default function RegisterdSubject(){
 <Button style={{backgroundColor:'#1E7F95',marginLeft:'20px',height:'30px'}}  variant="contained" color="primary">
 <CSVLink data={allSubjects} filename='allsubject'>Excell</CSVLink>
 </Button>
-<Button style={{backgroundColor:'#1E7F95',marginLeft:'20px',height:'30px'}}  variant="contained" color="primary">
-  csv
-</Button>
 <TextField
         color='#FFC305'
         style={{marginLeft:'30px',width:'40%',marginRight:'10px',marginTop:'5px'}}

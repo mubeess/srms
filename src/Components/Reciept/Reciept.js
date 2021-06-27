@@ -40,8 +40,8 @@ align-items: center;
     flex-direction: row;
     z-index: 2;
     img{
-        width: 103px;
-        height: 97px;
+        width: 100px;
+        height: 100px;
     }
 }
 .studentDetails{

@@ -149,7 +149,7 @@ export default function StyledTable(props) {
                         
         
                         }
-                        fetch('https://polar-brook-59807.herokuapp.com/admin/update-student-cognitive',{
+                        fetch('https://polar-brook-59807.herokuapp.com/admin/add-student-cognitive',{
                         method:'PUT',
                         headers:{
                           "Content-Type":'application/json'

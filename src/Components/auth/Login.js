@@ -78,8 +78,8 @@ align-items: center;
 const useStyles = makeStyles((theme)=>(
   {
     butt: {
-      boxShadow: '0 3px 5px 2px #FFC305',
-      border: '1px solid #FFC305',
+      boxShadow: '0 0px 0px 2px #FFC305',
+      border: '0.2px solid #FFC305',
       color:'#FFC305'
     },
     root:{

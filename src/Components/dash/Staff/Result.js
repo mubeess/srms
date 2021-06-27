@@ -168,7 +168,7 @@ const StyledResult=styled.div`
             {/* <Typography className={classes.instructions}></Typography> */}
             {
              activeStep===0&&(
-               <SelectSubject handleStudents={(std)=>handleStudents(std)} handleNext={handleNext}></SelectSubject>
+               <SelectSubject handleStudents={(std)=>handleStudents(std)} handleNext={()=>handleNext}></SelectSubject>
              )
             }
             {

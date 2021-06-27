@@ -17,6 +17,23 @@ import gray from '@material-ui/core/colors/grey'
 import blue from '@material-ui/core/colors/blue'
 import Pagination from '@material-ui/lab/Pagination';
 import AppContext from '../../../Context/app/appContext'
+import { withRouter } from 'react-router-dom';
+
+
+
+
+const StyledResult=styled.div`
+   background:transparent;
+        width:75%;
+        height:95%;
+        margin-top:20px;
+        margin-left:auto;
+        margin-right:auto;
+        display: flex;
+        flex-direction: column;
+        margin-left: 20%;
+
+`;
 
 
 const StyledTableCell = withStyles((theme) => ({
@@ -65,7 +82,7 @@ const useStyles = makeStyles({
     minWidth: 700,
   },
 });
-export default function SelectSubject(props) {
+function SelectSubject(props) {
   const [subjects,setSubjects]=useState([])
   const classes = useStyles();
   const appProps=useContext(AppContext)
@@ -78,6 +95,8 @@ export default function SelectSubject(props) {
       .then(data=>{
       console.log(data)
       setSubjects(data.subjects)
+      console.log(appProps)
+      // appProps.setStudentsResults()
       })
       
 
@@ -87,6 +106,7 @@ export default function SelectSubject(props) {
 
 
     return (
+    <StyledResult>
       <StyledView>
         <Typography style={{marginLeft:'10px'}} variant="button" display="block" gutterBottom>
        Select Subject and Class
@@ -162,9 +182,10 @@ export default function SelectSubject(props) {
               }).then(res=>{
                 res.json()
                 .then(data=>{
-                  // appProps.setUser({})
-                  props.handleStudents({students:data.students,details:{subject:row.subject[ind],class:row.class}})
-                  props.handleNext()
+                console.log(data)
+                appProps.setStudentsResults([data.students,{class:row.class,subject:row.subject[ind]}])
+                props.history.push('enterresult')
+                
                 })
                
               })
@@ -184,5 +205,7 @@ export default function SelectSubject(props) {
   
 
       </StyledView>
+      </StyledResult>
     )
 }
+export default  withRouter(SelectSubject)

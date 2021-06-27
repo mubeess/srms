@@ -1,7 +1,7 @@
 import { Divider,Typography, Input,Button,TextField} from '@material-ui/core';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
-import React,{useContext,useEffect,useState} from 'react'
+import React,{useContext,useEffect,useState,useRef} from 'react'
 import styled from 'styled-components'
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -19,6 +19,9 @@ import Pagination from '@material-ui/lab/Pagination';
 import Alert from '@material-ui/lab/Alert';
 import AppContext from '../../../Context/app/appContext'
 import StylesTable from './StyledTable'
+import Attendance from '../../Dosier/Attendance'
+import {useReactToPrint} from 'react-to-print'
+import { withRouter } from 'react-router-dom';
 
 
 const StyledTableCell = withStyles((theme) => ({
@@ -38,6 +41,18 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
+const StyledResult=styled.div`
+   background:transparent;
+        width:75%;
+        height:95%;
+        margin-top:20px;
+        margin-left:auto;
+        margin-right:auto;
+        display: flex;
+        flex-direction: column;
+        margin-left: 20%;
+
+`;
 
 
 const StyledView=styled.div`
@@ -94,25 +109,36 @@ const useStyles = makeStyles({
     minWidth: 700,
   },
 });
-export default function FinalResult(props) {
+ function FinalResult(props) {
   const classes = useStyles();
+  const componentRef=useRef()
   const appProps=useContext(AppContext)
   const [ca1,setCa1]=useState('black')
   const [ca2,setCa2]=useState('black')
   const [ca3,setCa3]=useState('black')
   const [ca4,setCa4]=useState('black')
   const [exam,setExam]=useState('black')
+
+  const handlePrint=useReactToPrint({
+    content:()=>componentRef.current,
+    copyStyles:true
+
+})
+
   useEffect(()=>{
- console.log(props.students)
+ console.log(appProps)
   },[])
     return (
+    <StyledResult>
       <StyledView>
           <Alert severity="warning">You Can't Edit These Result Aftre Final Submission!!!</Alert>
-        <Button style={{margin:'30px'}} color='default' variant='contained'>Attendance Sheet</Button>
+        <Button onClick={()=>{
+          props.history.push('attendance')
+        }} style={{margin:'30px'}} color='default' variant='contained'>Attendance Sheet</Button>
         <Button color='default' variant='contained'>Result Script</Button>
         
         <Typography style={{marginLeft:'10px'}} variant="button" display="block" gutterBottom>
-       {props.students.details.subject || 'none'} || {props.students.details.class||'none'}
+       {appProps.studentsResult.length>=1?appProps.studentsResult[1].class:'none'} || {appProps.studentsResult.length>=1?appProps.studentsResult[1].subject :'none'}
       </Typography>
           <Divider></Divider>
           <TableContainer  style={{marginTop:'20px'}} component={Paper}>
@@ -131,21 +157,46 @@ export default function FinalResult(props) {
         </TableHead>
         <TableBody>
           {
-          props.students.students.length>=1&&(
+            appProps.studentsResult.length>=1&&(
+              appProps.studentsResult[0].map((res,ind)=>(
+                <StylesTable key={ind} row={res} ind={ind}></StylesTable>
+              ))
+            )
+          // props.students.students.length>=1&&(
           
-            props.students.students.map((row,ind) => (
-           <StylesTable key={ind} row={row} ind={ind}></StylesTable>
+          //   props.students.students.map((row,ind) => (
+          //  <StylesTable key={ind} row={row} ind={ind}></StylesTable>
            
-            ))
+          //   ))
 
 
-          )
+          // )
           }
         </TableBody>
       </Table>
     </TableContainer>
   
+    <Button
+                  variant="contained"
+                  onClick={()=>{
+                    window.location.reload()
+                  }}
+                  style={{margin:'20px'}}
+                  
+                >
+                  Save and Continue
+                </Button>
 
+                  <Button
+                variant="contained"
+                color="primary"
+               
+               
+              >
+               Final Submission
+              </Button>
       </StyledView>
+      </StyledResult>
     )
 }
+export default withRouter(FinalResult)

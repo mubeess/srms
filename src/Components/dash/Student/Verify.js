@@ -383,16 +383,23 @@ const useStyles = makeStyles((theme) => ({
            className:classs,
            purposeOfPayment:selectedOptions
          }
-         fetch('https://polar-brook-59807.herokuapp.com/admin/verify-payment',{
+         const newPays={
+           pays:{
+             teller,
+             purposeOfPayment:['tuition fee']
+           }
+         }
+         fetch(`https://polar-brook-59807.herokuapp.com/admin/verify-payment/?username=${studentId}`,{
           method:'POST',
           headers:{
             "Content-Type":'application/json'
           },
-          body:JSON.stringify(selectors)
+          body:JSON.stringify(newPays)
         }).then(res=>{
           res.json()
           .then(data=>{
             handleOpen()
+            console.log(data)
           })
         })
        

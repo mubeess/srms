@@ -29,6 +29,9 @@ import Cognitive from './cognitive/Cognitive'
 import Assignments from './Assignment/Assignment'
 import Profile from './Profile/Profile'
 import Reciept from '../Reciept/Reciept'
+import Attendance from '../Dosier/Attendance'
+import SelectSubject from './Staff/SelectSubject'
+import FinalResult from './Staff/FinalResult'
 
 
 const StyledDraw=styled.div`
@@ -145,7 +148,7 @@ function Index(props) {
             case '/dash/staff':
                         return <Staff></Staff>
             case '/dash/result':
-                        return <Result></Result>
+                        return <SelectSubject></SelectSubject>
             case '/dash/subject':
                             return <Subject></Subject>
             case '/dash/roles':
@@ -158,6 +161,11 @@ function Index(props) {
                                 return <Profile></Profile>
               case '/dash/reciept':
                                   return <Reciept></Reciept>
+              case '/dash/attendance':
+                                    return <Attendance></Attendance>
+              case '/dash/enterresult':
+                                      return <FinalResult></FinalResult>
+             
         
             default:
                 return <Main></Main>
