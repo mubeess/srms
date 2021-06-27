@@ -89,13 +89,13 @@ function SelectSubject(props) {
 
   useEffect(()=>{
    
-    fetch(`https://polar-brook-59807.herokuapp.com/teacher/teacher-subjects/?id=60d611651cf936001540a2a0`)
+    fetch(`https://polar-brook-59807.herokuapp.com/teacher/teacher-subjects/?id=60d899d14e2baa0015e1d86a`)
     .then(res=>{
       res.json()
       .then(data=>{
       console.log(data)
       setSubjects(data.subjects)
-      console.log(appProps)
+      console.log(data)
       // appProps.setStudentsResults()
       })
       
@@ -182,7 +182,7 @@ function SelectSubject(props) {
               }).then(res=>{
                 res.json()
                 .then(data=>{
-                console.log(data)
+                console.log(data,'rrrr')
                 appProps.setStudentsResults([data.students,{class:row.class,subject:row.subject[ind]}])
                 props.history.push('enterresult')
                 

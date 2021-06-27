@@ -103,12 +103,6 @@ margin-bottom: 10px;
           <ListItemText style={{color:'white'}} primary="Roles" />
         </ListItem>
        </Link>
-        <ListItem style={{borderBottom:'1px solid white'}} button>
-          <ListItemIcon>
-            <ArrowForward style={{color:'white'}} />
-          </ListItemIcon>
-          <ListItemText style={{color:'white'}} primary="Proceed" />
-        </ListItem>
         
         <ListItem onClick={()=>{
           props.open()
@@ -139,6 +133,14 @@ margin-bottom: 10px;
         </ListItem>
         </Link>
         
+        <Link to="/dash/proceed">
+        <ListItem style={{borderBottom:'1px solid white'}} button>
+          <ListItemIcon>
+            <ArrowForward style={{color:'white'}} />
+          </ListItemIcon>
+          <ListItemText style={{color:'white'}} primary="Academic Session Control" />
+        </ListItem>
+        </Link>
 
         </StyledAside>
     )
