@@ -1,4 +1,4 @@
-import { Divider,Typography } from '@material-ui/core';
+import { Button, Divider,Typography } from '@material-ui/core';
 import React from 'react'
 import styled from 'styled-components'
 import Avatar from '@material-ui/core/Avatar';
@@ -35,7 +35,7 @@ flex-direction: column;
 
 .instruction{
     min-width: 80%;
-    min-height: 200px;
+    min-height: 230px;
     border: 1px solid green;
     box-shadow: 0px 0px 3px rgba(0,0,0,0.5);
     display: flex;
@@ -107,11 +107,50 @@ export default function Proceed() {
       Read the instructions below carefully before performing any operation.
       </Typography>
      </div>
+
+     <Button style={{backgroundColor:'green', color:'white',height:'50px'}} variant='contained'>PROCEED TO NEXT TERM</Button>
    
       </div>
       
       
        </div>
+
+
+       <div className='instruction'>
+       <div className='warn'>
+      <Typography style={{fontWeight:'bold',color:'black',marginTop:'20px',marginLeft:'10px'}}  variant='h5'  gutterBottom>
+        Instructions:
+      </Typography>
+
+      <Typography style={{fontWeight:'bold',color:'black',marginTop:'20px',marginLeft:'10px'}}  variant='h5'  gutterBottom>
+      Before clicking the  Next Session button make sure all records including Fees, Results have been 
+entered successfuly
+      </Typography>
+      </div>
+
+
+      <div className='buttons'>
+      
+      <Checkbox
+       checked={checked}
+       onChange={handleChange}
+       inputProps={{ 'aria-label': 'primary checkbox' }}
+     />
+
+     <div className='write'>
+     <Typography style={{fontWeight:'lighter',marginTop:'10px'}}  variant='body1'  gutterBottom>
+      this page contains vital information that when altered it can't be retrieved back.
+      Read the instructions below carefully before performing any operation.
+      </Typography>
+     </div>
+
+     <Button style={{backgroundColor:'green', color:'white',height:'50px'}} variant='contained'>PROCEED TO NEXT SESSION</Button>
+   
+      </div>
+      
+      
+       </div>
+
 
      
     

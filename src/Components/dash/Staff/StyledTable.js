@@ -58,7 +58,9 @@ export default function StyledTable(props) {
                         const myObj={
                           key:'ca1',
                           id:props.row._id,
-                          value:parseInt(e.target.value)
+                          value:parseInt(e.target.value),
+                          currentClass:props.row.class,
+                          username:props.row.username
         
                         }
                         fetch('https://polar-brook-59807.herokuapp.com/teacher/insert-one-result',{
@@ -92,7 +94,9 @@ export default function StyledTable(props) {
                 const myObj={
                   key:'ca2',
                   id:props.row._id,
-                  value:parseInt(e.target.value)
+                  value:parseInt(e.target.value),
+                  currentClass:props.row.class,
+                  username:props.row.username
 
                 }
                 fetch('https://polar-brook-59807.herokuapp.com/teacher/insert-one-result',{
@@ -124,7 +128,9 @@ export default function StyledTable(props) {
                 const myObj={
                   key:'ca3',
                   id:props.row._id,
-                  value:parseInt(e.target.value)
+                  value:parseInt(e.target.value),
+                  currentClass:props.row.class,
+                  username:props.row.username
 
                 }
                 fetch('https://polar-brook-59807.herokuapp.com/teacher/insert-one-result',{
@@ -155,7 +161,9 @@ export default function StyledTable(props) {
                 const myObj={
                   key:'ca4',
                   id:props.row._id,
-                  value:parseInt(e.target.value)
+                  value:parseInt(e.target.value),
+                  currentClass:props.row.class,
+                  username:props.row.username
 
                 }
                 fetch('https://polar-brook-59807.herokuapp.com/teacher/insert-one-result',{
@@ -186,7 +194,9 @@ export default function StyledTable(props) {
                  const myObj={
                    key:'exam',
                    id:props.row._id,
-                   value:parseInt(e.target.value)
+                   value:parseInt(e.target.value),
+                   currentClass:props.row.class,
+                   username:props.row.username
  
                  }
                  fetch('https://polar-brook-59807.herokuapp.com/teacher/insert-one-result',{

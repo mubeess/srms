@@ -135,7 +135,9 @@ const useStyles = makeStyles({
         <Button onClick={()=>{
           props.history.push('attendance')
         }} style={{margin:'30px'}} color='default' variant='contained'>Attendance Sheet</Button>
-        <Button color='default' variant='contained'>Result Script</Button>
+        <Button onClick={()=>{
+          props.history.push('script')
+        }} color='default' variant='contained'>Result Script</Button>
         
         <Typography style={{marginLeft:'10px'}} variant="button" display="block" gutterBottom>
        {appProps.studentsResult.length>=1?appProps.studentsResult[1].class:'none'} || {appProps.studentsResult.length>=1?appProps.studentsResult[1].subject :'none'}

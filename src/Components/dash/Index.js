@@ -33,6 +33,7 @@ import Attendance from '../Dosier/Attendance'
 import SelectSubject from './Staff/SelectSubject'
 import FinalResult from './Staff/FinalResult'
 import Proceed from '../Proceed/Proceed'
+import StudentScript from '../Dosier/StudentScript'
 
 
 const StyledDraw=styled.div`
@@ -168,6 +169,8 @@ function Index(props) {
                                       return <FinalResult></FinalResult>
               case '/dash/proceed':
                                         return <Proceed></Proceed>
+              case '/dash/script':
+                                          return <StudentScript></StudentScript>
              
         
             default:

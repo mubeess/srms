@@ -122,14 +122,14 @@ flex-direction: column;
  function AddSubject(props) {
     const classes = useStyles();
     const theme = useTheme();
-    const [section,setSection]=useState('JSS')
+    const [section,setSection]=useState('None')
     const [studentClassess,setStudentClass]=useState([{className:'JSS1'}])
-    const [category,setCategory]=useState('Science')
+    const [category,setCategory]=useState('none')
     const [open, setOpen] = React.useState(false);
     const [open2, setOpen2] = React.useState(false);
     const [options,setOptions]=React.useState([{ value: 'Mathematics' }])
     const [selectedOptions,setSelected]=React.useState([''])
-    const [selectedClass,setSelectedClass]=useState('JSS1')
+    const [selectedClass,setSelectedClass]=useState('None')
 
 
 
@@ -252,6 +252,7 @@ flex-direction: column;
             id: 'outlined-age-native-simple',
           }}
         >
+           <option value='none'>None</option>
           <option value='Daycare'>Daycare</option>
           <option value='Playclass'>Playclass</option>
           <option value='Kindergartens'>Kindergartens</option>
@@ -277,8 +278,7 @@ flex-direction: column;
             id: 'outlined-age-native-simple',
           }}
         >
-          {/* <option value='Jss 1'>Jss 1</option>
-          <option value='Jss 2'>Jss 2</option> */}
+           <option value='none'>None</option>
           {
             studentClassess.map((student)=>(
               <option value={student.className}>{student.className}</option>
@@ -309,7 +309,8 @@ flex-direction: column;
             id: 'outlined-age-native-simple',
           }}
         >
-          <option value='Science'> Science</option>
+          <option value='none'>None</option>
+          <option value='Science'>Science</option>
           <option value='Arts'>Arts</option>
           <option value='Commercial'>Commercial</option>
         </Selects>

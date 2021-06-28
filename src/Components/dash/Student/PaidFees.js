@@ -67,7 +67,7 @@ export default function ViewStaff() {
   // const [filtered,setFiltered]=useState('')
   const [searchVal,setSearchVal]=useState('')
   
-  const filtered= allPaid.length==0?allPaid:allPaid.filter(dat=>dat.studentName.toLowerCase().includes(searchVal.toLowerCase())||dat.studentId.toLowerCase().includes(searchVal.toLowerCase())||dat.term.toLowerCase().includes(searchVal.toLowerCase())||dat.teller.toLowerCase().includes(searchVal.toLowerCase())||dat.className.toLowerCase().includes(searchVal.toLowerCase()))
+  const filtered= allPaid.length==0?allPaid:allPaid.filter(dat=>dat.studentId.toLowerCase().includes(searchVal.toLowerCase())||dat.term.toLowerCase().includes(searchVal.toLowerCase())||dat.teller.toLowerCase().includes(searchVal.toLowerCase())||dat.className.toLowerCase().includes(searchVal.toLowerCase()))
 
   useEffect(()=>{
     fetch(`https://polar-brook-59807.herokuapp.com/admin/get-all-paid-student`)
@@ -133,24 +133,24 @@ export default function ViewStaff() {
         </TableHead>
         <TableBody>
           {
-          allPaid.length>=1&&(
-            filtered.map((row,ind) => (
-              <StyledTableRow key={ind}>
-                <StyledTableCell component="th" scope="row">
-                  {ind+1}
-                </StyledTableCell>
-                <StyledTableCell align="right">{row.studentId}</StyledTableCell>
-                <StyledTableCell align="right">{row.studentName}</StyledTableCell>
-                <StyledTableCell align="right">{row.term}</StyledTableCell>
-                <StyledTableCell align="right">{row.className}</StyledTableCell>
-                <StyledTableCell align="right">{row.teller}</StyledTableCell>
-                <StyledTableCell align="right">{row.purposeOfPayment.map(pup=>(`${pup+" || "}`))}</StyledTableCell>
-                <StyledTableCell align="right">
-               <Button style={{backgroundColor:green[400],color:'white'}} variant='outlined'>Reciept</Button>
-                </StyledTableCell>
-              </StyledTableRow>
-            ))
-          )
+          // allPaid.length>=1&&(
+          //   filtered.map((row,ind) => (
+          //     <StyledTableRow key={ind}>
+          //       <StyledTableCell component="th" scope="row">
+          //         {ind+1}
+          //       </StyledTableCell>
+          //       <StyledTableCell align="right">{row.studentId}</StyledTableCell>
+          //       <StyledTableCell align="right">{row.studentName}</StyledTableCell>
+          //       <StyledTableCell align="right">{row.term}</StyledTableCell>
+          //       <StyledTableCell align="right">{row.className}</StyledTableCell>
+          //       <StyledTableCell align="right">{row.teller}</StyledTableCell>
+          //       <StyledTableCell align="right">{row.pays.map(pup=>(`${pup+" || "}`))}</StyledTableCell>
+          //       <StyledTableCell align="right">
+          //      <Button style={{backgroundColor:green[400],color:'white'}} variant='outlined'>Reciept</Button>
+          //       </StyledTableCell>
+          //     </StyledTableRow>
+          //   ))
+          // )
           
           }
         </TableBody>
@@ -161,3 +161,7 @@ export default function ViewStaff() {
       </StyledView>
     )
 }
+
+
+
+// dat.studentName.toLowerCase().includes(searchVal.toLowerCase())||

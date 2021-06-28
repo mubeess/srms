@@ -325,7 +325,6 @@ export default function AddStudent() {
             gender,
             section,
             currentClass:classs,
-            term,
             category,
             firstName:students.firstName,
             username:students.studentId,
@@ -336,7 +335,8 @@ export default function AddStudent() {
             kinName:students.kinName,
             kinAddress:students.kinAddress,
             kinRelation:students.kinRelation,
-            kinNumber:students.kinNumber
+            kinNumber:students.kinNumber,
+            country:'Nigeria'
           }
           console.log(selectedStudent)
           fetch('https://polar-brook-59807.herokuapp.com/admin/register-student',{
@@ -348,6 +348,7 @@ export default function AddStudent() {
           }).then(res=>{
             res.json()
             .then(data=>{
+              console.log(data)
               if (data.success) {
                 handleClose()
               notification.open({
@@ -370,6 +371,7 @@ export default function AddStudent() {
           handleClose()
               }
             }).catch(err=>{
+              console.log(err)
               notification.open({
                 message: 'An Error Occured',
                 description:'Error',
@@ -381,6 +383,7 @@ export default function AddStudent() {
         handleClose()
             })
           }).catch(err=>{
+            console.log(err)
             notification.open({
               message: 'An Error Occured',
               description:'Error',
