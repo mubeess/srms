@@ -19,6 +19,11 @@ import Pagination from '@material-ui/lab/Pagination';
 import AppContext from '../../../Context/app/appContext'
 import { withRouter } from 'react-router-dom';
 
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+
 
 
 
@@ -84,6 +89,9 @@ const useStyles = makeStyles({
 });
 function SelectSubject(props) {
   const [subjects,setSubjects]=useState([])
+  const [classs,setClass]=useState([])
+  const [classValue,setClassValue]=useState('None')
+  const [classToConsider,setConsider]=useState([])
   const classes = useStyles();
   const appProps=useContext(AppContext)
 
@@ -95,7 +103,16 @@ function SelectSubject(props) {
       .then(data=>{
       console.log(data)
       setSubjects(data.subjects)
-      console.log(data)
+      const newClasses=data.subjects.map((row,ind)=>{
+        const newCl=[]
+        newCl.push(row.class)
+        return newCl.toString()
+      })
+      const filteredClass=data.subjects[0]
+      setClass(newClasses)
+      setClassValue(newClasses[0])
+      console.log(filteredClass)
+      setConsider([filteredClass])
       // appProps.setStudentsResults()
       })
       
@@ -113,8 +130,40 @@ function SelectSubject(props) {
       </Typography>
           <Divider></Divider>
           <div className='header'>
+
+
+
+    <FormControl style={{marginLeft:'auto',width:'40%',marginRight:'10px',marginTop:'5px'}} variant="outlined">
+        <InputLabel htmlFor="outlined-age-native-simple">Select Class</InputLabel>
+        <Select
+          onChange={(e)=>{
+            const filteredArray=subjects.filter(dat=>dat.class==e.target.value)
+            setClassValue(e.target.value)
+            console.log(filteredArray)
+            setConsider(filteredArray)
+            // setClassValue(e.target.value)
+          }}
+          native
+          value={classValue}
+          label="Select Class"
+          inputProps={{
+            name: 'class',
+            id: 'outlined-age-native-simple',
+          }}
+        >
+           
+        {
+          classs.length>=1&&(
+             classs.map((cls,ind)=>(
+              <option key={ind} value={cls}>{cls}</option>
+             ))
+         
+          )
+        }
+        </Select>
+      </FormControl>
           
-<TextField
+{/* <TextField
         color='#FFC305'
         style={{marginLeft:'auto',width:'40%',marginRight:'10px',marginTop:'5px'}}
         id="input-with-icon-adornment"
@@ -127,7 +176,7 @@ function SelectSubject(props) {
             </InputAdornment>
           ),
         }}
-      />
+      /> */}
           </div>
           <TableContainer style={{marginTop:'20px'}} component={Paper}>
       <Table className={classes.table} aria-label="customized table">
@@ -138,20 +187,124 @@ function SelectSubject(props) {
             <StyledTableCell align="right">CATEGORY</StyledTableCell>
             <StyledTableCell align="right">CLASS</StyledTableCell>
             <StyledTableCell align="right">ACTIONS</StyledTableCell>
+            {console.log(classToConsider)}
           </TableRow>
         </TableHead>
         <TableBody>
           {
-          subjects.length>=1&&(
-            subjects.map((row,ind) => (
-              <StyledTableRow key={ind}>
-                <StyledTableCell component="th" scope="row">
-                  {ind+1}
-                </StyledTableCell>
-                <StyledTableCell align="right">{row.subject[ind]}</StyledTableCell>
+            classToConsider.length>=1&&(
+              classToConsider[0].subject.map((row,ind)=>(
+                <StyledTableRow key={ind}>
+                     <StyledTableCell component="th" scope="row">
+                         {ind+1}
+                     </StyledTableCell>
+                          <StyledTableCell align="right">{row}</StyledTableCell>
+                          <StyledTableCell align="right">{classToConsider[0].category}</StyledTableCell>
+                          <StyledTableCell align="right">{classToConsider[0].class}</StyledTableCell>
+      
+                    <StyledTableCell align="right">
+                    <IconButton style={{backgroundColor:gray[500]}} onClick={()=>{
+
+    const myObj={
+      class:classToConsider[0].class,
+      subject:row,
+      category:classToConsider[0].category.toLowerCase()
+    }
+    console.log(myObj)
+     fetch('https://polar-brook-59807.herokuapp.com/teacher/fetch-students-result',{
+      method:'POST',
+      headers:{
+        "Content-Type":'application/json'
+      },
+      body:JSON.stringify(myObj)
+    }).then(res=>{
+      res.json()
+      .then(data=>{
+      console.log(data,'rrrr')
+      appProps.setStudentsResults([data.students,{class:classToConsider[0].class,subject:row}])
+      props.history.push('enterresult')
+      
+      })
+     
+    })
+            // props.handleNext()
+        }} color="primary" aria-label="upload picture" component="span">
+ <Edit></Edit>
+</IconButton>
+       </StyledTableCell>
+       </StyledTableRow> 
+
+              ))
+            )
+          }
+
+
+          {
+          // subjects.length>=1&&(
+          //   subjects.map((row,ind) => (
+          //     <StyledTableRow key={ind}>
+          //       <StyledTableCell component="th" scope="row">
+          //         {ind+1}
+          //       </StyledTableCell>
+
+          //       {
+          //         row.subject.map((srow,ind)=>(
+          //           <>
+          //           <StyledTableCell key={ind} align="right">{srow}</StyledTableCell>
+          //           <StyledTableCell align="right">{row.subject}</StyledTableCell>
+          //           <StyledTableCell align="right">{row.category}</StyledTableCell>
+          //           <StyledTableCell align="right">{row.class}</StyledTableCell>
+
+          //           <StyledTableCell align="right">
+          //       {/* <Button
+          //         variant="contained"
+          //         color="primary"
+          //         onClick={()=>{
+          //             props.handleNext()
+          //         }}
+          //         className={classes.button}
+          //       >
+          //        Enter Results
+          //       </Button> */}
+          //       {/* <Edit onClick={()=>{
+          //             props.handleNext()
+          //         }}></Edit> */}
+          // <IconButton style={{backgroundColor:gray[500]}} onClick={()=>{
+
+          //     const myObj={
+          //       class:row.class,
+          //       subject:row.subject[ind],
+          //       category:row.category.toLowerCase()
+          //     }
+          //     console.log(myObj)
+          //      fetch('https://polar-brook-59807.herokuapp.com/teacher/fetch-students-result',{
+          //       method:'POST',
+          //       headers:{
+          //         "Content-Type":'application/json'
+          //       },
+          //       body:JSON.stringify(myObj)
+          //     }).then(res=>{
+          //       res.json()
+          //       .then(data=>{
+          //       console.log(data,'rrrr')
+          //       appProps.setStudentsResults([data.students,{class:row.class,subject:row.subject[ind]}])
+          //       props.history.push('enterresult')
+                
+          //       })
+               
+          //     })
+          //             // props.handleNext()
+          //         }} color="primary" aria-label="upload picture" component="span">
+          //  <Edit></Edit>
+          // </IconButton>
+          //        </StyledTableCell>
+          //           </>
+          //         ))
+                }
+                {/* <StyledTableCell align="right">{row.subject[ind]}</StyledTableCell>
                 <StyledTableCell align="right">{row.category}</StyledTableCell>
-                <StyledTableCell align="right">{row.class}</StyledTableCell>
-                <StyledTableCell align="right">
+                <StyledTableCell align="right">{row.class}</StyledTableCell> */}
+                {/* <StyledTableCell align="right"> */}
                 {/* <Button
                   variant="contained"
                   color="primary"
@@ -165,7 +318,7 @@ function SelectSubject(props) {
                 {/* <Edit onClick={()=>{
                       props.handleNext()
                   }}></Edit> */}
-          <IconButton style={{backgroundColor:gray[500]}} onClick={()=>{
+          {/* <IconButton style={{backgroundColor:gray[500]}} onClick={()=>{
 
               const myObj={
                 class:row.class,
@@ -193,12 +346,10 @@ function SelectSubject(props) {
                   }} color="primary" aria-label="upload picture" component="span">
            <Edit></Edit>
           </IconButton>
-                 </StyledTableCell>
-              </StyledTableRow>
-            ))
-            
-          )
-         }
+                 </StyledTableCell> */}
+              {/* </StyledTableRow> */}
+         
+         
         </TableBody>
       </Table>
     </TableContainer>
