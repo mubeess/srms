@@ -13,7 +13,7 @@ SET_ATTENDANCE
 
 export default function AppState(props){
     const initState={
-        user:{},
+        user:{role:[]},
         loading:false,
         records:[],
         isLogged:false,

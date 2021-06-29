@@ -97,7 +97,7 @@ function SelectSubject(props) {
 
   useEffect(()=>{
    
-    fetch(`https://polar-brook-59807.herokuapp.com/teacher/teacher-subjects/?id=60d98faead53700015bc41ac`)
+    fetch(`https://polar-brook-59807.herokuapp.com/teacher/teacher-subjects/?id=60db3cc29a15fc0015a1a59c`)
     .then(res=>{
       res.json()
       .then(data=>{
@@ -108,11 +108,20 @@ function SelectSubject(props) {
         newCl.push(row.class)
         return newCl.toString()
       })
-      const filteredClass=data.subjects[0]
-      setClass(newClasses)
-      setClassValue(newClasses[0])
-      console.log(filteredClass)
-      setConsider([filteredClass])
+      if (data.subjects.length>=1) {
+        const filteredClass=data.subjects[0]
+        console.log(filteredClass)
+        setClass(newClasses)
+        setClassValue(newClasses[0])
+        console.log(filteredClass)
+        setConsider([filteredClass])
+      }
+      // const filteredClass=data.subjects[0]
+      // console.log(filteredClass)
+      // setClass(newClasses)
+      // setClassValue(newClasses[0])
+      // console.log(filteredClass)
+      // setConsider([filteredClass])
       // appProps.setStudentsResults()
       })
       
@@ -208,7 +217,7 @@ function SelectSubject(props) {
     const myObj={
       class:classToConsider[0].class,
       subject:row,
-      category:classToConsider[0].category.toLowerCase()
+      category:classToConsider[0].category
     }
     console.log(myObj)
      fetch('https://polar-brook-59807.herokuapp.com/teacher/fetch-students-result',{

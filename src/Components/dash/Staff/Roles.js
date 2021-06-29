@@ -219,6 +219,7 @@ export default function Roles() {
         >
           <option value='JSS1'>JSS1</option>
           <option value='JSS2'>JSS2</option>
+          <option value='SSS1'>SSS1</option>
         </Select>
       </FormControl>
 

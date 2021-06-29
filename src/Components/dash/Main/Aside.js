@@ -29,11 +29,12 @@ margin-bottom: 10px;
    },[])
    const arr=[]
    const isTeacher=appProps.user.role.includes('Teacher')
-   console.log(isTeacher)
+   const isBursar=appProps.user.role.includes('Bursar')
+   console.log(isBursar)
     return (
         <StyledAside>
        {
-         !isTeacher?(
+         !isTeacher && !isBursar?(
           <Link to="/dash/main">
           <ListItem style={{borderBottom:'1px solid white'}} button>
             <ListItemIcon>
@@ -56,7 +57,7 @@ margin-bottom: 10px;
         </Link>
 
        {
-         !isTeacher?(
+         !isTeacher && !isBursar?(
           <Link to="/dash/subject">
         <ListItem style={{borderBottom:'1px solid white'}} button>
           <ListItemIcon>
@@ -70,7 +71,7 @@ margin-bottom: 10px;
         
 
        {
-         !isTeacher?(
+         !isTeacher && !isBursar?(
           <Link to="/dash/staff">
           <ListItem style={{borderBottom:'1px solid white'}} button>
             <ListItemIcon>
@@ -95,18 +96,22 @@ margin-bottom: 10px;
   
          ):null
        }
+       {
+         !isBursar?(
+          <Link to="/dash/result">
+          <ListItem style={{borderBottom:'1px solid white'}} button>
+            <ListItemIcon>
+              <FileCopy style={{color:'white'}} />
+            </ListItemIcon>
+            <ListItemText style={{color:'white'}} primary="Enter Results" />
+          </ListItem>
+          </Link>
+         ):null
+       }
        
-       <Link to="/dash/result">
-        <ListItem style={{borderBottom:'1px solid white'}} button>
-          <ListItemIcon>
-            <FileCopy style={{color:'white'}} />
-          </ListItemIcon>
-          <ListItemText style={{color:'white'}} primary="Enter Results" />
-        </ListItem>
-        </Link>
 
         {
-          !isTeacher?(
+          !isTeacher && !isBursar?(
             <ListItem style={{borderBottom:'1px solid white'}} button>
             <ListItemIcon>
               <ViewAgenda style={{color:'white'}} />
@@ -116,11 +121,9 @@ margin-bottom: 10px;
           ):null
         }
 
-       
-        {
-          !isTeacher?(
-            <>
-               <Link to="/dash/fees">
+         {
+           !isTeacher?(
+            <Link to="/dash/fees">
         <ListItem style={{borderBottom:'1px solid white'}} button>
           <ListItemIcon>
             <Receipt style={{color:'white'}} />
@@ -128,25 +131,42 @@ margin-bottom: 10px;
           <ListItemText style={{color:'white'}} primary="Fees Verification" />
         </ListItem>
         </Link>
+           ):null
+         }
 
-        <Link to="/dash/roles">
-        <ListItem style={{borderBottom:'1px solid white'}} button>
-          <ListItemIcon>
-            <Work style={{color:'white'}} />
-          </ListItemIcon>
-          <ListItemText style={{color:'white'}} primary="Roles" />
-        </ListItem>
-       </Link>
-        
-        <ListItem onClick={()=>{
-          props.open()
-        }} style={{borderBottom:'1px solid white'}} button>
-          <ListItemIcon>
-            <HouseRounded style={{color:'white'}} />
-          </ListItemIcon>
-          <ListItemText style={{color:'white'}} primary="Class" />
-        </ListItem>
 
+
+{
+           !isTeacher && !isBursar?(
+            <Link to="/dash/roles">
+            <ListItem style={{borderBottom:'1px solid white'}} button>
+              <ListItemIcon>
+                <Work style={{color:'white'}} />
+              </ListItemIcon>
+              <ListItemText style={{color:'white'}} primary="Roles" />
+            </ListItem>
+           </Link>
+           ):null
+         }
+
+
+
+{
+           !isTeacher && !isBursar?(
+            <ListItem onClick={()=>{
+              props.open()
+            }} style={{borderBottom:'1px solid white'}} button>
+              <ListItemIcon>
+                <HouseRounded style={{color:'white'}} />
+              </ListItemIcon>
+              <ListItemText style={{color:'white'}} primary="Class" />
+            </ListItem>
+           ):null
+         }
+
+        {
+          !isTeacher && !isBursar?(
+  
         <Link to="/dash/cognitive">
         <ListItem  style={{borderBottom:'1px solid white'}} button>
           <ListItemIcon>
@@ -155,13 +175,13 @@ margin-bottom: 10px;
           <ListItemText style={{color:'white'}} primary="Cognitive Domain" />
         </ListItem>
         </Link>
-            </>
+      
           ):null
         }
     
       
-
-
+    {
+      !isBursar?(
         <Link to="/dash/assignment">
         <ListItem  style={{borderBottom:'1px solid white'}} button>
           <ListItemIcon>
@@ -170,9 +190,13 @@ margin-bottom: 10px;
           <ListItemText style={{color:'white'}} primary="Post Assignment"/>
         </ListItem>
         </Link>
+      ):null
+    }
+
+       
 
         {
-        !isTeacher?(
+        !isTeacher && !isBursar?(
           <Link to="/dash/proceed">
           <ListItem style={{borderBottom:'1px solid white'}} button>
             <ListItemIcon>

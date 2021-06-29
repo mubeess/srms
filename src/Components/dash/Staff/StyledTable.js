@@ -199,6 +199,7 @@ export default function StyledTable(props) {
                    username:props.row.username
  
                  }
+                 console.log(myObj)
                  fetch('https://polar-brook-59807.herokuapp.com/teacher/insert-one-result',{
                  method:'POST',
                  headers:{

@@ -207,11 +207,11 @@ export default function Login(props) {
         },
         type:'error'
       });
-     const role=['Teacher','Bursar']
+     const role=['Bursar']
       appProps.setIslogged()
-      appProps.setUser({role:['Teacher','Bursar'],name:'Mubarak Ibrahim'})
-      const isTeacher=role.includes('Teacher')
-      const urlToPush=isTeacher?'dash/result':'dash/main'
+      // appProps.setUser({role:['Bursar'],name:'Mubarak Ibrahim'})
+      const isAdmin=true
+      const urlToPush=isAdmin?'dash/main':'dash/profile'
       props.history.push(urlToPush)
      }
      
