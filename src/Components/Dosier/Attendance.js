@@ -27,7 +27,7 @@ export default function Attendance() {
     return (
         <StyledAttendance>
             <Button style={{margin:'10px'}} variant='contained' onClick={handlePrint} color='primary'>Print</Button>
-    <div ref={componentRef}  id="container">
+    <div ref={componentRef} className="page-break"  id="container">
         <center> <div className="header">
              <img src={Logo} style={{textAlign:'center'}}/><br></br>
              <span className="school-name">NOBLE INTELLECT ACADEMY</span><br></br>

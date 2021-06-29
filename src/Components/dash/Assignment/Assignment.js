@@ -149,12 +149,16 @@ const propsss = {
     const theme = useTheme();
     const [section,setSection]=useState('JSS')
     const [studentClassess,setStudentClass]=useState([{className:'JSS1'}])
-    const [category,setCategory]=useState('Science')
+    const [category,setCategory]=useState('none')
+    const [subject,setSubject]=useState('none')
     const [open, setOpen] = React.useState(false);
     const [open2, setOpen2] = React.useState(false);
     const [options,setOptions]=React.useState([{ value: 'Mathematics' }])
     const [selectedOptions,setSelected]=React.useState([''])
-    const [selectedClass,setSelectedClass]=useState('JSS1')
+    const [selectedClass,setSelectedClass]=useState('none')
+    const [title,setTitile]=useState('')
+    const [msgBody,setMsgBody]=useState('')
+    const [id,setId]=useState('')
 
 
 
@@ -201,11 +205,11 @@ const propsss = {
      })
     },[])
 
-    const [subject, setSubject] = React.useState({
-      session:'',
-      category:'',
-      class:''
-    });
+    // const [subject, setSubject] = React.useState({
+    //   session:'',
+    //   category:'',
+    //   class:''
+    // });
 
     const handleOpen = () => {
       setOpen(true);
@@ -347,11 +351,11 @@ const propsss = {
         <InputLabel htmlFor="outlined-age-native-simple">SELECT SUBJECT</InputLabel>
         <Selects
          onChange={(e)=>{
-          setCategory(e.target.value)
+          setSubject(e.target.value)
           console.log(e.target.value)
          }}
           native
-          value='Science'
+          value={subject}
           label="SELECT SUBJECT"
           inputProps={{
             name:'subject',
@@ -375,45 +379,92 @@ const propsss = {
 
 
             <div className='selection'> 
-            <TextField style={{width:'80%'}}  name='title' id="outlined-basic" label="Please Input Assignment Title Here...." variant="outlined" />
+            <TextField value={title} onChange={(e)=>{
+              setTitile(e.target.value)
+            }} style={{width:'80%'}}  name='title' id="outlined-basic" label="Please Input Assignment Title Here...." variant="outlined" />
             </div>
             <div className='selection'> 
-            <TextareaAutosize style={{width:'80%'}}  aria-label="minimum height" rowsMin={3} placeholder="Other Info If Necessary" />
+            <TextareaAutosize value={msgBody} onChange={(e)=>{
+              setMsgBody(e.target.value)
+            }} style={{width:'80%'}}  aria-label="minimum height" rowsMin={3} placeholder="Other Info If Necessary" />
              </div>
 <div className='selection'> 
-    <Upload {...propsss}>
+    <Upload 
+    action='https://polar-brook-59807.herokuapp.com/teacher/create-assignment-file'
+    name='file'
+    method='POST'
+   
+
+    beforeUpload={(file)=>{
+      console.log(file.type)
+      if (file.type !== 'application/pdf') {
+          message.error(`${file.name} is not a pdf file`);
+        }
+        return file.type === 'application/pdf' ? true : Upload.LIST_IGNORE;
+      
+    }}
+    onChange={(info)=>{
+      if (info.file.status !== 'uploading') {
+        console.log('rrr');
+      }
+      if (info.file.status === 'done') {
+        const idd=info.file.response.message.insertedId
+        message.success(`${info.file.name} file uploaded successfully`);
+        setId(idd)
+        
+      } else if (info.file.status === 'error') {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    }}
+   
+    >
     <Button icon={<UploadOutlined />}>Upload A Pdf Format Of Your Assignment</Button>
   </Upload>
 </div>
        <Buttons onClick={()=>{
-        // setOpen(true)
+
+
+const myObj={
+  id,
+  username:'mubis',
+  staffId:'mubis',
+  className:selectedClass,
+  category,
+  head:title,
+  text:msgBody
+}
+
+
         setOpen2(true)
-        const myObj={
-          section,
-          category,
-          name:selectedClass,
-          subject:selectedOptions
-        }
-        fetch('https://polar-brook-59807.herokuapp.com/admin/add-curriculum',{
-          method:'POST',
+        // setOpen2(true)
+        // const myObj={
+        //   section,
+        //   category,
+        //   name:selectedClass,
+        //   subject:selectedOptions,
+        //   title,
+        //   msgBody
+        // }
+        console.log(myObj)
+        fetch('https://polar-brook-59807.herokuapp.com/teacher/create-assignment-text',{
+          method:'PUT',
           headers:{
             "Content-Type":'application/json'
           },
           body:JSON.stringify(myObj)
-        }).then(res=>{
+        })
+        .then(res=>{
           res.json()
           .then(data=>{
             setOpen2(false)
-            setOpen(true)
-            setTimeout(() => {
-              setOpen(false) 
-            }, 3000);
-            console.log(data)
-          }).catch(err=>{
-            alert('An Error Occured')
+            if (data.success) {
+              message.success('Assignment Added Succesful')
+              setTitile('')
+              setMsgBody('')
+            }else{
+              message.error('Unable To Add Assignment')
+            }
           })
-        }).catch(err=>{
-          alert('An Error Occured')
         })
 
        }} style={{marginLeft:'70%',marginTop:'20px',marginRight:'40px',backgroundColor:'#1E7F95'}} variant="contained" color='primary'>Post Assignment</Buttons>

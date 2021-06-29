@@ -14,8 +14,12 @@ import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button'
 import Success from './success2.gif'
 import {withRouter,Link} from 'react-router-dom'
-import { Select, Tag } from 'antd';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import Popover from '@material-ui/core/Popover';
+import { Select, Tag,message } from 'antd';
 import AppContext from '../../../Context/app/appContext'
+
 
 
 const StyledMod=styled.div`
@@ -85,6 +89,19 @@ const useStyles = makeStyles((theme) => ({
   }));
 
  function Verify(props) {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClosee = () => {
+    setAnchorEl(null);
+  };
+
+  const openn = Boolean(anchorEl);
+  const id = openn ? 'simple-popover' : undefined;
+
     const classes = useStyles();
     const [options,setOptions]=React.useState([{ value: 'Tuition Fee' }])
     const [open, setOpen] = React.useState(false);
@@ -96,6 +113,7 @@ const useStyles = makeStyles((theme) => ({
     const [section,setSection]=useState('SSS')
     const [selectedOptions,setSelected]=React.useState([''])
     const [allStudent,setAllStudent]=useState([])
+    const [purpose,setPurpose]=useState('')
     const [mainStudent,setMain]=useState({class:'None',name:'None'})
     const appProps=useContext(AppContext)
     
@@ -456,6 +474,66 @@ const useStyles = makeStyles((theme) => ({
          </StyledMod> 
         </Fade>
       </Modal>
+
+
+
+      <Popover
+        id={id}
+        open={openn}
+        anchorEl={anchorEl}
+        onClose={handleClosee}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+       
+      >
+      
+      <TextField onChange={(e)=>{
+        setPurpose(e.target.value)
+      }} style={{height:'100px',margin:'30px'}} name='kinRelation' id="outlined-basic" label="Purpose Of Payment" variant="outlined" />
+      <Button onClick={()=>{
+        const payments=[]
+        const myObj={
+          paymentTypes:purpose
+        }
+        fetch('https://polar-brook-59807.herokuapp.com/admin/add-payment',{
+          method:'POST',
+          headers:{
+            "Content-Type":'application/json'
+          },
+          body:JSON.stringify(myObj)
+        })
+        .then(res=>{
+          res.json()
+          .then(data=>{
+            console.log(data)
+            fetch('https://polar-brook-59807.herokuapp.com/admin/get-payment-type')
+            .then(res=>{
+              res.json()
+              .then(data=>{
+                  data.message.map(dat=>{
+                    let mappDat={value:dat.paymentTypes}
+                    payments.push({value:dat.paymentTypes})
+                    setOptions(payments)
+                    message.success('Purpose Added Succesfully')
+                  })
+               
+              })
+            })
+          })
+        })
+        console.log(purpose)
+      }} style={{marginTop:'35px'}} color='primary' variant='contained'>Add Purpose</Button>
+      </Popover>
+      <Fab onClick={handleClick}  aria-describedby={id}  color="primary" aria-label="add">
+        <AddIcon />
+      </Fab>
+    
         </StyledFees>
     )
 }
