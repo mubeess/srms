@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useContext} from 'react'
 import styled from 'styled-components'
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -28,7 +28,9 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { CircularProgress } from '@material-ui/core';
+import AppContext from '../../../Context/app/appContext'
 import {Alert} from 'antd'
+import { withRouter } from 'react-router';
 
 const StyledRole=styled.div`
        background:#f9f9f9;
@@ -178,8 +180,22 @@ const StyledTableCell = withStyles((theme) => ({
 
 
 
-export default function ViewResult() {
+const StyledTableRow = withStyles((theme) => ({
+  root: {
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    },
+  },
+}))(TableRow);
+
+
+
+
+
+
+ function ViewResult(props) {
   const [open, setOpen] = React.useState(false);
+  const appProps=useContext(AppContext)
   const handleClose = () => {
     setOpen(false);
   };
@@ -239,26 +255,16 @@ export default function ViewResult() {
         <Select
          onChange={(e)=>{
           setSession(e.target.value)
-         
-          fetch(`https://polar-brook-59807.herokuapp.com/admin/get-all-classes/?section=${e.target.value}`)
-          .then(res=>{
-            res.json()
-            .then(data=>{
-             console.log(data)
-             setAllClass(data.message)
-            
-            })
-          })
-          
          }}
           native
-          value={section}
+          value={session}
           label="Select Session"
           inputProps={{
             name:'session',
             id: 'outlined-age-native-simple',
           }}
         >
+            <option value='---None---'>---None---</option>
           <option value='2019/2020'>2019/2020</option>
           <option value='2020/2021'>2020/2021</option>
         </Select>
@@ -272,7 +278,7 @@ export default function ViewResult() {
           setTerm(e.target.value)
         }}
           native
-          value={classs}
+          value={term}
           label="Select Term"
           inputProps={{
             name:'term',
@@ -280,9 +286,9 @@ export default function ViewResult() {
           }}
         >
           <option value='None'>None</option>
-          <option value='1st Term'>1st Term</option>
-          <option value='2nd Term'>2nd Term</option>
-          <option value='3rd Term'>3rd Term</option>
+          <option value='1'>1st Term</option>
+          <option value='2'>2nd Term</option>
+          <option value='3'>3rd Term</option>
           
         </Select>
       </FormControl>
@@ -394,21 +400,29 @@ export default function ViewResult() {
           
           <div className='personal'>
           <Button onClick={()=>{
-            fetch(`https://polar-brook-59807.herokuapp.com/admin/get-all-student-according-to-class-category/?currentClass=${classs}&&category=${category}`)
+            handleToggle()
+            fetch(`https://polar-brook-59807.herokuapp.com/admin/get-a-class-result/?className=${classs}&&category=${category}&&term=${term}&&session=${session}`)
                 .then(res=>{
                   res.json()
                   .then(data=>{
-                    setAllStudents(data.students)
-                   console.log(data)
-                   fetch(`https://polar-brook-59807.herokuapp.com/admin/get-all-cognitive-item/`)
-                   .then(res=>{
-                     res.json()
-                     .then(data=>{
-                      setCognitive(data.result)
-                       console.log(data)
-                     })
-                   })
+                  if (data.success) {
+                    appProps.setDosier(data.message)
+                    props.history.push('dosier')
+                    console.log(data)
+                    handleClose()
+                  }else{
+                    handleClose()
+                    alert('Error Occured While Fetching Students')
+                  }
+                                   
+                  }).catch(err=>{
+                    handleClose()
+                    alert('Error Occured While Fetching Students')
                   })
+                })
+                .catch(err=>{
+                  handleClose()
+                  alert('Error Occured While Fetching Students')
                 })
      
           }} style={{marginLeft:'70%',marginTop:'10px'}}  variant="contained" color='primary'>View Students</Button>
@@ -441,37 +455,37 @@ export default function ViewResult() {
         <TableHead >
           <TableRow style={{backgroundColor:gray[500]}} >
             <StyledTableCell>S/N</StyledTableCell>
-            <StyledTableCell style={{width:'20%'}}  align="center">STUDENT ID</StyledTableCell>
-            <StyledTableCell style={{width:'20%'}}  align="center">NAME</StyledTableCell>
-              {
-                cognitiveValue.length>=1&&(
-                cognitiveValue.map((cog,ind)=>(
-                  <StyledTableCell key={ind} align="center">{cog.name}</StyledTableCell>
-                )))
-              }
-            <StyledTableCell style={{width:'20%'}} align="center">Remarks</StyledTableCell>
+            <StyledTableCell  align="center">STUDENT ID</StyledTableCell>
+            <StyledTableCell align="center">NAME</StyledTableCell>
+            <StyledTableCell  align="center">POSITION</StyledTableCell>
+            <StyledTableCell  align="center">Actions</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
+         {
+           appProps.dosier.length>=1&&(
+            appProps.dosier.map((student,ind)=>(
+              <StyledTableRow key={ind}>
+                     <StyledTableCell component="th" scope="row">
+                         {ind+1}
+                     </StyledTableCell>
+                          <StyledTableCell align="right">{student[0].username}</StyledTableCell>
+                          <StyledTableCell align="right">{`${student[2][0].firstName+' '+student[2][0].lastName}`}</StyledTableCell>
+                          <StyledTableCell align="right">{student[0].position}</StyledTableCell>
+                          <StyledTableCell align="right">
+                            <Button onClick={()=>{
+                          console.log('clicked')
+                             
+                            }} style={{backgroundColor:'green',color:'white'}} variant='contained'>Print Result</Button>
+                          </StyledTableCell>
+                </StyledTableRow>
+              ))
 
-          {
-        //     allStudents.length>=1&&(
-        //       allStudents.map((row,ind)=>(
-        //         <StylesTable key={ind} row={row} ind={ind}></StylesTable>
-        //       ))
-        //     )
-          }
-          {
-          // props.students.students.length>=1&&(
-          
-          //   props.students.students.map((row,ind) => (
-          //  <StylesTable key={ind} row={row} ind={ind}></StylesTable>
+           )
            
-          //   ))
-
-
-          // )
-          }
+         }
+       
+          
         </TableBody>
       </Table>
     </TableContainer>
@@ -483,7 +497,7 @@ export default function ViewResult() {
                   variant="contained"
                   style={{margin:'20px'}}
                   onClick={()=>{
-                    window.location.reload()
+                    props.history.push('veiwresult')
                   }}
                 >
                   Save and Continue
@@ -513,3 +527,5 @@ export default function ViewResult() {
         </StyledRole>
     )
 }
+
+export default withRouter(ViewResult)

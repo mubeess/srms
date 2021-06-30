@@ -7,7 +7,8 @@ SET_ISLOGED,
 SET_USER,
 SET_STUDENT_RESULT,
 SET_RECIEPT,
-SET_ATTENDANCE
+SET_ATTENDANCE,
+SET_DOSIER
 } from '../types'
 
 
@@ -19,7 +20,8 @@ export default function AppState(props){
         isLogged:false,
         reciept:[],
         studentsResult:[],
-        attendance:[]
+        attendance:[],
+        dosier:[]
      
         
     }
@@ -31,6 +33,7 @@ const setUser=(user)=>dispatch({type:SET_USER,payload:user})
 const setStudentsResults=(results)=>dispatch({type:SET_STUDENT_RESULT,payload:results})
 const setReCiept=(student)=>dispatch({type:SET_RECIEPT,payload:student})
 const setAttendance=(students)=>dispatch({type:SET_ATTENDANCE,payload:students})
+const setDosier=(dosier)=>dispatch({type:SET_DOSIER,payload:dosier})
 
 return <AppContext.Provider
 value={{
@@ -46,7 +49,9 @@ value={{
     setReCiept,
     reciept:state.reciept,
     setAttendance,
-    attendance:state.attendance
+    attendance:state.attendance,
+    setDosier,
+    dosier:state.dosier
 }}
 >
 
