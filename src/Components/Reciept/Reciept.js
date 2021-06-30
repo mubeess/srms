@@ -25,8 +25,8 @@ align-items: center;
    position: relative;
    .back{
        position: absolute;
-       width: 70%;
-       height: 70%;
+       width: 90%;
+       height: 90%;
        z-index: 0;
        margin-top:25%;
        img{

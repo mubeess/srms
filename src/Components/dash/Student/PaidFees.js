@@ -1,6 +1,6 @@
 import { Divider,Typography, Input,Button,TextField} from '@material-ui/core';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useContext} from 'react'
 import styled from 'styled-components'
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -15,6 +15,8 @@ import Notifications from '@material-ui/icons/Notifications'
 import gray from '@material-ui/core/colors/grey'
 import green from '@material-ui/core/colors/green'
 import Pagination from '@material-ui/lab/Pagination';
+import { withRouter } from 'react-router';
+import AppContext from '../../../Context/app/appContext'
 
 
 const StyledTableCell = withStyles((theme) => ({
@@ -61,21 +63,22 @@ const useStyles = makeStyles({
     minWidth: 700,
   },
 });
-export default function ViewStaff() {
+ function ViewStaff(props) {
+   const appProps=useContext(AppContext)
   const classes = useStyles();
   const[allPaid,setAllPaid]=useState([])
   // const [filtered,setFiltered]=useState('')
   const [searchVal,setSearchVal]=useState('')
   
-  const filtered= allPaid.length==0?allPaid:allPaid.filter(dat=>dat.studentId.toLowerCase().includes(searchVal.toLowerCase())||dat.term.toLowerCase().includes(searchVal.toLowerCase())||dat.teller.toLowerCase().includes(searchVal.toLowerCase())||dat.className.toLowerCase().includes(searchVal.toLowerCase()))
+  const filtered= allPaid.length==0?allPaid:allPaid.filter(dat=>dat.studentId.toLowerCase().includes(searchVal.toLowerCase())||dat.term.toLowerCase().includes(searchVal.toLowerCase())||dat.pays[0].teller.toLowerCase().includes(searchVal.toLowerCase())||dat.className.toLowerCase().includes(searchVal.toLowerCase()))
 
   useEffect(()=>{
-    fetch(`https://polar-brook-59807.herokuapp.com/admin/get-all-paid-student`)
+    fetch(`https://polar-brook-59807.herokuapp.com/admin/get-all-paid-and-un-paid-student`)
     .then(res=>{
       res.json()
       .then(data=>{
         setAllPaid(data.message)
-        console.log(data.message)
+        console.log(data)
       })
   
     })
@@ -126,31 +129,45 @@ export default function ViewStaff() {
             <StyledTableCell align="right">TERM</StyledTableCell>
             <StyledTableCell align="right">CLASS</StyledTableCell>
             <StyledTableCell align="right">TELLER_NO</StyledTableCell>
-            <StyledTableCell align="right">PURPOSE</StyledTableCell>
+            <StyledTableCell align="right">STATUS</StyledTableCell>
             <StyledTableCell align="right">ACTION</StyledTableCell>
 
           </TableRow>
         </TableHead>
         <TableBody>
           {
-          // allPaid.length>=1&&(
-          //   filtered.map((row,ind) => (
-          //     <StyledTableRow key={ind}>
-          //       <StyledTableCell component="th" scope="row">
-          //         {ind+1}
-          //       </StyledTableCell>
-          //       <StyledTableCell align="right">{row.studentId}</StyledTableCell>
-          //       <StyledTableCell align="right">{row.studentName}</StyledTableCell>
-          //       <StyledTableCell align="right">{row.term}</StyledTableCell>
-          //       <StyledTableCell align="right">{row.className}</StyledTableCell>
-          //       <StyledTableCell align="right">{row.teller}</StyledTableCell>
-          //       <StyledTableCell align="right">{row.pays.map(pup=>(`${pup+" || "}`))}</StyledTableCell>
-          //       <StyledTableCell align="right">
-          //      <Button style={{backgroundColor:green[400],color:'white'}} variant='outlined'>Reciept</Button>
-          //       </StyledTableCell>
-          //     </StyledTableRow>
-          //   ))
-          // )
+          allPaid.length>=1&&(
+            filtered.map((row,ind) => (
+              <StyledTableRow key={ind}>
+                <StyledTableCell component="th" scope="row">
+                  {ind+1}
+                </StyledTableCell>
+                <StyledTableCell align="right">{row.studentId}</StyledTableCell>
+                <StyledTableCell align="right">{row.studentName}</StyledTableCell>
+                <StyledTableCell align="right">{row.term}</StyledTableCell>
+                <StyledTableCell align="right">{row.className}</StyledTableCell>
+                <StyledTableCell align="right">{row.teller}</StyledTableCell>
+                <StyledTableCell align="right">{row.paid?'Paid':'Not Paid'}</StyledTableCell>
+                <StyledTableCell align="right">
+               <Button onClick={()=>{
+                 if (!row.paid) {
+                   return null
+                 }
+                 const selectors={
+                  term:row.term,
+                  studentId:row.studentId,
+                  studentName:row.studentName,
+                  teller:row.pays[0].teller,
+                  className:row.className,
+                  purposeOfPayment:[]
+                }
+                appProps.setReCiept([selectors])
+                props.history.push('reciept')
+               }} disabled={!row.paid} style={{backgroundColor:row.paid? green[400]:'red',color:'white'}} variant='outlined'>{row.paid?'Print Reciept':'Not Paid'}</Button>
+                </StyledTableCell>
+              </StyledTableRow>
+            ))
+          )
           
           }
         </TableBody>
@@ -162,6 +179,6 @@ export default function ViewStaff() {
     )
 }
 
-
+export default withRouter(ViewStaff)
 
 // dat.studentName.toLowerCase().includes(searchVal.toLowerCase())||

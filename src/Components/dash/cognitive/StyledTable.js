@@ -56,15 +56,14 @@ export default function StyledTable(props) {
                     onBlur={
                       (e)=>{
                         const myObj={
-                          cognitive:{
-                           "neatenes":e.target.value,
-                       
-                          },
-                          id:props.row._id,
+                          key:'neatness',
+                          value:e.target.value,
+                          username:props.row.username,
+
                        
         
                         }
-                        fetch('https://polar-brook-59807.herokuapp.com/admin/update-student-cognitive',{
+                        fetch('https://polar-brook-59807.herokuapp.com/admin/add-student-cognitive',{
                         method:'PUT',
                         headers:{
                           "Content-Type":'application/json'
@@ -99,16 +98,13 @@ export default function StyledTable(props) {
                     onBlur={
                       (e)=>{
                         const myObj={
-                          cognitive:{
-                         
-                           "Puntuality":e.target.value,
-                         
-                          },
-                          id:props.row._id,
-                       
+                          
+                          key:'punctuality',
+                          value:e.target.value,
+                          username:props.row.username,
         
                         }
-                        fetch('https://polar-brook-59807.herokuapp.com/admin/update-student-cognitive',{
+                        fetch('https://polar-brook-59807.herokuapp.com/admin/add-student-cognitive',{
                         method:'PUT',
                         headers:{
                           "Content-Type":'application/json'
@@ -142,10 +138,10 @@ export default function StyledTable(props) {
                     onBlur={
                       (e)=>{
                         const myObj={
-                          cognitive:{
-                           "Hard working":e.target.value
-                          },
-                          id:props.row._id,
+                         
+                          key:'hardWorking',
+                          value:e.target.value,
+                          username:props.row.username,
                         
         
                         }
@@ -177,7 +173,7 @@ export default function StyledTable(props) {
 
 
 
-                 <StyledTableCell align="center">
+                 {/* <StyledTableCell align="center">
                 <div className='inp'>
                     <input
                     style={{border:`2px solid ${remarks}`}}
@@ -185,10 +181,52 @@ export default function StyledTable(props) {
                       (e)=>{
                         const myObj={
                           id:props.row._id,
-                          Remaks:`${e.target.value}`
+                          cognitive:{
+                            "Attitude":e.target.value
+                           }
         
                         }
-                        fetch('https://polar-brook-59807.herokuapp.com/admin/update-student-cognitive',{
+                        fetch('https://polar-brook-59807.herokuapp.com/admin/add-student-cognitive',{
+                        method:'PUT',
+                        headers:{
+                          "Content-Type":'application/json'
+                        },
+                        body:JSON.stringify(myObj)   
+                      }).then(res=>{
+                        res.json()
+                        .then(data=>{
+                          // appProps.setUser({})
+                          setRemarks('green')
+                          console.log(data)
+                       
+                        })
+                       
+                      })
+                      console.log(myObj)
+                      }
+                      
+                    }
+                     name='remarks'  type='text'></input>
+                </div>
+                 </StyledTableCell> */}
+
+
+
+
+
+                 <StyledTableCell align="center">
+                <div className='inp'>
+                    <input
+                    style={{border:`2px solid ${remarks}`}}
+                    onBlur={
+                      (e)=>{
+                        const myObj={
+                          key:'remarks',
+                          value:e.target.value,
+                          username:props.row.username,
+        
+                        }
+                        fetch('https://polar-brook-59807.herokuapp.com/admin/add-student-cognitive',{
                         method:'PUT',
                         headers:{
                           "Content-Type":'application/json'

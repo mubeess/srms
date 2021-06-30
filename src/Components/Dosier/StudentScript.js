@@ -35,7 +35,7 @@ export default function StudentScript() {
            
             <span>No. 24 kofare zone 3,, Jimeta Yola North, Adamawa State</span><br></br>
             <span>Motto: Learning For Better Future.</span>
-            <h4>STUDENT ATTENDANCE SHEET</h4>
+            <h4>STUDENT SCORE SHEET</h4>
         </div> </center>
         <div className="information-container">
             <div>
@@ -44,7 +44,7 @@ export default function StudentScript() {
             </div>
             <div>
                 <span className="content-title">CLASS: &nbsp;</span> <span className="content-title-post">{appProps.studentsResult[1].class}</span><br></br>
-                <span className="content-title">CLASS-SIZE: &nbsp;</span> <span className="content-title-post">{appProps.studentsResult.length+1}</span><br></br>
+                <span className="content-title">CLASS-SIZE: &nbsp;</span> <span className="content-title-post">{appProps.studentsResult[0].length+1}</span><br></br>
             </div>
             <div>
                 <span className="content-title">SESSION:</span> <span className="content-title-post">2020/2021</span><br></br>

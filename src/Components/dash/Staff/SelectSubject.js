@@ -97,7 +97,7 @@ function SelectSubject(props) {
 
   useEffect(()=>{
    
-    fetch(`https://polar-brook-59807.herokuapp.com/teacher/teacher-subjects/?id=60db3cc29a15fc0015a1a59c`)
+    fetch(`https://polar-brook-59807.herokuapp.com/teacher/teacher-subjects/?id=60dc1e6bdd07d600152dc6f2`)
     .then(res=>{
       res.json()
       .then(data=>{

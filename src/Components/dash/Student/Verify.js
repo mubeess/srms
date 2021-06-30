@@ -230,10 +230,14 @@ const useStyles = makeStyles((theme) => ({
             name:'studentid',
             id: 'outlined-age-native-simple',
           }}
-        >
+        > 
+         <option value='None'>None</option>
+         <option value='Playclass'>Playclass</option>
+         <option value='Kindergartens'>Kindergartens</option>
+         <option value='Grade'>Grade</option>
           <option value='JSS'>JSS</option>
           <option value='SSS'>SSS</option>
-          <option value='Grade'>Grade</option>
+         
         </Selects>
       </FormControl>
 
@@ -366,8 +370,9 @@ const useStyles = makeStyles((theme) => ({
             id: 'outlined-age-native-simple',
           }}
         >
-          <option value='First Term'> First Term</option>
-          <option value='Female'>Female</option>
+          <option value='First Term'>First Term</option>
+          <option value='Second Term'>Second Term</option>
+          <option value='Third Term'>Third Term</option>
         </Selects>
       </FormControl>
 

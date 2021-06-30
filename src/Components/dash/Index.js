@@ -34,6 +34,8 @@ import SelectSubject from './Staff/SelectSubject'
 import FinalResult from './Staff/FinalResult'
 import Proceed from '../Proceed/Proceed'
 import StudentScript from '../Dosier/StudentScript'
+import Dosier from '../Dosier/Dosier'
+import ViewResult from './ViewResult/ViewResult'
 
 
 const StyledDraw=styled.div`
@@ -171,6 +173,10 @@ function Index(props) {
                                         return <Proceed></Proceed>
               case '/dash/script':
                                           return <StudentScript></StudentScript>
+               case '/dash/dosier':
+                                            return <Dosier></Dosier>
+                case '/dash/veiwresult':
+                                              return <ViewResult></ViewResult>
              
         
             default:

@@ -16,7 +16,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Logo from '../Header/logo.png'
 import Backdrop from '@material-ui/core/Backdrop';
 import gray from '@material-ui/core/colors/grey'
-import StylesTable from './StyledTable'
+
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -178,7 +178,7 @@ const StyledTableCell = withStyles((theme) => ({
 
 
 
-export default function Cognitive() {
+export default function ViewResult() {
   const [open, setOpen] = React.useState(false);
   const handleClose = () => {
     setOpen(false);
@@ -188,12 +188,12 @@ export default function Cognitive() {
   };
   const [staff,setStaff]=useState('')
   const [isAdmin,setIsAdmin]=useState(true)
-  const [staffId,setStaffId]=useState('')
+  const [session,setSession]=useState('')
   const [allStaff,setAllStaff]=useState([])
   const [section,setSection]=useState('None')
   const [classs,setClasss]=useState('JSS1')
   const [category,setCategory]=useState('none')
-  const [subject,setSubject]=useState('Mathematics')
+  const [term,setTerm]=useState('')
   const [allClass,setAllClass]=useState([])
   const [isEmpty,setIsEmpty]=useState(false)
   const [cognitiveValue,setCognitive]=useState([])
@@ -220,11 +220,87 @@ export default function Cognitive() {
     
        {
            isAdmin&&(
-            <div style={{height:section=='SSS'?'330px':'200px',transition:'0.5s'}} className='form'>
+            <div style={{height:section=='SSS'?'330px':'300px',transition:'0.5s'}} className='form'>
             <Typography style={{
                      color:'black'
                    }} variant='button' align='left' gutterBottom>Select Class</Typography>
             <Divider></Divider>
+
+
+
+
+
+
+
+            <div className='personal'>
+      
+      <FormControl style={{width:'40%'}}  variant="outlined" className={classes.formControl}>
+        <InputLabel htmlFor="outlined-age-native-simple">Select Session</InputLabel>
+        <Select
+         onChange={(e)=>{
+          setSession(e.target.value)
+         
+          fetch(`https://polar-brook-59807.herokuapp.com/admin/get-all-classes/?section=${e.target.value}`)
+          .then(res=>{
+            res.json()
+            .then(data=>{
+             console.log(data)
+             setAllClass(data.message)
+            
+            })
+          })
+          
+         }}
+          native
+          value={section}
+          label="Select Session"
+          inputProps={{
+            name:'session',
+            id: 'outlined-age-native-simple',
+          }}
+        >
+          <option value='2019/2020'>2019/2020</option>
+          <option value='2020/2021'>2020/2021</option>
+        </Select>
+      </FormControl>
+
+
+      <FormControl style={{width:'40%'}}  variant="outlined" className={classes.formControl}>
+        <InputLabel htmlFor="outlined-age-native-simple">Select Term</InputLabel>
+        <Select
+        onChange={(e)=>{
+          setTerm(e.target.value)
+        }}
+          native
+          value={classs}
+          label="Select Term"
+          inputProps={{
+            name:'term',
+            id: 'outlined-age-native-simple',
+          }}
+        >
+          <option value='None'>None</option>
+          <option value='1st Term'>1st Term</option>
+          <option value='2nd Term'>2nd Term</option>
+          <option value='3rd Term'>3rd Term</option>
+          
+        </Select>
+      </FormControl>
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
           <div className='personal'>
       
             <FormControl style={{width:'40%'}}  variant="outlined" className={classes.formControl}>
@@ -328,9 +404,8 @@ export default function Cognitive() {
                    .then(res=>{
                      res.json()
                      .then(data=>{
-                      setCognitive([])
+                      setCognitive(data.result)
                        console.log(data)
-
                      })
                    })
                   })
@@ -366,29 +441,25 @@ export default function Cognitive() {
         <TableHead >
           <TableRow style={{backgroundColor:gray[500]}} >
             <StyledTableCell>S/N</StyledTableCell>
-            <StyledTableCell align="center">STUDENT ID</StyledTableCell>
-            <StyledTableCell align="center">NAME</StyledTableCell>
-            <StyledTableCell align="center">Neatness</StyledTableCell>
-            <StyledTableCell align="center">Punctuality</StyledTableCell>
-            <StyledTableCell align="center">Hard Working</StyledTableCell>
-            {/* <StyledTableCell align="center">Attitude</StyledTableCell> */}
+            <StyledTableCell style={{width:'20%'}}  align="center">STUDENT ID</StyledTableCell>
+            <StyledTableCell style={{width:'20%'}}  align="center">NAME</StyledTableCell>
               {
-                // cognitiveValue.length>=1&&(
-                // cognitiveValue.map((cog,ind)=>(
-                //   <StyledTableCell key={ind} align="center">{cog.name}</StyledTableCell>
-                // )))
+                cognitiveValue.length>=1&&(
+                cognitiveValue.map((cog,ind)=>(
+                  <StyledTableCell key={ind} align="center">{cog.name}</StyledTableCell>
+                )))
               }
-            <StyledTableCell style={{width:'30%'}} align="center">Remarks</StyledTableCell>
+            <StyledTableCell style={{width:'20%'}} align="center">Remarks</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
 
           {
-            allStudents.length>=1&&(
-              allStudents.map((row,ind)=>(
-                <StylesTable key={ind} row={row} ind={ind}></StylesTable>
-              ))
-            )
+        //     allStudents.length>=1&&(
+        //       allStudents.map((row,ind)=>(
+        //         <StylesTable key={ind} row={row} ind={ind}></StylesTable>
+        //       ))
+        //     )
           }
           {
           // props.students.students.length>=1&&(

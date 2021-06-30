@@ -181,7 +181,7 @@ const useStyles = makeStyles({
     <Button
                   variant="contained"
                   onClick={()=>{
-                    window.location.reload()
+                    props.history.push('result')
                   }}
                   style={{margin:'20px'}}
                   

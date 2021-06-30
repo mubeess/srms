@@ -112,12 +112,14 @@ margin-bottom: 10px;
 
         {
           !isTeacher && !isBursar?(
+            <Link to="/dash/veiwresult">
             <ListItem style={{borderBottom:'1px solid white'}} button>
             <ListItemIcon>
               <ViewAgenda style={{color:'white'}} />
             </ListItemIcon>
             <ListItemText style={{color:'white'}} primary="View Results" />
           </ListItem>
+          </Link>
           ):null
         }
 
