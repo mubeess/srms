@@ -267,6 +267,7 @@ const StyledTableRow = withStyles((theme) => ({
             <option value='---None---'>---None---</option>
           <option value='2019/2020'>2019/2020</option>
           <option value='2020/2021'>2020/2021</option>
+          <option value='2020/2019'>2020/2019</option>
         </Select>
       </FormControl>
 

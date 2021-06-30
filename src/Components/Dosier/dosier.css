@@ -1,10 +1,10 @@
 #container{
     display: grid;
     margin: 10px auto;
-    width: 800px;
+    width: 850px;
     padding: 20px;
     border: 1px solid #ddd;
-    height: 90%;
+    height: 98%;
     
   
 }

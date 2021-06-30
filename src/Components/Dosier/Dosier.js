@@ -10,6 +10,7 @@ import AppContext from '../../Context/app/appContext'
 const StyledAttendance=styled.div`
 margin-left: 21%;
 margin-top: 20px;
+min-height: 100vh;
 .printCont{
     display:flex;
     width: 100%;

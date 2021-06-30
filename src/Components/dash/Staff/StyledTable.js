@@ -196,7 +196,8 @@ export default function StyledTable(props) {
                    id:props.row._id,
                    value:parseInt(e.target.value),
                    currentClass:props.row.class,
-                   username:props.row.username
+                   username:props.row.username,
+                   category:'Science'
  
                  }
                  console.log(myObj)
