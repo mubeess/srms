@@ -94,19 +94,22 @@ function SelectSubject(props) {
   const [classToConsider,setConsider]=useState([])
   const classes = useStyles();
   const appProps=useContext(AppContext)
+  const urlToPush=appProps.user.role.includes('Admin')?'https://polar-brook-59807.herokuapp.com/admin/get-all-admin-curriculum':`https://polar-brook-59807.herokuapp.com/teacher/teacher-subjects/?id=${appProps.user.user._id}`
 
   useEffect(()=>{
+
    
-    fetch(`https://polar-brook-59807.herokuapp.com/teacher/teacher-subjects/?id=${appProps.user.user._id}`)
+    fetch(urlToPush)
     .then(res=>{
       res.json()
       .then(data=>{
-      console.log(data)
+      console.log("+++++++",data)
       setSubjects(data.subjects)
       const newClasses=data.subjects.map((row,ind)=>{
         const newCl=[]
         newCl.push(row.class)
-        return newCl.toString()
+        console.log('---------',newCl)
+        return appProps.user.role.includes('Admin')?[row.name]:newCl.toString()
       })
       if (data.subjects.length>=1) {
         const filteredClass=data.subjects[0]
@@ -206,6 +209,7 @@ function SelectSubject(props) {
                 <StyledTableRow key={ind}>
                      <StyledTableCell component="th" scope="row">
                          {ind+1}
+                         {console.log("+++++========",classToConsider)}
                      </StyledTableCell>
                           <StyledTableCell align="right">{row}</StyledTableCell>
                           <StyledTableCell align="right">{classToConsider[0].category}</StyledTableCell>
@@ -215,7 +219,7 @@ function SelectSubject(props) {
                     <IconButton style={{backgroundColor:gray[500]}} onClick={()=>{
 
     const myObj={
-      class:classToConsider[0].class,
+      class:appProps.user.role.includes('Admin')?classToConsider[0].name:classToConsider[0].class,
       subject:row,
       category:classToConsider[0].category
     }
