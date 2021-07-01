@@ -1,5 +1,5 @@
 import { Typography } from '@material-ui/core';
-import React from 'react'
+import React,{useContext} from 'react'
 import styled from 'styled-components'
 import SearchIcon from '@material-ui/icons/Search';
 import Notifications from '@material-ui/icons/Notifications'
@@ -10,11 +10,13 @@ import Avatar from '@material-ui/core/Avatar';
 import Badge from '@material-ui/core/Badge';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import AppContext from '../../../Context/app/appContext'
 import { green, orange,grey,yellow } from '@material-ui/core/colors';
 import { makeStyles,  fade,
     ThemeProvider,
     withStyles,
     createMuiTheme, } from '@material-ui/core/styles';
+import { withRouter } from 'react-router-dom';
 const StyledNav=styled.div`
 position: fixed;
 height: 69px;
@@ -36,8 +38,9 @@ const theme = createMuiTheme({
     
     },
   });
-export default function Nav() {
+ function Nav(props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const appProps=useContext(AppContext)
 
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
@@ -67,7 +70,7 @@ export default function Nav() {
                color:'black',
                marginLeft:'auto',
                marginTop:'25px',
-             }} variant="caption" align='center' gutterBottom>NOBLE INTELLECT</Typography>
+             }} variant="caption" align='center' gutterBottom>{`${appProps.user.user.firstName+" "+appProps.user.user.lastName}`}</Typography>
         <Avatar
     onClick={handleClick}
      aria-controls="simple-menu" aria-haspopup="true"  style={{
@@ -75,7 +78,7 @@ export default function Nav() {
     marginLeft:'20px',
     cursor:'pointer',
     marginRight:'50px'
-}}>H</Avatar>
+}}>{appProps.user.user.firstName.split('')[0]}</Avatar>
 <Menu
         id="simple-menu"
         anchorEl={anchorEl}
@@ -83,9 +86,12 @@ export default function Nav() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem onClick={()=>{
+          props.history.push('profile')
+        }}>Profile</MenuItem>
+        <MenuItem onClick={()=>{
+       window.location='/'
+        }}>Logout</MenuItem>
       </Menu>
 
         
@@ -93,3 +99,4 @@ export default function Nav() {
        </ThemeProvider>
     )
 }
+export default withRouter(Nav)

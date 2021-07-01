@@ -123,10 +123,11 @@ export default function Roles() {
   const [staff,setStaff]=useState('')
   const [staffId,setStaffId]=useState('')
   const [allStaff,setAllStaff]=useState([])
+  const [allsubject,setAllSubjects]=useState([])
   const [role,setRole]=useState('None')
-  const [classs,setClasss]=useState('JSS1')
+  const [classs,setClasss]=useState('None')
   const [category,setCategory]=useState('none')
-  const [subject,setSubject]=useState('Mathematics')
+  const [subject,setSubject]=useState('None')
   const [isEmpty,setIsEmpty]=useState(false)
   useEffect(()=>{
     fetch(`https://polar-brook-59807.herokuapp.com/admin/get-all-staff`)
@@ -137,6 +138,17 @@ export default function Roles() {
           setIsEmpty(true)
         }
         setAllStaff(data.message)
+      }).then(dat=>{
+
+        fetch('https://polar-brook-59807.herokuapp.com/admin/get-all-subject')
+        .then(res=>{
+          res.json()
+          .then(data=>{
+            setAllSubjects(data.message)
+            console.log(data.message)
+          })
+        })
+
       })
       
 
@@ -196,6 +208,8 @@ export default function Roles() {
           <option value='None'>None</option>
           <option value='Bursar'>Bursar</option>
           <option value='Teacher'>Teacher</option>
+          <option value='formMaster'>Form Master</option>
+          <option value='Principal'>Principal</option>
         </Select>
       </FormControl>
 
@@ -217,6 +231,7 @@ export default function Roles() {
             id: 'outlined-age-native-simple',
           }}
         >
+          <option value='---None---'>---None---</option>
           <option value='JSS1'>JSS1</option>
           <option value='JSS2'>JSS2</option>
           <option value='SSS1'>SSS1</option>
@@ -239,8 +254,10 @@ export default function Roles() {
             id: 'outlined-age-native-simple',
           }}
         >
-          <option value='None'>None</option>
+          <option value='---None---'>---None---</option>
           <option value='Science'>Science</option>
+          <option value='Art'>Art</option>
+          <option value='Commercial'>Commercial</option>
         </Select>
       </FormControl>
 
@@ -262,8 +279,16 @@ export default function Roles() {
             id: 'outlined-age-native-simple',
           }}
         >
-          <option value='Mathematics'>Mathematics</option>
-          <option value='English'>English</option>
+           <option value='---None----'>---None----</option>
+          {
+            allsubject.length>=1&&(
+              allsubject.map((sbj,ind)=>(
+                <option key={ind} value={sbj.subject}>{sbj.subject}</option>
+              ))
+            )
+          }
+         
+         
         </Select>
       </FormControl>
 
@@ -362,9 +387,13 @@ fetch(`https://polar-brook-59807.herokuapp.com/admin/set-role/?id=${staff}`,{
                    color:'black',
                    marginLeft:'50px'
                  }} variant='overline' align='center' gutterBottom>{staf.role.map(rol=>(`${rol+'**'}`))}</Typography>
+          <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr'}}>
           <Button style={{marginLeft:'50px',backgroundColor:'#F39C77',color:'white'}} variant="contained">Deactivate</Button>
           <Button style={{marginLeft:'30px',backgroundColor:'green',color:'white'}} variant="contained">Edit</Button>
           <Button style={{marginLeft:'30px',backgroundColor:'red',color:'white'}} variant="contained">Drop</Button>
+
+          </div>
+
         </div>
        ))
      )

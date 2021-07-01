@@ -97,7 +97,7 @@ function SelectSubject(props) {
 
   useEffect(()=>{
    
-    fetch(`https://polar-brook-59807.herokuapp.com/teacher/teacher-subjects/?id=60dcf98e359e790015dd270d`)
+    fetch(`https://polar-brook-59807.herokuapp.com/teacher/teacher-subjects/?id=${appProps.user.user._id}`)
     .then(res=>{
       res.json()
       .then(data=>{
@@ -230,7 +230,7 @@ function SelectSubject(props) {
       res.json()
       .then(data=>{
       console.log(data,'rrrr')
-      appProps.setStudentsResults([data.students,{class:classToConsider[0].class,subject:row}])
+      appProps.setStudentsResults([data.students,{class:classToConsider[0].class,subject:row,category:classToConsider[0].category}])
       props.history.push('enterresult')
       
       })
@@ -248,115 +248,6 @@ function SelectSubject(props) {
           }
 
 
-          {
-          // subjects.length>=1&&(
-          //   subjects.map((row,ind) => (
-          //     <StyledTableRow key={ind}>
-          //       <StyledTableCell component="th" scope="row">
-          //         {ind+1}
-          //       </StyledTableCell>
-
-          //       {
-          //         row.subject.map((srow,ind)=>(
-          //           <>
-          //           <StyledTableCell key={ind} align="right">{srow}</StyledTableCell>
-          //           <StyledTableCell align="right">{row.subject}</StyledTableCell>
-          //           <StyledTableCell align="right">{row.category}</StyledTableCell>
-          //           <StyledTableCell align="right">{row.class}</StyledTableCell>
-
-          //           <StyledTableCell align="right">
-          //       {/* <Button
-          //         variant="contained"
-          //         color="primary"
-          //         onClick={()=>{
-          //             props.handleNext()
-          //         }}
-          //         className={classes.button}
-          //       >
-          //        Enter Results
-          //       </Button> */}
-          //       {/* <Edit onClick={()=>{
-          //             props.handleNext()
-          //         }}></Edit> */}
-          // <IconButton style={{backgroundColor:gray[500]}} onClick={()=>{
-
-          //     const myObj={
-          //       class:row.class,
-          //       subject:row.subject[ind],
-          //       category:row.category.toLowerCase()
-          //     }
-          //     console.log(myObj)
-          //      fetch('https://polar-brook-59807.herokuapp.com/teacher/fetch-students-result',{
-          //       method:'POST',
-          //       headers:{
-          //         "Content-Type":'application/json'
-          //       },
-          //       body:JSON.stringify(myObj)
-          //     }).then(res=>{
-          //       res.json()
-          //       .then(data=>{
-          //       console.log(data,'rrrr')
-          //       appProps.setStudentsResults([data.students,{class:row.class,subject:row.subject[ind]}])
-          //       props.history.push('enterresult')
-                
-          //       })
-               
-          //     })
-          //             // props.handleNext()
-          //         }} color="primary" aria-label="upload picture" component="span">
-          //  <Edit></Edit>
-          // </IconButton>
-          //        </StyledTableCell>
-          //           </>
-          //         ))
-                }
-                {/* <StyledTableCell align="right">{row.subject[ind]}</StyledTableCell>
-                <StyledTableCell align="right">{row.category}</StyledTableCell>
-                <StyledTableCell align="right">{row.class}</StyledTableCell> */}
-                {/* <StyledTableCell align="right"> */}
-                {/* <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={()=>{
-                      props.handleNext()
-                  }}
-                  className={classes.button}
-                >
-                 Enter Results
-                </Button> */}
-                {/* <Edit onClick={()=>{
-                      props.handleNext()
-                  }}></Edit> */}
-          {/* <IconButton style={{backgroundColor:gray[500]}} onClick={()=>{
-
-              const myObj={
-                class:row.class,
-                subject:row.subject[ind],
-                category:row.category.toLowerCase()
-              }
-              console.log(myObj)
-               fetch('https://polar-brook-59807.herokuapp.com/teacher/fetch-students-result',{
-                method:'POST',
-                headers:{
-                  "Content-Type":'application/json'
-                },
-                body:JSON.stringify(myObj)
-              }).then(res=>{
-                res.json()
-                .then(data=>{
-                console.log(data,'rrrr')
-                appProps.setStudentsResults([data.students,{class:row.class,subject:row.subject[ind]}])
-                props.history.push('enterresult')
-                
-                })
-               
-              })
-                      // props.handleNext()
-                  }} color="primary" aria-label="upload picture" component="span">
-           <Edit></Edit>
-          </IconButton>
-                 </StyledTableCell> */}
-              {/* </StyledTableRow> */}
          
          
         </TableBody>

@@ -81,6 +81,7 @@ export default function Dosier() {
                     <tbody>
                        
                         {
+                           
                             dos[1].length>=1&&(
                                 dos[1].map((curDos,indd)=>(
                                     <tr key={indd}>
@@ -94,6 +95,7 @@ export default function Dosier() {
                                     <td>{curDos.grade ||'F'}</td>
                                     <td>{curDos.subjectPosition}</td>
                                     <td>{curDos.grade ||'F'}</td>
+                                    { console.log("+++++++",curDos)}
                                 </tr>
                                 ))
                             )

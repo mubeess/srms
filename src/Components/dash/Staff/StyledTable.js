@@ -39,6 +39,9 @@ export default function StyledTable(props) {
     const [ca3,setCa3]=useState('black')
     const [ca4,setCa4]=useState('black')
     const [exam,setExam]=useState('black')
+    useEffect(()=>{
+     console.log("++++++++++++++",props)
+    },[])
 
 
     return (
@@ -60,7 +63,8 @@ export default function StyledTable(props) {
                           id:props.row._id,
                           value:parseInt(e.target.value),
                           currentClass:props.row.class,
-                          username:props.row.username
+                          username:props.row.username,
+                          category:props.row.category
         
                         }
                         fetch('https://polar-brook-59807.herokuapp.com/teacher/insert-one-result',{
@@ -96,7 +100,8 @@ export default function StyledTable(props) {
                   id:props.row._id,
                   value:parseInt(e.target.value),
                   currentClass:props.row.class,
-                  username:props.row.username
+                  username:props.row.username,
+                  category:props.row.category
 
                 }
                 fetch('https://polar-brook-59807.herokuapp.com/teacher/insert-one-result',{
@@ -130,7 +135,8 @@ export default function StyledTable(props) {
                   id:props.row._id,
                   value:parseInt(e.target.value),
                   currentClass:props.row.class,
-                  username:props.row.username
+                  username:props.row.username,
+                  category:props.row.category
 
                 }
                 fetch('https://polar-brook-59807.herokuapp.com/teacher/insert-one-result',{
@@ -163,7 +169,8 @@ export default function StyledTable(props) {
                   id:props.row._id,
                   value:parseInt(e.target.value),
                   currentClass:props.row.class,
-                  username:props.row.username
+                  username:props.row.username,
+                  category:props.row.category
 
                 }
                 fetch('https://polar-brook-59807.herokuapp.com/teacher/insert-one-result',{
@@ -197,7 +204,7 @@ export default function StyledTable(props) {
                    value:parseInt(e.target.value),
                    currentClass:props.row.class,
                    username:props.row.username,
-                   category:'Science'
+                   category:props.row.category
  
                  }
                  console.log(myObj)

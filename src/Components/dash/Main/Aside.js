@@ -30,11 +30,14 @@ margin-bottom: 10px;
    const arr=[]
    const isTeacher=appProps.user.role.includes('Teacher')
    const isBursar=appProps.user.role.includes('Bursar')
+   const isPrincipal=appProps.user.role.includes('Principal')
+   const isFormMaster=appProps.user.role.includes('formMaster')
+   const isNull=appProps.user.role.length==0
    console.log(isBursar)
     return (
         <StyledAside>
        {
-         !isTeacher && !isBursar?(
+         !isTeacher && !isBursar && !isFormMaster && !isNull?(
           <Link to="/dash/main">
           <ListItem style={{borderBottom:'1px solid white'}} button>
             <ListItemIcon>
@@ -57,7 +60,7 @@ margin-bottom: 10px;
         </Link>
 
        {
-         !isTeacher && !isBursar?(
+         !isTeacher && !isBursar && !isNull?(
           <Link to="/dash/subject">
         <ListItem style={{borderBottom:'1px solid white'}} button>
           <ListItemIcon>
@@ -71,7 +74,7 @@ margin-bottom: 10px;
         
 
        {
-         !isTeacher && !isBursar?(
+         !isTeacher && !isBursar && !isFormMaster && !isNull?(
           <Link to="/dash/staff">
           <ListItem style={{borderBottom:'1px solid white'}} button>
             <ListItemIcon>
@@ -84,7 +87,7 @@ margin-bottom: 10px;
        }
        
        {
-         !isTeacher?(
+         !isTeacher && !isFormMaster && !isNull?(
           <Link to="/dash/student">
           <ListItem style={{borderBottom:'1px solid white'}} button>
             <ListItemIcon>
@@ -97,7 +100,7 @@ margin-bottom: 10px;
          ):null
        }
        {
-         !isBursar?(
+         !isBursar && !isFormMaster && !isNull?(
           <Link to="/dash/result">
           <ListItem style={{borderBottom:'1px solid white'}} button>
             <ListItemIcon>
@@ -111,7 +114,7 @@ margin-bottom: 10px;
        
 
         {
-          !isTeacher && !isBursar?(
+          !isTeacher && !isBursar && !isFormMaster && !isNull?(
             <Link to="/dash/veiwresult">
             <ListItem style={{borderBottom:'1px solid white'}} button>
             <ListItemIcon>
@@ -124,7 +127,7 @@ margin-bottom: 10px;
         }
 
          {
-           !isTeacher?(
+           !isTeacher && !isNull?(
             <Link to="/dash/fees">
         <ListItem style={{borderBottom:'1px solid white'}} button>
           <ListItemIcon>
@@ -139,7 +142,7 @@ margin-bottom: 10px;
 
 
 {
-           !isTeacher && !isBursar?(
+           !isTeacher && !isBursar && !isNull?(
             <Link to="/dash/roles">
             <ListItem style={{borderBottom:'1px solid white'}} button>
               <ListItemIcon>
@@ -154,7 +157,7 @@ margin-bottom: 10px;
 
 
 {
-           !isTeacher && !isBursar?(
+           !isTeacher && !isBursar && !isNull?(
             <ListItem onClick={()=>{
               props.open()
             }} style={{borderBottom:'1px solid white'}} button>
@@ -167,7 +170,7 @@ margin-bottom: 10px;
          }
 
         {
-          !isTeacher && !isBursar?(
+          !isTeacher && !isBursar && !isNull?(
   
         <Link to="/dash/cognitive">
         <ListItem  style={{borderBottom:'1px solid white'}} button>
@@ -183,7 +186,7 @@ margin-bottom: 10px;
     
       
     {
-      !isBursar?(
+      !isBursar && !isNull?(
         <Link to="/dash/assignment">
         <ListItem  style={{borderBottom:'1px solid white'}} button>
           <ListItemIcon>
@@ -198,7 +201,7 @@ margin-bottom: 10px;
        
 
         {
-        !isTeacher && !isBursar?(
+        !isTeacher && !isBursar && !isFormMaster && !isNull?(
           <Link to="/dash/proceed">
           <ListItem style={{borderBottom:'1px solid white'}} button>
             <ListItemIcon>

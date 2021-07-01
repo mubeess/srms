@@ -175,12 +175,12 @@ export default function Login(props) {
 
 <Button onClick={()=>{
   console.log(username,password)
-  // appProps.setIslogged()
-
-      // props.history.push('dash/main')
   handleToggle()
-  // appProps.setIslogged()
-  // props.history.push('dash/main')
+  // setTimeout(() => {
+  //   props.history.push('dash/main')
+  //   handleClose()
+  // }, 2000);
+
   const user={
     username,
     password
@@ -196,9 +196,24 @@ export default function Login(props) {
     .then(data=>{
       console.log(data)
       // setIsSuccess(true)
-      if (data.success==false) { 
-      handleClose()
+      if (data.success) { 
+        handleClose()
+        notification.open({
+          message: 'Successfully Logged In',
+          description:data.message.toUpperCase(),
+          onClick: () => {
+            notification.close()
+          },
+          type:'success'
+        });
 
+      appProps.setIslogged()
+      appProps.setUser({role:data.user.role,user:data.user})
+      const isAdmin=data.user.role.includes('Admin')
+      const urlToPush=isAdmin?'dash/main':'dash/profile'
+      props.history.push(urlToPush)
+     }else{
+      handleClose()
       notification.open({
         message: 'An Error Occured',
         description:data.message.toUpperCase(),
@@ -207,12 +222,8 @@ export default function Login(props) {
         },
         type:'error'
       });
-     const role=['Bursar']
-      appProps.setIslogged()
-      // appProps.setUser({role:['Bursar'],name:'Mubarak Ibrahim'})
-      const isAdmin=true
-      const urlToPush=isAdmin?'dash/main':'dash/profile'
-      props.history.push(urlToPush)
+
+
      }
      
 
@@ -225,6 +236,16 @@ export default function Login(props) {
       // }, 6000);
       // appProps.setUser()
       
+    }).catch(err=>{
+      handleClose()
+      notification.open({
+        message: 'An Error Occured',
+        description:'ERROR',
+        onClick: () => {
+          notification.close()
+        },
+        type:'error'
+      });
     })
   })
 }}  className={classes.butt}  style={{marginLeft:'auto',marginTop:'30px',marginRight:'40px'}} variant='outlined' color="secondary">
