@@ -12,6 +12,7 @@ import Button from '@material-ui/core/Button'
 import NativeSelect from '@material-ui/core/NativeSelect';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { notification } from 'antd';
+import NaijaState from 'naija-state-local-government'
 import Backdrop from '@material-ui/core/Backdrop';
 const StyledAdd= styled.div`
 width: 100%;
@@ -42,6 +43,11 @@ const useStyles = makeStyles((theme) => ({
   }));
 export default function AddStaff() {
     const classes = useStyles();
+    const [localGovs,setLocalGovs]=useState([])
+    const [states,setState]=useState([])
+    const [currentState,setCurrentState]=useState('')
+    const [currentLga,setCurrentLga]=useState('')
+    const [gender,setGender]=useState('Female')
    
     const [open, setOpen] = React.useState(false);
     const handleClose = () => {
@@ -51,18 +57,20 @@ export default function AddStaff() {
       setOpen(!open);
     };
 
-    // useEffect(()=>{
+    useEffect(()=>{
+      setState(NaijaState.states())
+      console.log(NaijaState.states())
 
-    //   fetch(`https://polar-brook-59807.herokuapp.com/admin/get-all-classes/?section=${e.target.value}`)
-    //   .then(res=>{
-    //     res.json()
-    //     .then(data=>{
-    //       console.log(data.message)
-    //       setStudentClass(data.message)
-    //     })
-    //   })
+      // fetch(`https://polar-brook-59807.herokuapp.com/admin/get-all-classes/?section=${e.target.value}`)
+      // .then(res=>{
+      //   res.json()
+      //   .then(data=>{
+      //     console.log(data.message)
+      //     setStudentClass(data.message)
+      //   })
+      // })
 
-    // },[])
+    },[])
 
 
 
@@ -118,9 +126,11 @@ const changeSelect=(e)=>{
         <FormControl style={{width:'99%'}}   variant="outlined">
         <InputLabel htmlFor="outlined-age-native-simple">Gender</InputLabel>
         <Select
-        onChange={changeValues}
+        onChange={(e)=>{
+       setGender(e.target.value)
+        }}
           native
-          value='Gender'
+          value={gender}
           label="Gender"
           inputProps={{
             name:'gender',
@@ -168,18 +178,30 @@ const changeSelect=(e)=>{
       <FormControl style={{width:'99%'}} variant="outlined" >
         <InputLabel htmlFor="outlined-age-native-simple">State</InputLabel>
         <Select
-          onChange={changeValues}
+          onChange={(e)=>{
+           setCurrentState(e.target.value)
+           if (e.target.value!=='None') {
+            let lgas= NaijaState.lgas(`${e.target.value}`)
+            setLocalGovs(lgas.lgas)
+           }
+        
+          }}
           native
-          value='Adamawa'
+          value={currentState}
           label="State"
           inputProps={{
             name: 'state',
             id: 'outlined-age-native-simple',
           }}
         >
-          <option value='Adamawa'>Adamawa</option>
-          <option value='Adamawa'>Adamawa</option>
-          <option value='Adamawa'>Adamawa</option>
+          <option value='None'>---None---</option>
+          {
+            states.length>=1&&(
+              states.map((state,ind)=>(
+                <option key={ind} value={state}>{state}</option>
+              ))
+            )
+          }
         </Select>
       </FormControl>
 
@@ -187,18 +209,25 @@ const changeSelect=(e)=>{
       <FormControl style={{width:'99%'}} variant="outlined">
         <InputLabel htmlFor="outlined-age-native-simple">LGA</InputLabel>
         <Select
-         onChange={changeValues}
+         onChange={(e)=>{
+           setCurrentLga(e.target.value)
+         }}
           native
-          value='Maiha'
+          value={currentLga}
           label="LGA"
           inputProps={{
             name: 'lga',
             id: 'outlined-age-native-simple',
           }}
         >
-          <option value='Maiha'>Maiha</option>
-          <option value='Maiha'>Maiha</option>
-          <option value='Maiha'>Maiha</option>
+          <option value='---None---'>---None---</option>
+          {
+            localGovs.length>=1&&(
+              localGovs.map((lga,ind)=>(
+                <option key={ind} value={lga}>{lga}</option>
+              ))
+            )
+          }
         </Select>
       </FormControl>
         </div>
@@ -235,13 +264,13 @@ const changeSelect=(e)=>{
       firstName:staff.firstName,
       lastName:staff.lastName,
       email:staff.email,
-      gender:staff.gender,
+      gender:gender,
       qualification:staff.qualification,
       department:staff.department,
       phone:staff.phone,
       address:staff.address,
-      state:staff.state,
-      lga:staff.lga,
+      state:currentState,
+      lga:currentLga,
       bankName:staff.bankName,
       accountNumber:staff.bankNumber,
       accountName:staff.accountName,

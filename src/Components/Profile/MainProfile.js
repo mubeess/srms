@@ -4,6 +4,7 @@ import Passport from './101.jpeg'
 import './profile.css'
 import AppContext from '../../Context/app/appContext'
 import {useReactToPrint} from 'react-to-print'
+import Avatar from '@material-ui/core/Avatar';
 
 export default function MainProfile() {
     const componentRef=useRef()
@@ -13,18 +14,20 @@ export default function MainProfile() {
     
     })
     const appProps=useContext(AppContext)
+    const appImage=`https://polar-brook-59807.herokuapp.com/+${appProps.user.user.image}`;
     return (
              <div ref={componentRef} id="container-fluid">
-        <img className="profile-pic" src={appProps.user.user.image=='1.jpg'?Passport:require(`${appProps.user.user.image}`)}/>
-     
+        {/* <img className="profile-pic" src='https://polar-brook-59807.herokuapp.com/public/images/musty-avatar.jpg' /> */}
+       <div className='profile-pic'>
+       <Avatar style={{width:'100%',height:'100%'}} alt={appProps.user.user.firstName} src={appImage} />   
+        </div>     
         <div className="cover-page-section">
             <div className="btn-container">
             <Button style={{marginRight:'20px',backgroundColor:'#1E7F95'}} color='primary' variant='contained'>Update Profile Pic</Button>
             <Button onClick={handlePrint} style={{marginLeft:'20px'}} variant='contained'>Print Profile</Button>
             </div>
-            
         </div>
-        <div className="profile-pic-section">
+        <div  className="profile-pic-section">
           
          <table>
              <tr>

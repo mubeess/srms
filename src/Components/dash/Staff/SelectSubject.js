@@ -234,7 +234,7 @@ function SelectSubject(props) {
       res.json()
       .then(data=>{
       console.log(data,'rrrr')
-      appProps.setStudentsResults([data.students,{class:classToConsider[0].class,subject:row,category:classToConsider[0].category}])
+      appProps.setStudentsResults([data.students,{class:appProps.user.role.includes('Admin')?classToConsider[0].name:classToConsider[0].class,subject:row,category:classToConsider[0].category}])
       props.history.push('enterresult')
       
       })

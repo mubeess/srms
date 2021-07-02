@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import styled from 'styled-components'
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider'
@@ -10,6 +10,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button'
 import NativeSelect from '@material-ui/core/NativeSelect';
+import NaijaState from 'naija-state-local-government'
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { notification } from 'antd';
@@ -52,12 +53,23 @@ export default function AddStudent() {
   const handleToggle = () => {
     setOpen(!open);
   };
+
+     
+  const [localGovs,setLocalGovs]=useState([])
+    const [states,setState]=useState([])
+    const [currentState,setCurrentState]=useState('')
+    const [currentLga,setCurrentLga]=useState('')
+  
+
+
+
+
+
     const classes = useStyles();
     const [allClasses,setAllClasses]=useState([])
     const [isSStudent,setIsStudet]=useState(false)
     const [term,setTerm]=useState('First Term')
     const [gender,setGender]=useState('Male')
-    const [state,setState]=useState('Adamawa')
     const [lga,setLga]=useState('Maiha')
     const [section,setSection]=useState('Grade')
     const [classs,setClass]=useState('Grade3')
@@ -83,7 +95,9 @@ export default function AddStudent() {
       newStudents[`${name}`] = value;
       setStudets(newStudents)
     }
-
+  useEffect(()=>{
+    setState(NaijaState.states())
+  },[])
     return (
        <StyledAdd>
      <Typography style={{marginLeft:'10px'}} variant="button" display="block" gutterBottom>
@@ -151,18 +165,30 @@ export default function AddStudent() {
       <FormControl style={{width:'99%'}} variant="outlined" className={classes.formControl}>
         <InputLabel htmlFor="outlined-age-native-simple">State</InputLabel>
         <Select
-          onChange={(e)=>{
-            setState(e.target.value)
-          }}
+           onChange={(e)=>{
+            setCurrentState(e.target.value)
+            if (e.target.value!=='None') {
+             let lgas= NaijaState.lgas(`${e.target.value}`)
+             setLocalGovs(lgas.lgas)
+            }
+         
+           }}
           native
-          value={state}
+          value={currentState}
           label="State"
           inputProps={{
             name: 'state',
             id: 'outlined-age-native-simple',
           }}
         >
-          <option value='Adamawa'>Adamawa</option>
+         <option value='None'>---None---</option>
+          {
+            states.length>=1&&(
+              states.map((state,ind)=>(
+                <option key={ind} value={state}>{state}</option>
+              ))
+            )
+          }
         </Select>
       </FormControl>
 
@@ -170,18 +196,25 @@ export default function AddStudent() {
       <FormControl style={{width:'99%'}} variant="outlined" className={classes.formControl}>
         <InputLabel htmlFor="outlined-age-native-simple">LGA</InputLabel>
         <Select
-         onChange={(e)=>{
-          setLga(e.target.value)
-        }}
+       onChange={(e)=>{
+        setCurrentLga(e.target.value)
+      }}
           native
-          value={lga}
+          value={currentLga}
           label="LGA"
           inputProps={{
             name: 'lga',
             id: 'outlined-age-native-simple',
           }}
         >
-          <option value='Maiha'>Maiha</option>
+          <option value='---None---'>---None---</option>
+          {
+            localGovs.length>=1&&(
+              localGovs.map((lga,ind)=>(
+                <option key={ind} value={lga}>{lga}</option>
+              ))
+            )
+          }
         </Select>
       </FormControl>
         </div>
@@ -320,8 +353,8 @@ export default function AddStudent() {
         <Button onClick={()=>{
           handleToggle()
           const selectedStudent={
-            state,
-            lga,
+            state:currentState,
+            lga:currentLga,
             gender,
             section,
             currentClass:classs,

@@ -124,6 +124,7 @@ export default function Roles() {
   const [staffId,setStaffId]=useState('')
   const [allStaff,setAllStaff]=useState([])
   const [allsubject,setAllSubjects]=useState([])
+  const [allClasses,setAllClasses]=useState([])
   const [role,setRole]=useState('None')
   const [classs,setClasss]=useState('None')
   const [category,setCategory]=useState('none')
@@ -145,7 +146,14 @@ export default function Roles() {
           res.json()
           .then(data=>{
             setAllSubjects(data.message)
-            console.log(data.message)
+            fetch('https://polar-brook-59807.herokuapp.com/admin/get-every-class')
+            .then(res=>{
+              res.json()
+              .then(data=>{
+                console.log("+++++++",data)
+                setAllClasses(data.message)
+              })
+            })
           })
         })
 
@@ -232,9 +240,13 @@ export default function Roles() {
           }}
         >
           <option value='---None---'>---None---</option>
-          <option value='JSS1'>JSS1</option>
-          <option value='JSS2'>JSS2</option>
-          <option value='SSS1'>SSS1</option>
+          {
+            allClasses.length>=1&&(
+              allClasses.map((cls,ind)=>(
+                <option key={ind} value={cls.className}>{cls.className}</option>
+              ))
+            )
+          }
         </Select>
       </FormControl>
 
