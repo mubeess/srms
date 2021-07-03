@@ -59,7 +59,6 @@ export default function AddStaff() {
 
     useEffect(()=>{
       setState(NaijaState.states())
-      console.log(NaijaState.states())
 
       // fetch(`https://polar-brook-59807.herokuapp.com/admin/get-all-classes/?section=${e.target.value}`)
       // .then(res=>{

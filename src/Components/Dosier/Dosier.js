@@ -33,6 +33,33 @@ const grader = (grade) => {
     }
 }
 
+const grader = (grade) => {
+
+    switch (grade) {
+        case 'A':
+            return "Excellence"
+            break;
+
+        case 'B':
+            return "Very Good"
+            break;
+            
+        case 'C':
+            return "Good"
+            break; 
+
+        case 'D':
+            return "Pass"
+            break;
+
+        case 'F':
+            return "Fail"
+                break;    
+        default:
+            break;
+    }
+}
+
 const StyledAttendance=styled.div`
 margin-left: 21%;
 margin-top: 20px;
@@ -121,7 +148,6 @@ export default function Dosier() {
                                     <td>{curDos.grade ||'F'}</td>
                                     <td>{curDos.subjectPosition}</td>
                                     <td>{grader(curDos.grade) ||'FAIL'}</td>
-                                    
                                 </tr>
                                 ))
                             )
