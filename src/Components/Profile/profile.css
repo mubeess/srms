@@ -30,7 +30,6 @@
 .btn-container{
     margin-left: 170px;
     margin-bottom: 0px;
-    margin-top: 70px;
 }
 .other-editable-info{
     display: grid;
@@ -52,6 +51,10 @@
     margin: 5px;
     padding: 5px;
     width: 30%;
+}
+.profile-detail {
+    margin-left: 2rem;
+    margin-top: 1rem;
 }
 .change-password-section{
     display: grid;

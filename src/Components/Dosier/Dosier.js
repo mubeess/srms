@@ -7,6 +7,33 @@ import './dosier.css'
 import { Button } from '@material-ui/core';
 import AppContext from '../../Context/app/appContext'
 
+const grader = (grade) => {
+
+    switch (grade) {
+        case 'A':
+            return "Excellence"
+            break;
+
+        case 'B':
+            return "Very Good"
+            break;
+            
+        case 'C':
+            return "Good"
+            break; 
+
+        case 'D':
+            return "Pass"
+            break;
+
+        case 'F':
+            return "Fail"
+                break;    
+        default:
+            break;
+    }
+}
+
 const StyledAttendance=styled.div`
 margin-left: 21%;
 margin-top: 20px;
@@ -94,8 +121,7 @@ export default function Dosier() {
                                     <td>{curDos.total ||0}</td>
                                     <td>{curDos.grade ||'F'}</td>
                                     <td>{curDos.subjectPosition}</td>
-                                    <td>{curDos.grade ||'F'}</td>
-                                    { console.log("+++++++",curDos)}
+                                    <td>{grader(curDos.grade) ||'FAIL'}</td>
                                 </tr>
                                 ))
                             )
@@ -188,7 +214,7 @@ export default function Dosier() {
                 <table className="table1">
                     <tr>
                         <td>PRINCIPAL REMARK</td>
-                        <td>{dos[2][0].remarks}</td>
+                        <td class="pr-remarks">{dos[2][0].remarks}</td>
                     </tr>
                 </table>
             </div>
