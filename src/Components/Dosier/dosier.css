@@ -78,6 +78,7 @@ tr{
 .promotion-status{
     font-weight: bolder;
     color: green;
+    margin-left: 1rem;
 }
 .content-title-post{
    /* font-weight: bolder; */
@@ -118,4 +119,8 @@ tr{
     padding-top: 10px;
     border-top: 2px solid black;
 
+}
+
+.pr-remarks {
+    min-width: 39.5rem;
 }

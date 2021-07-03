@@ -5,6 +5,9 @@ import './profile.css'
 import AppContext from '../../Context/app/appContext'
 import {useReactToPrint} from 'react-to-print'
 import Avatar from '@material-ui/core/Avatar';
+import { Upload, message} from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
+import { notification } from 'antd';
 
 export default function MainProfile() {
     const componentRef=useRef()
@@ -14,7 +17,11 @@ export default function MainProfile() {
     
     })
     const appProps=useContext(AppContext)
-    const appImage=`https://polar-brook-59807.herokuapp.com/+${appProps.user.user.image}`;
+    const myImage = appProps.user.user.image.split('/')
+    const myRealImage=myImage.splice(1,2).join('/')
+    const appImage=`https://polar-brook-59807.herokuapp.com/${myRealImage}`;
+    console.log(myRealImage)
+    
     return (
              <div ref={componentRef} id="container-fluid">
         {/* <img className="profile-pic" src='https://polar-brook-59807.herokuapp.com/public/images/musty-avatar.jpg' /> */}
@@ -23,13 +30,41 @@ export default function MainProfile() {
         </div>     
         <div className="cover-page-section">
             <div className="btn-container">
-            <Button style={{marginRight:'20px',backgroundColor:'#1E7F95'}} color='primary' variant='contained'>Update Profile Pic</Button>
+            <Upload 
+
+            beforeUpload={(file)=>{
+                const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+  if (!isJpgOrPng) {
+    message.error('You can only upload JPG/PNG file!');}
+            }}
+    action={`https://polar-brook-59807.herokuapp.com/admin/set-profile-pic/?id=${appProps.user.user._id}`}
+    name='profile_pic'
+    method='PUT'
+   
+
+    onChange={(info)=>{
+      if (info.file.status !== 'uploading') {
+        console.log('rrr');
+      }
+      if (info.file.status === 'done') {
+        const idd=info.file.response.message.insertedId
+        message.success(`${info.file.name} file uploaded successfully`);
+        // setId(idd)
+        
+      } else if (info.file.status === 'error') {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    }}
+   
+    >
+    <Button icon={<UploadOutlined />}>Upload A Profile picture</Button>
+  </Upload>
             <Button onClick={handlePrint} style={{marginLeft:'20px'}} variant='contained'>Print Profile</Button>
             </div>
         </div>
         <div  className="profile-pic-section">
           
-         <table>
+         <table className="profile-detail">
              <tr>
                  <td>STAFF ID:</td>
                  <td>{appProps.user.user.username ||'None Set'}</td>

@@ -54,8 +54,10 @@ const StyledRole=styled.div`
         }
         
 .mainDetail{
-  display: flex;
-  flex-direction: row;
+  
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  justify-content: space-between;
   height: 47px;
   width: 80%;
   border:none;
@@ -400,7 +402,7 @@ fetch(`https://polar-brook-59807.herokuapp.com/admin/set-role/?id=${staff}`,{
                    marginLeft:'50px'
                  }} variant='overline' align='center' gutterBottom>{staf.role.map(rol=>(`${rol+'**'}`))}</Typography>
           <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr'}}>
-          <Button style={{marginLeft:'50px',backgroundColor:'#F39C77',color:'white'}} variant="contained">Deactivate</Button>
+          <Button style={{marginLeft:'50px',backgroundColor:'#F39C77',color:'white', width: '7rem'}} variant="contained">Deactivate</Button>
           <Button style={{marginLeft:'30px',backgroundColor:'green',color:'white'}} variant="contained">Edit</Button>
           <Button style={{marginLeft:'30px',backgroundColor:'red',color:'white'}} variant="contained">Drop</Button>
 
