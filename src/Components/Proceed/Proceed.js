@@ -197,7 +197,7 @@ entered successfuly
 
      <Button onClick={()=>{
    
-       if (checked) {
+       if (checkedSession) {
         const sessionToGo=  prompt('Please Enter Session')
         if (sessionToGo=='') {
           return
@@ -219,7 +219,7 @@ entered successfuly
             .then(data=>{
               notification.open({
                 message: `Successfully Set To Next Session`,
-                description:`Welcome To Next Term`,
+                description:`Welcome To New Session`,
                 onClick: () => {
                   notification.close()
                 },

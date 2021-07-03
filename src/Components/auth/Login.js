@@ -198,7 +198,7 @@ export default function Login(props) {
         handleClose()
         notification.open({
           message: 'Successfully Logged In',
-          description:data.message.toUpperCase(),
+          description:'Logged In',
           onClick: () => {
             notification.close()
           },

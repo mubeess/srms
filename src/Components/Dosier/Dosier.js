@@ -6,32 +6,7 @@ import {useReactToPrint} from 'react-to-print'
 import './dosier.css'
 import { Button } from '@material-ui/core';
 import AppContext from '../../Context/app/appContext'
-const grader = (grade) => {
 
-    switch (grade) {
-        case 'A':
-            return "Excellence"
-            break;
-
-        case 'B':
-            return "Very Good"
-            break;
-            
-        case 'C':
-            return "Good"
-            break; 
-
-        case 'D':
-            return "Pass"
-            break;
-
-        case 'F':
-            return "Fail"
-                break;    
-        default:
-            break;
-    }
-}
 
 const grader = (grade) => {
 
