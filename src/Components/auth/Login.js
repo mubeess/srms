@@ -131,9 +131,7 @@ export default function Login(props) {
         <StyledLogin>
             <div className='login-container'>
              <div className='login-header'>
-             <Typography style={{
-               color:'gray'
-             }} variant="h6" align='center' gutterBottom>Admin Login</Typography>
+
              </div>
              <div className='login-details'>
                  <div className='logo'>

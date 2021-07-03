@@ -71,7 +71,7 @@ export default function Subject() {
       <Divider></Divider>
       
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-          <Tab style={{backgroundColor:'#1E7F95',borderRadius:'10px',color:'white',margin:'20px'}} label="Assign Subject" {...a11yProps(0)} />
+          <Tab style={{backgroundColor:'#1E7F95',borderRadius:'10px',color:'white',margin:'20px'}} label="Assign Subject To Class" {...a11yProps(0)} />
           <Tab style={{backgroundColor:'#1E7F95',borderRadius:'10px',color:'white',margin:'20px'}} label="View Registered Subjects" {...a11yProps(1)} />
           <Tab style={{backgroundColor:'#1E7F95',borderRadius:'10px',color:'white',margin:'20px'}} label="Add New Subject" {...a11yProps(2)}/>
         </Tabs>

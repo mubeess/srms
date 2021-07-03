@@ -1,7 +1,8 @@
 import { Button, Divider,Typography } from '@material-ui/core';
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import styled from 'styled-components'
 import Avatar from '@material-ui/core/Avatar';
+import { notification } from 'antd';
 import Checkbox from '@material-ui/core/Checkbox';
 
 
@@ -59,10 +60,28 @@ flex-direction: column;
 `;
 
 export default function Proceed() {
-    const [checked, setChecked] = React.useState(true);
+    const [checked, setChecked] = React.useState(false);
+    const [checkedSession,setCheckedSession]=useState(false)
     const handleChange = (event) => {
         setChecked(event.target.checked);
       };
+      useEffect(()=>{
+       fetch('https://polar-brook-59807.herokuapp.com/admin/get-current-term').
+       then(res=>{
+         res.json()
+         .then(data=>{
+          notification.open({
+            message: `Current Session:${data.result[0].session.year}`,
+            description:`Current Term:${data.result[0].currentTerm}`,
+            onClick: () => {
+              notification.close()
+            },
+            type:'success'
+          });
+           console.log(data)
+         })
+       })
+      },[])
     return (
         <StyledProfile>
        <div className='warning'>
@@ -89,6 +108,7 @@ export default function Proceed() {
 
       <Typography style={{fontWeight:'bold',color:'black',marginTop:'20px',marginLeft:'10px'}}  variant='h5'  gutterBottom>
       Before clicking the  Next term button make sure all records including Fees and Results have been recorded successfuly.
+  
       </Typography>
       </div>
 
@@ -97,7 +117,9 @@ export default function Proceed() {
       
       <Checkbox
        checked={checked}
-       onChange={handleChange}
+       onChange={()=>{
+         setChecked(!checked)
+       }}
        inputProps={{ 'aria-label': 'primary checkbox' }}
      />
 
@@ -105,10 +127,37 @@ export default function Proceed() {
      <Typography style={{fontWeight:'lighter',marginTop:'10px'}}  variant='body1'  gutterBottom>
       this page contains vital information that when altered it can't be retrieved back.
       Read the instructions below carefully before performing any operation.
+      
       </Typography>
      </div>
 
-     <Button style={{backgroundColor:'green', color:'white',height:'50px'}} variant='contained'>PROCEED TO NEXT TERM</Button>
+     <Button onClick={()=>{
+    
+       
+       
+       if (checked) {
+        fetch('https://polar-brook-59807.herokuapp.com/admin/set-new-term',{
+          method:'POST',
+          headers:{
+          "Content-Type":'application/json'
+          },
+          }).then(res=>{
+            res.json()
+            .then(data=>{
+              notification.open({
+                message: `Successfully Set To Next Term`,
+                description:`Welcome To Next Term`,
+                onClick: () => {
+                  notification.close()
+                },
+                type:'success'
+              });
+            })
+          })
+       }else{
+         return null
+       }
+     }} disabled={!checked} style={{backgroundColor:checked?'green':null, color:checked?'white':null,height:'50px'}} variant='contained'>PROCEED TO NEXT TERM</Button>
    
       </div>
       
@@ -132,8 +181,10 @@ entered successfuly
       <div className='buttons'>
       
       <Checkbox
-       checked={checked}
-       onChange={handleChange}
+       checked={checkedSession}
+       onChange={()=>{
+         setCheckedSession(!checkedSession)
+       }}
        inputProps={{ 'aria-label': 'primary checkbox' }}
      />
 
@@ -144,7 +195,42 @@ entered successfuly
       </Typography>
      </div>
 
-     <Button style={{backgroundColor:'green', color:'white',height:'50px'}} variant='contained'>PROCEED TO NEXT SESSION</Button>
+     <Button onClick={()=>{
+   
+       if (checked) {
+        const sessionToGo=  prompt('Please Enter Session')
+        if (sessionToGo=='') {
+          return
+        }
+        const myObj= {
+          session:{
+          year:sessionToGo
+        }
+      }
+
+        fetch('https://polar-brook-59807.herokuapp.com/admin/set-new-session',{
+          method:'POST',
+          headers:{
+          "Content-Type":'application/json'
+          },
+          body:JSON.stringify(myObj)
+          }).then(res=>{
+            res.json()
+            .then(data=>{
+              notification.open({
+                message: `Successfully Set To Next Session`,
+                description:`Welcome To Next Term`,
+                onClick: () => {
+                  notification.close()
+                },
+                type:'success'
+              });
+            })
+          })
+       }else{
+         return null
+       }
+     }} disabled={!checkedSession} style={{backgroundColor:checkedSession?'green':null, color:checkedSession?'white':null,height:'50px'}} variant='contained'>PROCEED TO NEXT SESSION</Button>
    
       </div>
       

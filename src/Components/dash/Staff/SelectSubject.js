@@ -149,9 +149,10 @@ function SelectSubject(props) {
         <InputLabel htmlFor="outlined-age-native-simple">Select Class</InputLabel>
         <Select
           onChange={(e)=>{
-            const filteredArray=subjects.filter(dat=>dat.class==e.target.value)
+            const filteredArray=subjects.filter(dat=>appProps.user.role.includes('Admin')?dat.name==e.target.value:dat.class==e.target.value)
+
             setClassValue(e.target.value)
-            console.log(filteredArray)
+            console.log(subjects)
             setConsider(filteredArray)
             // setClassValue(e.target.value)
           }}
@@ -209,11 +210,10 @@ function SelectSubject(props) {
                 <StyledTableRow key={ind}>
                      <StyledTableCell component="th" scope="row">
                          {ind+1}
-                         {console.log("+++++========",classToConsider)}
                      </StyledTableCell>
                           <StyledTableCell align="right">{row}</StyledTableCell>
                           <StyledTableCell align="right">{classToConsider[0].category}</StyledTableCell>
-                          <StyledTableCell align="right">{classToConsider[0].class}</StyledTableCell>
+                          <StyledTableCell align="right">{appProps.user.role.includes('Admin')?classToConsider[0].name:classToConsider[0].class}</StyledTableCell>
       
                     <StyledTableCell align="right">
                     <IconButton style={{backgroundColor:gray[500]}} onClick={()=>{
@@ -233,7 +233,7 @@ function SelectSubject(props) {
     }).then(res=>{
       res.json()
       .then(data=>{
-      console.log(data,'rrrr')
+     
       appProps.setStudentsResults([data.students,{class:appProps.user.role.includes('Admin')?classToConsider[0].name:classToConsider[0].class,subject:row,category:classToConsider[0].category}])
       props.history.push('enterresult')
       

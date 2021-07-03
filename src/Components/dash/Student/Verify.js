@@ -115,6 +115,8 @@ const useStyles = makeStyles((theme) => ({
     const [allStudent,setAllStudent]=useState([])
     const [purpose,setPurpose]=useState('')
     const [mainStudent,setMain]=useState({class:'None',name:'None'})
+    const [amount,setAmount]=useState('')
+    const [selectedValWithAm,setValAm]=useState({})
     const appProps=useContext(AppContext)
     
 
@@ -130,7 +132,8 @@ const useStyles = makeStyles((theme) => ({
             .then(data=>{
               data.message.map(dat=>{
                 let mappDat={value:dat.paymentTypes}
-                payments.push({value:dat.paymentTypes})
+                payments.push({value:dat.paymentTypes,amount:dat.amount})
+                
               })
               
               
@@ -138,7 +141,7 @@ const useStyles = makeStyles((theme) => ({
             .then(dat=>{
               if (isMounted) setOptions(payments)
             })
-
+            console.log('""""""',payments)
           })
 
       return () => { isMounted = false }; // use cleanup to toggle value, if unmounted
@@ -167,9 +170,10 @@ const useStyles = makeStyles((theme) => ({
 
 
     const handleChange = (value) => {
+      const filteredAm=options.filter(fil=>fil.value[value])
       // setSubjects(event.target.value);
-      setSelected(value)
-    //  console.log(value)
+      // setSelected(value)
+     console.log(value,filteredAm,options)
     };
 
 
@@ -386,7 +390,7 @@ const useStyles = makeStyles((theme) => ({
     mode="multiple"
     showArrow
     tagRender={tagRender}
-    defaultValue={['tuition fee']}
+    defaultValue={['Tuition']}
     style={{ width: '100%' }}
     options={options}
     onChange={handleChange}
@@ -409,7 +413,7 @@ const useStyles = makeStyles((theme) => ({
          const newPays={
            pays:{
              teller,
-             purposeOfPayment:['tuition fee']
+             purposeOfPayment:selectedOptions
            }
          }
          fetch(`https://polar-brook-59807.herokuapp.com/admin/verify-payment/?username=${studentId}`,{
@@ -467,7 +471,8 @@ const useStyles = makeStyles((theme) => ({
             studentName,
             teller,
             className:classs,
-            purposeOfPayment:selectedOptions
+            purposeOfPayment:selectedOptions,
+            amount
           }
         appProps.setReCiept([selectors])
         props.history.push('reciept')
@@ -500,11 +505,19 @@ const useStyles = makeStyles((theme) => ({
       
       <TextField onChange={(e)=>{
         setPurpose(e.target.value)
-      }} style={{height:'100px',margin:'30px'}} name='kinRelation' id="outlined-basic" label="Purpose Of Payment" variant="outlined" />
+      }} style={{height:'100px',margin:'30px'}} name='purpose' id="outlined-basic" label="Purpose Of Payment" variant="outlined" />
+
+      
+<TextField onChange={(e)=>{
+        setAmount(e.target.value)
+      }} style={{height:'100px',margin:'30px'}} name='amount' id="outlined-basic" label="Amount In Naira" variant="outlined" />
+     
       <Button onClick={()=>{
         const payments=[]
+        const newPayment=[]
         const myObj={
-          paymentTypes:purpose
+          paymentTypes:purpose,
+          amount
         }
         fetch('https://polar-brook-59807.herokuapp.com/admin/add-payment',{
           method:'POST',
@@ -523,11 +536,13 @@ const useStyles = makeStyles((theme) => ({
               .then(data=>{
                   data.message.map(dat=>{
                     let mappDat={value:dat.paymentTypes}
-                    payments.push({value:dat.paymentTypes})
-                    setOptions(payments)
-                    message.success('Purpose Added Succesfully')
+                    newPayment.push({value:dat.paymentTypes,amount:dat.amount})
+                   
+                   
                   })
-               
+                  message.success('Purpose Added Succesfully')
+                  setOptions(newPayment)
+                  handleClose()
               })
             })
           })

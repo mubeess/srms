@@ -14,7 +14,7 @@ const StyledAdd=styled.div`
 display: flex;
 min-height: 200px;
 width: 70%;
-background-color:#E5E5E5;
+background-color:#f9f9f9;
 border: 1px thin #1E7F95;
 flex-direction: column;
 

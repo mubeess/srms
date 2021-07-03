@@ -29,6 +29,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { CircularProgress } from '@material-ui/core';
 import {Alert} from 'antd'
+import { withRouter } from 'react-router';
 
 const StyledRole=styled.div`
        background:#f9f9f9;
@@ -177,8 +178,7 @@ const StyledTableCell = withStyles((theme) => ({
 
 
 
-
-export default function Cognitive() {
+ function Cognitive(props) {
   const [open, setOpen] = React.useState(false);
   const handleClose = () => {
     setOpen(false);
@@ -412,7 +412,7 @@ export default function Cognitive() {
                   variant="contained"
                   style={{margin:'20px'}}
                   onClick={()=>{
-                    window.location.reload()
+                    props.history.push('cognitive')
                   }}
                 >
                   Save and Continue
@@ -442,3 +442,6 @@ export default function Cognitive() {
         </StyledRole>
     )
 }
+
+
+export default withRouter(Cognitive)

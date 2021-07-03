@@ -32,13 +32,18 @@ margin-bottom: 10px;
    const isBursar=appProps.user.role.includes('Bursar')
    const isPrincipal=appProps.user.role.includes('Principal')
    const isFormMaster=appProps.user.role.includes('formMaster')
-   const isNull=appProps.user.role.length==0
-   console.log(isBursar)
+   const isAd=appProps.user.role.includes('Admin')
+   
     return (
         <StyledAside>
        {
-         !isTeacher && !isBursar && !isFormMaster && !isNull?(
-          <Link to="/dash/main">
+         isAd?(
+          <Link onClick={()=>{
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+          }} to="/dash/main">
           <ListItem style={{borderBottom:'1px solid white'}} button>
             <ListItemIcon>
               <Dashboard style={{color:'white'}}/>
@@ -49,7 +54,9 @@ margin-bottom: 10px;
          ):null
        }
        
-      
+      {
+        
+      }
         <Link to="/dash/profile">
         <ListItem style={{borderBottom:'1px solid white'}} button>
           <ListItemIcon>
@@ -60,7 +67,7 @@ margin-bottom: 10px;
         </Link>
 
        {
-         !isTeacher && !isBursar && !isNull?(
+         isAd||isPrincipal?(
           <Link to="/dash/subject">
         <ListItem style={{borderBottom:'1px solid white'}} button>
           <ListItemIcon>
@@ -74,7 +81,7 @@ margin-bottom: 10px;
         
 
        {
-         !isTeacher && !isBursar && !isFormMaster && !isNull?(
+       isAd?(
           <Link to="/dash/staff">
           <ListItem style={{borderBottom:'1px solid white'}} button>
             <ListItemIcon>
@@ -87,7 +94,7 @@ margin-bottom: 10px;
        }
        
        {
-         !isTeacher && !isFormMaster && !isNull?(
+        isAd || isBursar||isPrincipal?(
           <Link to="/dash/student">
           <ListItem style={{borderBottom:'1px solid white'}} button>
             <ListItemIcon>
@@ -100,7 +107,7 @@ margin-bottom: 10px;
          ):null
        }
        {
-         !isBursar && !isFormMaster && !isNull?(
+       isAd ||isTeacher||isFormMaster||isPrincipal?(
           <Link to="/dash/result">
           <ListItem style={{borderBottom:'1px solid white'}} button>
             <ListItemIcon>
@@ -114,7 +121,7 @@ margin-bottom: 10px;
        
 
         {
-          !isTeacher && !isBursar && !isFormMaster && !isNull?(
+         isAd|isPrincipal?(
             <Link to="/dash/veiwresult">
             <ListItem style={{borderBottom:'1px solid white'}} button>
             <ListItemIcon>
@@ -127,7 +134,7 @@ margin-bottom: 10px;
         }
 
          {
-           !isTeacher && !isNull?(
+           isAd ||isBursar?(
             <Link to="/dash/fees">
         <ListItem style={{borderBottom:'1px solid white'}} button>
           <ListItemIcon>
@@ -142,7 +149,7 @@ margin-bottom: 10px;
 
 
 {
-           !isTeacher && !isBursar && !isNull?(
+          isAd?(
             <Link to="/dash/roles">
             <ListItem style={{borderBottom:'1px solid white'}} button>
               <ListItemIcon>
@@ -157,7 +164,7 @@ margin-bottom: 10px;
 
 
 {
-           !isTeacher && !isBursar && !isNull?(
+           isAd?(
             <ListItem onClick={()=>{
               props.open()
             }} style={{borderBottom:'1px solid white'}} button>
@@ -170,7 +177,7 @@ margin-bottom: 10px;
          }
 
         {
-          !isTeacher && !isBursar && !isNull?(
+          isAd||isFormMaster?(
   
         <Link to="/dash/cognitive">
         <ListItem  style={{borderBottom:'1px solid white'}} button>
@@ -186,7 +193,7 @@ margin-bottom: 10px;
     
       
     {
-      !isBursar && !isNull?(
+      isAd||isTeacher||isFormMaster?(
         <Link to="/dash/assignment">
         <ListItem  style={{borderBottom:'1px solid white'}} button>
           <ListItemIcon>
@@ -201,7 +208,7 @@ margin-bottom: 10px;
        
 
         {
-        !isTeacher && !isBursar && !isFormMaster && !isNull?(
+       isAd?(
           <Link to="/dash/proceed">
           <ListItem style={{borderBottom:'1px solid white'}} button>
             <ListItemIcon>
@@ -219,3 +226,12 @@ margin-bottom: 10px;
     )
 }
 export default withRouter(Aside)
+
+
+// !isTeacher && !isBursar && !isFormMaster && !isNull
+// !isTeacher && !isBursar && !isNull?
+// !isTeacher && !isBursar && !isFormMaster && !isNull?
+// !isTeacher && !isBursar && !isFormMaster && !isNull
+// !isBursar && !isNull
+// !isTeacher && !isBursar && !isNull
+// !isTeacher && !isBursar && !isNull
