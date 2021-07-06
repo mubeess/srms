@@ -14,7 +14,7 @@ width: 85%;
 min-height: 100vh;
 display: flex;
 flex-direction: column;
-.header{
+.header{ 
     height: 400px;
     width: 100%;
     background-color: #f9f9f9;

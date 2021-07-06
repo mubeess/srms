@@ -5,7 +5,8 @@ import {
     SET_RECIEPT,
     SET_STUDENT_RESULT,
     SET_ATTENDANCE,
-    SET_DOSIER
+    SET_DOSIER,
+    SET_EDIT
 }from '../types'
 
 
@@ -48,6 +49,12 @@ const AppReducer= (state,action)=>{
                             ...state,
                             dosier:action.payload
                         }
+        case SET_EDIT:
+                            return {
+                                ...state,
+                                editValue:action.payload
+                            }
+        
         default:
         return state;
     }

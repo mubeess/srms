@@ -1,6 +1,6 @@
 import { Divider,Typography, Input,Button,TextField} from '@material-ui/core';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import React,{useEffect,useState,useRef} from 'react'
+import React,{useEffect,useState,useRef,useContext} from 'react'
 import styled from 'styled-components'
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -13,8 +13,10 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import {EditRounded,DeleteForeverRounded,ViewArrayRounded} from '@material-ui/icons'
 import gray from '@material-ui/core/colors/grey'
+import AppContext from '../../../Context/app/appContext'
 import { CSVLink } from 'react-csv'
 import {useReactToPrint} from 'react-to-print'
+import {withRouter} from 'react-router-dom'
 
 
 
@@ -62,7 +64,8 @@ const useStyles = makeStyles({
     minWidth: 700,
   },
 });
-export default function ViewStudent() {
+ function ViewStudent(props) {
+  const appProps =useContext(AppContext)
 const classes = useStyles();
 const[allStudents,setAllStudents]=useState([])
 // const [filtered,setFiltered]=useState('')
@@ -153,7 +156,10 @@ useEffect(()=>{
                 <StyledTableCell align="right">{row.gender}</StyledTableCell>
                 <StyledTableCell align="right">
                 <ViewArrayRounded style={{color:'#F39C77',marginRight:'10px',cursor:'pointer'}}></ViewArrayRounded>
-                 <EditRounded style={{color:'green',marginRight:'10px',cursor:'pointer'}}></EditRounded>
+                 <EditRounded onClick={()=>{
+                      appProps.setEdit({user:row})
+                      props.history.push('editstudent')
+                 }} style={{color:'green',marginRight:'10px',cursor:'pointer'}}></EditRounded>
                  <DeleteForeverRounded onClick={()=>{
                    const userId=row._id;
                    fetch(`https://polar-brook-59807.herokuapp.com/admin/remove-student/?id=${userId}`,{
@@ -195,3 +201,5 @@ useEffect(()=>{
       </StyledView>
     )
 }
+
+export default withRouter(ViewStudent)

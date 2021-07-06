@@ -132,6 +132,7 @@ export default function Roles() {
   const [category,setCategory]=useState('none')
   const [subject,setSubject]=useState('None')
   const [isEmpty,setIsEmpty]=useState(false)
+  const [classTeacherClass,setClassTeacherClass]=useState([])
   useEffect(()=>{
     fetch(`https://polar-brook-59807.herokuapp.com/admin/get-all-staff`)
     .then(res=>{
@@ -167,7 +168,7 @@ export default function Roles() {
     const classes = useStyles();
     return (
         <StyledRole>
-      <div style={{height:role=='Teacher'?'330px':'200px',transition:'0.5s'}} className='form'>
+      <div style={{height:role=='subjectTeacher'||role=='classTeacher'?'330px':'200px',transition:'0.5s'}} className='form'>
       <Typography style={{
                color:'black'
              }} variant='button' align='left' gutterBottom>Assign Roles</Typography>
@@ -217,19 +218,51 @@ export default function Roles() {
         >
           <option value='None'>None</option>
           <option value='Bursar'>Bursar</option>
-          <option value='Teacher'>Teacher</option>
-          <option value='formMaster'>Form Master</option>
+          <option value='subjectTeacher'>Subject Teacher</option>
+          <option value='classTeacher'>Class Teacher</option>
           <option value='Principal'>Principal</option>
+          <option value='examOfficer'>Exam Officer</option>
         </Select>
       </FormControl>
 
 
     </div>
-    <div hidden={role!=='Teacher'} style={{opacity:role=='Teacher'?'1':'0',transition:'0.2s'}} className='personal'>
+    {
+      role=='classTeacher'&&(
+        <div  className='personal'>
+        <FormControl style={{width:'40%'}}  variant="outlined" className={classes.formControl}>
+            <InputLabel htmlFor="outlined-age-native-simple">Select Class</InputLabel>
+            <Select
+            onChange={(e)=>{
+              setClassTeacherClass([e.target.value])
+            }}
+              native
+              value={classTeacherClass.length>0?classTeacherClass[0]:'---None--'}
+              label="Select Class"
+              inputProps={{
+                name:'class',
+                id: 'outlined-age-native-simple',
+              }}
+            >
+              <option value='---None---'>---None---</option>
+              {
+                allClasses.length>=1&&(
+                  allClasses.map((cls,ind)=>(
+                    <option key={ind} value={cls.className}>{cls.className}</option>
+                  ))
+                )
+              }
+            </Select>
+          </FormControl>
+        </div>
+      )
+    }
+    
+    <div hidden={role!=='subjectTeacher'} style={{opacity:role=='subjectTeacher'?'1':'0',transition:'0.2s'}} className='personal'>
     <FormControl style={{width:'40%'}}  variant="outlined" className={classes.formControl}>
         <InputLabel htmlFor="outlined-age-native-simple">Select Class</InputLabel>
         <Select
-        disabled={role!=='Teacher'}
+        disabled={role!=='subjectTeacher'}
         onChange={(e)=>{
           setClasss(e.target.value)
         }}
@@ -256,7 +289,7 @@ export default function Roles() {
       <FormControl style={{width:'40%'}}  variant="outlined" className={classes.formControl}>
         <InputLabel htmlFor="outlined-age-native-simple">Select Category</InputLabel>
         <Select
-         disabled={role!=='Teacher'}
+         disabled={role!=='subjectTeacher'}
         onChange={(e)=>{
           setCategory(e.target.value)
         }}
@@ -277,11 +310,11 @@ export default function Roles() {
 
 
     </div>
-    <div  hidden={role!=='Teacher'} style={{opacity:role=='Teacher'?'1':'0',transition:'0.2s'}} className='personal'>
+    <div  hidden={role!=='subjectTeacher'} style={{opacity:role=='subjectTeacher'?'1':'0',transition:'0.2s'}} className='personal'>
     <FormControl style={{width:'40%'}}  variant="outlined" className={classes.formControl}>
         <InputLabel htmlFor="outlined-age-native-simple">Select Subject</InputLabel>
         <Select
-         disabled={role!=='Teacher'}
+         disabled={role!=='subjectTeacher'}
         onChange={(e)=>{
           setSubject(e.target.value)
         }}
@@ -309,11 +342,10 @@ export default function Roles() {
     </div>
     <div className='personal'>
     <Button onClick={()=>{
-      const myObj=role!=='Teacher'?{
-        role
-}:{
+      const myObj={
   role,
-  teach:{class:classs,subject:[subject],category}
+  teach:{class:classs,subject:[subject],category},
+  classTeacher:classTeacherClass
 }
 console.log(myObj)
 handleToggle()

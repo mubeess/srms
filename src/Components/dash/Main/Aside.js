@@ -28,11 +28,12 @@ margin-bottom: 10px;
   console.log(appProps)
    },[])
    const arr=[]
-   const isTeacher=appProps.user.role.includes('Teacher')
+   const isTeacher=appProps.user.role.includes('subjectTeacher')
    const isBursar=appProps.user.role.includes('Bursar')
    const isPrincipal=appProps.user.role.includes('Principal')
-   const isFormMaster=appProps.user.role.includes('formMaster')
+   const isFormMaster=appProps.user.role.includes('classTeacher')
    const isAd=appProps.user.role.includes('Admin')
+   const isExamOfficer=appProps.user.role.includes('examOfficer')
    
     return (
         <StyledAside>
@@ -94,7 +95,7 @@ margin-bottom: 10px;
        }
        
        {
-        isAd || isBursar||isPrincipal?(
+        isAd||isPrincipal?(
           <Link to="/dash/student">
           <ListItem style={{borderBottom:'1px solid white'}} button>
             <ListItemIcon>
@@ -107,7 +108,7 @@ margin-bottom: 10px;
          ):null
        }
        {
-       isAd ||isTeacher||isFormMaster||isPrincipal?(
+       isAd ||isTeacher||isFormMaster||isPrincipal||isExamOfficer?(
           <Link to="/dash/result">
           <ListItem style={{borderBottom:'1px solid white'}} button>
             <ListItemIcon>
@@ -121,7 +122,7 @@ margin-bottom: 10px;
        
 
         {
-         isAd|isPrincipal?(
+         isAd||isPrincipal||isExamOfficer?(
             <Link to="/dash/veiwresult">
             <ListItem style={{borderBottom:'1px solid white'}} button>
             <ListItemIcon>

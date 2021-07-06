@@ -1,6 +1,7 @@
 import { Divider,Typography, Input,Button,TextField} from '@material-ui/core';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import React,{useEffect,useState,useRef} from 'react'
+import AppContext from '../../../Context/app/appContext'
+import React,{useEffect,useState,useRef,useContext} from 'react'
 import styled from 'styled-components'
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -17,7 +18,7 @@ import Pagination from '@material-ui/lab/Pagination';
 import {EditRounded,DeleteForeverRounded,ViewArrayRounded} from '@material-ui/icons'
 import { CSVLink } from 'react-csv'
 import {useReactToPrint} from 'react-to-print'
-
+import {withRouter} from 'react-router-dom'
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -56,7 +57,8 @@ const useStyles = makeStyles({
     minWidth: 700,
   },
 });
-export default function ViewStaff() {
+ function ViewStaff(props) {
+  const appProps=useContext(AppContext)
   const classes = useStyles();
   const[allStaff,setAllStaff]=useState([])
   // const [filtered,setFiltered]=useState('')
@@ -143,8 +145,10 @@ export default function ViewStaff() {
               <StyledTableCell align="right">{row.firstName+" "+row.lastName}</StyledTableCell>
               <StyledTableCell align="right">{row.role.map(rl=>(`${rl+'**'}`))}</StyledTableCell>
               <StyledTableCell align="right">
-              <ViewArrayRounded style={{color:'#F39C77',marginRight:'10px',cursor:'pointer'}}></ViewArrayRounded>
-               <EditRounded style={{color:'green',marginRight:'10px',cursor:'pointer'}}></EditRounded>
+               <EditRounded onClick={()=>{
+                appProps.setEdit({user:row})
+                 props.history.push('editstaff')
+               }} style={{color:'green',marginRight:'10px',cursor:'pointer'}}></EditRounded>
                <DeleteForeverRounded onClick={()=>{
                  const userId=row._id;
                  fetch(`https://polar-brook-59807.herokuapp.com/admin/remove-staff/?id=${userId}`,{
@@ -191,3 +195,5 @@ export default function ViewStaff() {
       </StyledView>
     )
 }
+
+export default withRouter(ViewStaff)

@@ -170,10 +170,11 @@ const useStyles = makeStyles((theme) => ({
 
 
     const handleChange = (value) => {
-      const filteredAm=options.filter(fil=>fil.value[value])
+      const filteredAm=options.filter((fil,ind)=>value[ind]==fil.value)
       // setSubjects(event.target.value);
-      // setSelected(value)
-     console.log(value,filteredAm,options)
+
+      setSelected(value)
+     console.log("|||\\\\",filteredAm,options,value)
     };
 
 
@@ -416,6 +417,7 @@ const useStyles = makeStyles((theme) => ({
              purposeOfPayment:selectedOptions
            }
          }
+         console.log(newPays)
          fetch(`https://polar-brook-59807.herokuapp.com/admin/verify-payment/?username=${studentId}`,{
           method:'POST',
           headers:{
@@ -426,6 +428,7 @@ const useStyles = makeStyles((theme) => ({
           res.json()
           .then(data=>{
             handleOpen()
+           
             console.log(data)
           })
         })
@@ -474,6 +477,7 @@ const useStyles = makeStyles((theme) => ({
             purposeOfPayment:selectedOptions,
             amount
           }
+          console.log("||||||||||||||||||",selectors)
         appProps.setReCiept([selectors])
         props.history.push('reciept')
         // window.location.pathname = '/reciept';
@@ -538,7 +542,7 @@ const useStyles = makeStyles((theme) => ({
                     let mappDat={value:dat.paymentTypes}
                     newPayment.push({value:dat.paymentTypes,amount:dat.amount})
                    
-                   
+                 
                   })
                   message.success('Purpose Added Succesfully')
                   setOptions(newPayment)

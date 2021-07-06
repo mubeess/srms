@@ -1,5 +1,5 @@
-import { Button } from '@material-ui/core'
-import React,{useContext,useState,useRef} from 'react'
+import { Button, makeStyles, TextField } from '@material-ui/core'
+import React,{useContext,useState,useRef,useEffect} from 'react'
 import Passport from './101.jpeg'
 import './profile.css'
 import AppContext from '../../Context/app/appContext'
@@ -8,25 +8,65 @@ import Avatar from '@material-ui/core/Avatar';
 import { Upload, message} from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { notification } from 'antd';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Backdrop from '@material-ui/core/Backdrop';
+
+
+const useStyles = makeStyles((theme) => ({
+    formControl: {
+      margin: theme.spacing(1),
+      minWidth: 120,
+    },
+    selectEmpty: {
+      marginTop: theme.spacing(2),
+    },
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: '#fff',
+  }
+  }));
+
+ 
 
 export default function MainProfile() {
+    const classes = useStyles();
     const componentRef=useRef()
+    const [change,setChange]=useState(false)
+    const [oldPassword,setOldPassword]=useState('')
+    const [newPassword,setNewPassword]=useState('')
+    const [confirmPassword,setConfirmPassword]=useState('')
+    const appProps=useContext(AppContext)
+    const [imageUrl,setImageUrl]=useState('')
+
+  const [open, setOpen] = React.useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleToggle = () => {
+    setOpen(!open);
+  };
     const handlePrint=useReactToPrint({
         content:()=>componentRef.current,
         copyStyles:true
     
     })
-    const appProps=useContext(AppContext)
+  useEffect(()=>{
     const myImage = appProps.user.user.image.split('/')
     const myRealImage=myImage.splice(1,2).join('/')
-    const appImage=`https://polar-brook-59807.herokuapp.com/${myRealImage}`;
-    console.log(myRealImage)
+    let appImage=`https://polar-brook-59807.herokuapp.com/${myRealImage}`;
+    setImageUrl(appImage)
+    console.log(myImage)
+
+  },[])
+    
+    
+ 
     
     return (
              <div ref={componentRef} id="container-fluid">
         {/* <img className="profile-pic" src='https://polar-brook-59807.herokuapp.com/public/images/musty-avatar.jpg' /> */}
        <div className='profile-pic'>
-       <Avatar style={{width:'100%',height:'100%'}} alt={appProps.user.user.firstName} src={appImage} />   
+       <Avatar style={{width:'100%',height:'100%'}} alt={appProps.user.user.firstName} src={imageUrl} />   
         </div>     
         <div className="cover-page-section">
             <div className="btn-container">
@@ -49,6 +89,11 @@ export default function MainProfile() {
       if (info.file.status === 'done') {
         const idd=info.file.response.message.insertedId
         message.success(`${info.file.name} file uploaded successfully`);
+        const myImage = info.file.response.message.split('/')
+        const myRealImage=myImage.splice(1,2).join('/')
+       const  newAppImage=`https://polar-brook-59807.herokuapp.com/${myRealImage}`;
+        setImageUrl(newAppImage)
+        console.log(newAppImage)
         // setId(idd)
         
       } else if (info.file.status === 'error') {
@@ -57,9 +102,9 @@ export default function MainProfile() {
     }}
    
     >
-    <Button icon={<UploadOutlined />}>Upload A Profile picture</Button>
+    <Button color='primary' variant='contained' icon={<UploadOutlined />}>Upload A Profile picture</Button>
   </Upload>
-            <Button onClick={handlePrint} style={{marginLeft:'20px'}} variant='contained'>Print Profile</Button>
+            <Button onClick={handlePrint} style={{marginTop:'20px'}} variant='contained'>Print Profile</Button>
             </div>
         </div>
         <div  className="profile-pic-section">
@@ -99,26 +144,84 @@ export default function MainProfile() {
         </div>
         <div  className="change-password-section">
             <div className="change-pwd">
-               
-                <input className='profileInp' type="submit" value="Change Password"/>
+            <Button onClick={()=>{
+                setChange(!change)
+            }} variant='contained' style={{width:'70%',margin:'auto',marginBottom:'20px'}} color='secondary'>Change Password</Button>
+        {
+            appProps.user.role.includes('Admin')&&(
+                <Button  variant='contained' style={{width:'70%',margin:'auto',marginBottom:'20px'}} color='primary'>Edit Profile</Button>
+                   
+            )
+        }
+           
+              
             </div>
-            <div className="password-setting-section">
+            <div style={{opacity:change?"1":'0',transition:'0.5s'}} className="password-setting-section">
                 <span>If You dont want to change your password click on the change
                     password button to terminate
                 </span>
              
-                <input className='profileInp' type="password" placeholder="please enter old password here"/>
-         
-           <input className='profileInp' type="password" placeholder="enter new password here"/>
-           
-           
-            <input className='profileInp' type="password" placeholder="confirm new password "/>
+       
+         <TextField onChange={(e)=>{
+             setOldPassword(e.target.value)
+         }} style={{margin:'3px'}}  size='small'  name='password' id="outlined-basic" label="Please enter old password here" variant="outlined" />
+         <TextField onChange={(e)=>{
+             setNewPassword(e.target.value)
+         }} style={{margin:'3px'}} size='small'  name='password' id="outlined-basic" label="Enter new password here" variant="outlined" />
+         <TextField onChange={(e)=>{
+             setConfirmPassword(e.target.value)
+         }} style={{margin:'3px'}} size='small'  name='password' id="outlined-basic" label="Confirm new password" variant="outlined" />
+          
+
+         <Button onClick={()=>{
+             const urlToPush=appProps.user.role.includes('Admin')?'admin':'staff';
+             const myObj={
+                 oldPassword,
+                 newPassword
+             }
+             console.log(appProps.user)
+             if (newPassword!==confirmPassword) {
+             return   message.error('Password does not Match!!!')
+             }else{
+                 handleToggle()
+                 setTimeout(() => {
+                    
+                 }, 3000);
+                fetch(`https://polar-brook-59807.herokuapp.com/${urlToPush}/change-password/${appProps.user.user._id}`,{
+                    method:'POST',
+                    headers:{
+                      "Content-Type":'application/json'
+                    },
+                    body:JSON.stringify(myObj)
+                  })
+                  .then(res=>{
+                      res.json()
+                      .then(data=>{
+                        notification.open({
+                                  message: 'Password Updated Successfuly',
+                                  description:'Password Updated',
+                                  onClick: () => {
+                                    notification.close()
+                                  },
+                                  type:'success'
+                                });
+                        handleClose()
+                       
+                      })
+                  })
+
+             }
+               
+            }} variant='contained' style={{width:'30%',marginLeft:'auto',marginBottom:'20px',backgroundColor:'green',color:'white'}}>Change Password</Button>
+               
             </div>
            
         </div>
        
        
-
+        <Backdrop style={{display:'flex',flexDirection:'column'}} className={classes.backdrop} open={open}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
         </div>
     )
 }

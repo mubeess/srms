@@ -8,7 +8,8 @@ SET_USER,
 SET_STUDENT_RESULT,
 SET_RECIEPT,
 SET_ATTENDANCE,
-SET_DOSIER
+SET_DOSIER,
+SET_EDIT
 } from '../types'
 
 
@@ -21,7 +22,8 @@ export default function AppState(props){
         reciept:[],
         studentsResult:[],
         attendance:[],
-        dosier:[]
+        dosier:[],
+        editValue:{}
      
         
     }
@@ -34,6 +36,7 @@ const setStudentsResults=(results)=>dispatch({type:SET_STUDENT_RESULT,payload:re
 const setReCiept=(student)=>dispatch({type:SET_RECIEPT,payload:student})
 const setAttendance=(students)=>dispatch({type:SET_ATTENDANCE,payload:students})
 const setDosier=(dosier)=>dispatch({type:SET_DOSIER,payload:dosier})
+const setEdit=(user)=>dispatch({type:SET_EDIT,payload:user})
 
 return <AppContext.Provider
 value={{
@@ -51,7 +54,9 @@ value={{
     setAttendance,
     attendance:state.attendance,
     setDosier,
-    dosier:state.dosier
+    dosier:state.dosier,
+    editValue:state.editValue,
+    setEdit
 }}
 >
 

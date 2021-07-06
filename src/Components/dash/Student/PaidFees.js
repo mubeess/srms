@@ -17,7 +17,10 @@ import green from '@material-ui/core/colors/green'
 import Pagination from '@material-ui/lab/Pagination';
 import { withRouter } from 'react-router';
 import AppContext from '../../../Context/app/appContext'
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
+import InputLabel from '@material-ui/core/InputLabel';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -70,7 +73,7 @@ const useStyles = makeStyles({
   // const [filtered,setFiltered]=useState('')
   const [searchVal,setSearchVal]=useState('')
   
-  const filtered= allPaid.length==0?allPaid:allPaid.filter(dat=>dat.studentId.toLowerCase().includes(searchVal.toLowerCase())||dat.term.toLowerCase().includes(searchVal.toLowerCase())||dat.pays[0].teller.toLowerCase().includes(searchVal.toLowerCase())||dat.className.toLowerCase().includes(searchVal.toLowerCase()))
+  const filtered= allPaid.length==0?allPaid:allPaid.filter(dat=>dat.username.toLowerCase().includes(searchVal.toLowerCase())||dat.className.toLowerCase().includes(searchVal.toLowerCase()))
 
   useEffect(()=>{
     fetch(`https://polar-brook-59807.herokuapp.com/admin/get-all-paid-and-un-paid-student`)
@@ -95,18 +98,30 @@ const useStyles = makeStyles({
 <Button style={{backgroundColor:'#1E7F95',marginLeft:'20px',height:'30px'}} variant="contained" color="primary">
   PDF
 </Button>
-<Button style={{backgroundColor:'#1E7F95',marginLeft:'20px',height:'30px'}}  variant="contained" color="primary">
-  EXCELL
-</Button>
-<Button style={{backgroundColor:'#1E7F95',marginLeft:'20px',height:'30px'}}  variant="contained" color="primary">
-  csv
-</Button>
+<FormControl style={{
+  marginLeft: '50px',
+}} variant="outlined">
+        <InputLabel htmlFor="outlined-age-native-simple">Sort</InputLabel>
+        <Select
+          native
+          value='Paid'
+          label="Category"
+          inputProps={{
+            name: 'category',
+            id: 'outlined-age-native-simple',
+          }}
+        >
+           <option value='paid'>Paid</option>
+          <option value='Science'>Science</option>
+          <option value='Arts'>Arts</option>
+        </Select>
+      </FormControl>
 <TextField
         onChange={(e)=>{
           setSearchVal(e.target.value)
         }}
         color='#FFC305'
-        style={{marginLeft:'30px',width:'40%',marginRight:'10px',marginTop:'5px'}}
+        style={{marginLeft:'auto',width:'40%',marginRight:'10px',marginTop:'5px'}}
         id="input-with-icon-adornment"
         type='search'
         label="Search By Id, Name, Teller_No, Term, Or Class"
@@ -139,11 +154,12 @@ const useStyles = makeStyles({
           allPaid.length>=1&&(
             filtered.map((row,ind) => (
               <StyledTableRow key={ind}>
+                {console.log(row)}
                 <StyledTableCell component="th" scope="row">
                   {ind+1}
                 </StyledTableCell>
-                <StyledTableCell align="right">{row.studentId}</StyledTableCell>
-                <StyledTableCell align="right">{row.studentName}</StyledTableCell>
+                <StyledTableCell align="right">{row.username}</StyledTableCell>
+                <StyledTableCell align="right">{`${row.firstname+" "+row.lastName}`}</StyledTableCell>
                 <StyledTableCell align="right">{row.term}</StyledTableCell>
                 <StyledTableCell align="right">{row.className}</StyledTableCell>
                 <StyledTableCell align="right">{row.teller}</StyledTableCell>

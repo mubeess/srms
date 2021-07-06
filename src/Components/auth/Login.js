@@ -193,9 +193,16 @@ export default function Login(props) {
     res.json()
     .then(data=>{
       console.log(data)
-      // setIsSuccess(true)
+      
       if (data.success) { 
-        handleClose()
+        setIsSuccess(true)
+       
+
+      appProps.setIslogged()
+      appProps.setUser({role:data.user.role,user:data.user})
+      const isAdmin=data.user.role.includes('Admin')
+      const urlToPush=isAdmin?'dash/main':'dash/profile'
+      setTimeout(() => {
         notification.open({
           message: 'Successfully Logged In',
           description:'Logged In',
@@ -204,12 +211,11 @@ export default function Login(props) {
           },
           type:'success'
         });
-
-      appProps.setIslogged()
-      appProps.setUser({role:data.user.role,user:data.user})
-      const isAdmin=data.user.role.includes('Admin')
-      const urlToPush=isAdmin?'dash/main':'dash/profile'
-      props.history.push(urlToPush)
+        handleClose()
+        props.history.push(urlToPush)
+        setIsSuccess(false)
+      }, 4000);
+     
      }else{
       handleClose()
       notification.open({

@@ -28,7 +28,7 @@ import {EditRounded,DeleteForeverRounded,ViewArrayRounded} from '@material-ui/ic
 import Cognitive from './cognitive/Cognitive'
 import Assignments from './Assignment/Assignment'
 import Profile from './Profile/Profile'
-import Reciept from '../Reciept/Reciept'
+import Reciept from '../Dosier/Reciept'
 import Attendance from '../Dosier/Attendance'
 import SelectSubject from './Staff/SelectSubject'
 import FinalResult from './Staff/FinalResult'
@@ -36,6 +36,8 @@ import Proceed from '../Proceed/Proceed'
 import StudentScript from '../Dosier/StudentScript'
 import Dosier from '../Dosier/Dosier'
 import ViewResult from './ViewResult/ViewResult'
+import EditStaff from './Staff/EditStaff'
+import EditStudent from './Student/EditStudent'
 
 
 const StyledDraw=styled.div`
@@ -113,6 +115,11 @@ flex-direction: row;
     )
 }
 
+function checkLoad() {
+  window.onbeforeunload = function() {
+    return alert('donntttt')
+}
+}
 
 function Index(props) {
     const appProps=useContext(AppContext)
@@ -139,7 +146,7 @@ function Index(props) {
             setAllClassess(data.message)
           })
         })
-        
+        checkLoad()
     }, [])
     const Dynamic=()=>{
         switch (props.match.url) {
@@ -177,6 +184,11 @@ function Index(props) {
                                             return <Dosier></Dosier>
                 case '/dash/veiwresult':
                                               return <ViewResult></ViewResult>
+                case '/dash/editstaff':
+                                                return <EditStaff></EditStaff>
+                 case '/dash/editstudent':
+                                                  return <EditStudent></EditStudent>
+                                        
              
         
             default:
@@ -229,7 +241,7 @@ function Index(props) {
            <option value='Daycare'>Daycare</option>
            <option value='Playclass'>Playclass</option>
            <option value='Kindergartens'>Kindergartens</option>
-           <option value='Grade'>Grade</option>
+           <option value='Grade'>Grades</option>
           <option value='JSS'>JSS</option>
           <option value='SSS'>SSS</option>
         </Select>
