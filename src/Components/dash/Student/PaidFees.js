@@ -70,10 +70,12 @@ const useStyles = makeStyles({
    const appProps=useContext(AppContext)
   const classes = useStyles();
   const[allPaid,setAllPaid]=useState([])
+  const[sortValue,setSortValue]=useState('All')
   // const [filtered,setFiltered]=useState('')
   const [searchVal,setSearchVal]=useState('')
+  const [ultraFiltered,setUltra]=useState([])
   
-  const filtered= allPaid.length==0?allPaid:allPaid.filter(dat=>dat.username.toLowerCase().includes(searchVal.toLowerCase())||dat.className.toLowerCase().includes(searchVal.toLowerCase()))
+  const filtered= ultraFiltered.length==0?ultraFiltered:ultraFiltered.filter(dat=>dat.username.toLowerCase().includes(searchVal.toLowerCase())||dat.className.toLowerCase().includes(searchVal.toLowerCase()))
 
   useEffect(()=>{
     fetch(`https://polar-brook-59807.herokuapp.com/admin/get-all-paid-and-un-paid-student`)
@@ -81,6 +83,7 @@ const useStyles = makeStyles({
       res.json()
       .then(data=>{
         setAllPaid(data.message)
+        setUltra(data.message)
         console.log(data)
       })
   
@@ -100,20 +103,41 @@ const useStyles = makeStyles({
 </Button>
 <FormControl style={{
   marginLeft: '50px',
+ 
 }} variant="outlined">
         <InputLabel htmlFor="outlined-age-native-simple">Sort</InputLabel>
         <Select
+        onChange={(e)=>{
+          setSortValue(e.target.value)
+        if (e.target.value=='All') {
+          setUltra(allPaid)
+          console.lg(allPaid)
+         
+        }else 
+        if(e.target.value=='Paid'){
+         const PaidStd=allPaid.filter(std=>std.paid==true)
+         setUltra(PaidStd)
+        
+        }else if(e.target.value=='Unpaid'){
+          const UnPaidStd=allPaid.filter(std=>std.paid==false)
+          setUltra(UnPaidStd)
+         
+        }
+        return null 
+        }}
+        value={sortValue}
+          style={{height:'40px'}}
           native
-          value='Paid'
-          label="Category"
+      
+          label="Sort"
           inputProps={{
             name: 'category',
             id: 'outlined-age-native-simple',
           }}
         >
-           <option value='paid'>Paid</option>
-          <option value='Science'>Science</option>
-          <option value='Arts'>Arts</option>
+           <option value='Paid'>Paid</option>
+          <option value='Unpaid'>Unpaid</option>
+          <option value='All'>All</option>
         </Select>
       </FormControl>
 <TextField
@@ -154,7 +178,6 @@ const useStyles = makeStyles({
           allPaid.length>=1&&(
             filtered.map((row,ind) => (
               <StyledTableRow key={ind}>
-                {console.log(row)}
                 <StyledTableCell component="th" scope="row">
                   {ind+1}
                 </StyledTableCell>
@@ -162,7 +185,7 @@ const useStyles = makeStyles({
                 <StyledTableCell align="right">{`${row.firstname+" "+row.lastName}`}</StyledTableCell>
                 <StyledTableCell align="right">{row.term}</StyledTableCell>
                 <StyledTableCell align="right">{row.className}</StyledTableCell>
-                <StyledTableCell align="right">{row.teller}</StyledTableCell>
+                <StyledTableCell align="right">{row.pays.length>0?row.pays[0].teller:'Not Paid'}</StyledTableCell>
                 <StyledTableCell align="right">{row.paid?'Paid':'Not Paid'}</StyledTableCell>
                 <StyledTableCell align="right">
                <Button onClick={()=>{
@@ -171,11 +194,11 @@ const useStyles = makeStyles({
                  }
                  const selectors={
                   term:row.term,
-                  studentId:row.studentId,
-                  studentName:row.studentName,
+                  studentId:row.username,
+                  studentName:`${row.firstname+" "+row.lastName}`,
                   teller:row.pays[0].teller,
                   className:row.className,
-                  purposeOfPayment:[]
+                  purposeOfPayment:row.pays[0].purposeOfPayment
                 }
                 appProps.setReCiept([selectors])
                 props.history.push('reciept')

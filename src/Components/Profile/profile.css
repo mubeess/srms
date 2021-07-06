@@ -38,9 +38,10 @@
     grid-template-columns: repeat(2, 1fr);
 }
 
-.profileInp input[type='text']{
+.profileInp{
     margin: 5px;
     padding: 5px;
+    border: none;
 }
 .profileInp input[type='password']{
     margin: 5px;

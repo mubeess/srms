@@ -120,7 +120,7 @@ const changeSelect=(e)=>{
         </div>
         <div className='personal'>
           
-        <TextField style={{width:'99%'}}  name='staffId'  onChange={changeValues}  id="outlined-basic" label="Staff Id" variant="outlined" />
+        <TextField disabled style={{width:'99%'}}  name='staffId'  value='Automatically Generated'  id="outlined-basic" label="Staff Id" variant="outlined" />
         <TextField style={{width:'99%'}}  name='email'  onChange={changeValues}  type='email' id="outlined-basic" label="Email Address" variant="outlined" />
         <FormControl style={{width:'99%'}}   variant="outlined">
         <InputLabel htmlFor="outlined-age-native-simple">Gender</InputLabel>

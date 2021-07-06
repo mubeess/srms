@@ -436,7 +436,62 @@ fetch(`https://polar-brook-59807.herokuapp.com/admin/set-role/?id=${staff}`,{
           <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr'}}>
           <Button style={{marginLeft:'50px',backgroundColor:'#F39C77',color:'white', width: '7rem'}} variant="contained">Deactivate</Button>
           <Button style={{marginLeft:'30px',backgroundColor:'green',color:'white'}} variant="contained">Edit</Button>
-          <Button style={{marginLeft:'30px',backgroundColor:'red',color:'white'}} variant="contained">Drop</Button>
+          <Button onClick={()=>{
+            handleToggle()
+            const myObjj={
+              role:'None'
+            }
+            fetch(`https://polar-brook-59807.herokuapp.com/admin/set-role/?id=${staf._id}`,{
+              method:'PUT',
+              headers:{
+                "Content-Type":'application/json'
+              },
+              body:JSON.stringify(myObjj)
+            }).
+            then(res=>{
+              res.json()
+              .then(data=>{
+                handleClose()
+                notification.open({
+                  message: `Successfuly Dropped A Staff`,
+                  description:'Role Dropped',
+                  onClick: () => {
+                    notification.close()
+                  },
+                  type:'success'
+                });
+
+            fetch(`https://polar-brook-59807.herokuapp.com/admin/get-all-staff`)
+           .then(res=>{
+            res.json()
+          .then(data=>{
+           if (data.message.length==0) {
+          setIsEmpty(true)
+          }
+        setAllStaff(data.message)
+      })
+      
+
+    })
+
+
+     
+
+              })
+    }).
+    catch(er=>{
+      handleClose()
+      notification.open({
+        message: 'An Error Occured',
+        description:'Error',
+        onClick: () => {
+          notification.close()
+        },
+        type:'error'
+      });
+    })
+
+          }} style={{marginLeft:'30px',backgroundColor:'red',color:'white'}} variant="contained">Drop</Button>
 
           </div>
 

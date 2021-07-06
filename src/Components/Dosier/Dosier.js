@@ -1,4 +1,4 @@
-import React,{useRef,useContext,useEffect} from 'react'
+import React,{useRef,useContext,useEffect,useState} from 'react'
 import styled from 'styled-components'
 import Logo from './logo1.png'
 import Signature from './signature.jpg'
@@ -12,7 +12,7 @@ const grader = (grade) => {
 
     switch (grade) {
         case 'A':
-            return "Excellence"
+            return "Excellence" 
             break;
 
         case 'B':

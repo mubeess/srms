@@ -120,7 +120,7 @@ export default function AddStudent() {
         defaultValue="2017-05-24"
          variant="outlined" />
     
-        <TextField name='studentId' onChange={changeValues} style={{width:'99%'}} id="outlined-basic" label="ID Number" variant="outlined" />
+        <TextField disabled name='studentId' value='Automatically Generated'   style={{width:'99%'}} id="outlined-basic" label="ID Number" variant="outlined" />
         <FormControl style={{width:'99%'}} variant="outlined">
         <InputLabel htmlFor="outlined-age-native-simple">Gender</InputLabel>
         <Select

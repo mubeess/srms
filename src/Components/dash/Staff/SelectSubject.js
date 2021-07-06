@@ -108,7 +108,7 @@ function SelectSubject(props) {
       const newClasses=data.subjects.map((row,ind)=>{
         const newCl=[]
         newCl.push(row.class)
-        console.log('---------',newCl)
+        
         return appProps.user.role.includes('Admin')?[row.name]:newCl.toString()
       })
       if (data.subjects.length>=1) {

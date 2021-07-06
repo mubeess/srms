@@ -133,7 +133,7 @@ export default function MainProfile() {
             <input className='profileInp' type="text" value={appProps.user.user.username ||'None Set'} disabled/>
             <input className='profileInp' type="text" value={`${appProps.user.user.firstName+' '+appProps.user.user.lastName  ||'None Set'}`} disabled/>
             <input className='profileInp' type="text" value={appProps.user.role.map(rl=>(`${rl+'**'}`))} disabled/>
-            <input className='profileInp' type="text" value={appProps.user.user.email || 'None set'}/>
+            <input className='profileInp' type="text" value={appProps.user.user.email || 'None set'} disabled/>
             <input className='profileInp' type="text" value={appProps.user.role.includes('Teacher')?'Academics':'Non Academics'} disabled/>
             <input className='profileInp' type="text" value={appProps.user.user.department || 'None Set'} disabled/>
             <input className='profileInp' type="text" value={appProps.user.user.phone || 'None Set'} disabled/>
@@ -147,12 +147,7 @@ export default function MainProfile() {
             <Button onClick={()=>{
                 setChange(!change)
             }} variant='contained' style={{width:'70%',margin:'auto',marginBottom:'20px'}} color='secondary'>Change Password</Button>
-        {
-            appProps.user.role.includes('Admin')&&(
-                <Button  variant='contained' style={{width:'70%',margin:'auto',marginBottom:'20px'}} color='primary'>Edit Profile</Button>
-                   
-            )
-        }
+      
            
               
             </div>

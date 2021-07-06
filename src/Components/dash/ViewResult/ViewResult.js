@@ -495,23 +495,7 @@ const StyledTableRow = withStyles((theme) => ({
 
 
 
-    <Button
-                  variant="contained"
-                  style={{margin:'20px'}}
-                  onClick={()=>{
-                    props.history.push('veiwresult')
-                  }}
-                >
-                  Save and Continue
-                </Button>
-
-                  <Button
-                variant="contained"
-                color="primary"
-               
-              >
-               Final Submission
-              </Button>
+    
 
       </StyledView>
 

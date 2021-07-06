@@ -24,7 +24,7 @@ import { Divider } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import {EditRounded,DeleteForeverRounded,ViewArrayRounded} from '@material-ui/icons'
+import {EditRounded,DeleteForeverRounded,ViewArrayRounded,CloseOutlined} from '@material-ui/icons'
 import Cognitive from './cognitive/Cognitive'
 import Assignments from './Assignment/Assignment'
 import Profile from './Profile/Profile'
@@ -210,7 +210,7 @@ function Index(props) {
             <StyledMain>
                 <Aside open={open}></Aside>
                 <Dynamic></Dynamic>
-                <Drawer
+          <Drawer
           title="Manage Classes"
           placement='top'
           closable={false}
@@ -324,6 +324,11 @@ function Index(props) {
 
 
       }} style={{width:'15%',height:'40px',marginTop:'20px',marginLeft:'20px'}} variant="contained" color='primary'>Add Class</Button>
+
+   <CloseOutlined onClick={()=>{
+     close()
+   }} style={{marginLeft:'auto',marginRight:'20px',cursor:'pointer'}}></CloseOutlined>
+
          </div>
 
          <Divider style={{width:'100%'}}></Divider>
