@@ -57,7 +57,7 @@ const StyledFees=styled.div`
 display: flex;
 min-height: 400px;
 width: 70%;
-background-color:#E5E5E5;
+background-color:#f9f9f9;
 border: 1px thin #1E7F95;
 flex-direction: column;
 .selection{
@@ -105,10 +105,10 @@ const useStyles = makeStyles((theme) => ({
     const classes = useStyles();
     const [options,setOptions]=React.useState([{ value: 'Tuition Fee' }])
     const [open, setOpen] = React.useState(false);
-    const [classs,setClass]=useState('Primary 1')
-    const [term,setTerm]=useState('First Term')
+    const [classs,setClass]=useState('None')
+    const [term,setTerm]=useState('None')
     const [studentId,setStudentId]=useState('None')
-    const [studentName,setStudentName]=useState('Mubarak')
+    const [studentName,setStudentName]=useState('None')
     const [teller,setTeller]=useState('')
     const [section,setSection]=useState('SSS')
     const [selectedOptions,setSelected]=React.useState([''])
@@ -477,7 +477,7 @@ const useStyles = makeStyles((theme) => ({
             purposeOfPayment:selectedOptions,
             amount
           }
-          console.log("||||||||||||||||||",selectors)
+          
         appProps.setReCiept([selectors])
         props.history.push('reciept')
         // window.location.pathname = '/reciept';

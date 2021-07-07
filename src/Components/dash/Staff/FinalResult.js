@@ -188,15 +188,124 @@ const useStyles = makeStyles({
                 >
                   Save and Continue
                 </Button>
+                {
+                  !appProps.user.role.includes('Admin')&&(
+                    <>
+                    <Button
+                onClick={()=>{
+                let buttonToPush
+                if (appProps.user.user.ca1Button) {
+                  buttonToPush='ca1Button'
+                } else 
+                if (appProps.user.user.ca2Button) {
+                  buttonToPush='ca2Button'
+                } else 
+                if (appProps.user.user.ca3Button) {
+                  buttonToPush='ca3Button'
+                }  else 
+                if (appProps.user.user.ca4Button) {
+                  buttonToPush='ca4Button'
+                }
 
-                  <Button
+            if (buttonToPush==undefined) {
+              return alert('Contact The Exam Officer')
+            }else{
+              const myObj={
+                id:appProps.user.user._id,
+                submitButton:buttonToPush,
+                value:false
+              }
+                  fetch(`https://polar-brook-59807.herokuapp.com/admin/final-submission`,{
+                    method:'PUT',
+                    headers:{
+                      "Content-Type":'application/json'
+                    },
+                    body:JSON.stringify(myObj)
+                  }).
+                  then(res=>{
+                    res.json()
+                    .then(data=>{
+                      console.log("+++++++",myObj)
+                      fetch(`https://polar-brook-59807.herokuapp.com/admin/get-single-staff/?username=${appProps.user.user.username}`)
+                      .then(res=>{
+                        res.json()
+                        .then(dat=>{
+                          appProps.setUser({role:dat.message.role,user:dat.message})
+                          console.log("*******",dat)
+                        })
+                      })
+                    })
+                  })
+
+            }
+
+    
+                 
+                }}
                 variant="contained"
                 color="primary"
+                size='small'
                
                
               >
-               Final Submission
+               Submit CA
               </Button>
+
+              <Button
+              onClick={()=>{
+                let buttonToPush
+                if (appProps.user.user.examButton) {
+                  buttonToPush='examButton'
+                }
+
+                if (buttonToPush==undefined) {
+                  return alert('Contact The Exam Officer')
+                }else{
+                  const myObj={
+                    id:appProps.user.user._id,
+                    submitButton:buttonToPush,
+                    value:false
+                  }
+                      fetch(`https://polar-brook-59807.herokuapp.com/admin/final-submission`,{
+                        method:'PUT',
+                        headers:{
+                          "Content-Type":'application/json'
+                        },
+                        body:JSON.stringify(myObj)
+                      }).   
+                      then(res=>{
+                        res.json()
+                        .then(data=>{
+                          console.log("+++++++",myObj)
+                          fetch(`https://polar-brook-59807.herokuapp.com/admin/get-single-staff/?username=${appProps.user.user.username}`)
+                          .then(res=>{
+                            res.json()
+                            .then(dat=>{
+                              appProps.setUser({role:dat.message.role,user:dat.message})
+                              console.log("*******",dat)
+                            })
+                          })
+                        })
+                      })
+              }}}
+               style={{
+                 backgroundColor:'green',
+                 color:'white',
+                 marginLeft:'20px'
+               }}
+                variant="contained"
+                size='small'
+               
+               
+              >
+               Submit Exam
+              </Button>
+              </>
+                  )
+                }
+                 
+             
+              
       </StyledView>
       </StyledResult>
     )

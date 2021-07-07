@@ -2,7 +2,7 @@ import React,{useState,useContext,useEffect} from 'react'
 import styled from 'styled-components'
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import {Dashboard,VerifiedUserRounded,HouseRounded,Folder,Receipt,FileCopy,Group,GroupAdd,Work,ArrowForward,ViewAgenda,Schedule,School,Assessment,Assignment} from '@material-ui/icons';
+import {Dashboard,VerifiedUserRounded,HouseRounded,Folder,Receipt,FileCopy,Group,GroupAdd,Work,ArrowForward,ViewAgenda,Schedule,School,Assessment,Assignment,LockOpen} from '@material-ui/icons';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import {withRouter,Link} from 'react-router-dom'
@@ -134,6 +134,19 @@ margin-bottom: 10px;
           ):null
         }
 
+{
+       isAd||isExamOfficer?(
+          <Link to="/dash/assessment">
+          <ListItem style={{borderBottom:'1px solid white'}} button>
+            <ListItemIcon>
+              <LockOpen style={{color:'white'}} />
+            </ListItemIcon>
+            <ListItemText style={{color:'white'}} primary="Assessment Control" />
+          </ListItem>
+          </Link>
+        ):null
+   }
+
          {
            isAd ||isBursar?(
             <Link to="/dash/fees">
@@ -220,6 +233,8 @@ margin-bottom: 10px;
           </Link>
         ):null
       }
+
+
         
 
 

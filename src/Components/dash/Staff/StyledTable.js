@@ -1,9 +1,10 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useContext} from 'react'
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import AppContext from '../../../Context/app/appContext'
 
 
 const StyledTableCell = withStyles((theme) => ({
@@ -39,8 +40,9 @@ export default function StyledTable(props) {
     const [ca3,setCa3]=useState('black')
     const [ca4,setCa4]=useState('black')
     const [exam,setExam]=useState('black')
+    const appProps=useContext(AppContext)
     useEffect(()=>{
-     console.log("++++++++++++++",props)
+     console.log("++++++++++++++",appProps)
     },[])
 
 
@@ -55,6 +57,7 @@ export default function StyledTable(props) {
                 <StyledTableCell align="center">
                 <div className='inp'>
                     <input
+                     disabled={appProps.user.role.includes('Admin')?false:!appProps.user.user.ca1Button}
                     style={{border:`2px solid ${ca1}`}}
                     onBlur={
                       (e)=>{
@@ -64,7 +67,8 @@ export default function StyledTable(props) {
                           value:parseInt(e.target.value),
                           currentClass:props.row.class,
                           username:props.row.username,
-                          category:props.row.category
+                          category:props.row.category,
+                          subject:props.row.subject
         
                         }
                         fetch('https://polar-brook-59807.herokuapp.com/teacher/insert-one-result',{
@@ -92,6 +96,7 @@ export default function StyledTable(props) {
                  <StyledTableCell align="center">
                  <div className='inp'>
                     <input
+                         disabled={appProps.user.role.includes('Admin')?false:!appProps.user.user.ca2Button}
                         style={{border:`2px solid ${ca2}`}}
                      onBlur={
                       (e)=>{
@@ -101,7 +106,8 @@ export default function StyledTable(props) {
                   value:parseInt(e.target.value),
                   currentClass:props.row.class,
                   username:props.row.username,
-                  category:props.row.category
+                  category:props.row.category,
+                  subject:props.row.subject
 
                 }
                 fetch('https://polar-brook-59807.herokuapp.com/teacher/insert-one-result',{
@@ -127,6 +133,7 @@ export default function StyledTable(props) {
                  <StyledTableCell align="center">
                  <div className='inp'>
                     <input
+                     disabled={appProps.user.role.includes('Admin')?false:!appProps.user.user.ca3Button}
                      style={{border:`2px solid ${ca3}`}}
                      onBlur={
                       (e)=>{
@@ -136,7 +143,8 @@ export default function StyledTable(props) {
                   value:parseInt(e.target.value),
                   currentClass:props.row.class,
                   username:props.row.username,
-                  category:props.row.category
+                  category:props.row.category,
+                  subject:props.row.subject
 
                 }
                 fetch('https://polar-brook-59807.herokuapp.com/teacher/insert-one-result',{
@@ -161,6 +169,7 @@ export default function StyledTable(props) {
                  <StyledTableCell align="center">
                  <div className='inp'>
                     <input 
+                      disabled={appProps.user.role.includes('Admin')?false:!appProps.user.user.ca4Button}
                      style={{border:`2px solid ${ca4}`}}
                      onBlur={
                       (e)=>{
@@ -170,7 +179,8 @@ export default function StyledTable(props) {
                   value:parseInt(e.target.value),
                   currentClass:props.row.class,
                   username:props.row.username,
-                  category:props.row.category
+                  category:props.row.category,
+                  subject:props.row.subject
 
                 }
                 fetch('https://polar-brook-59807.herokuapp.com/teacher/insert-one-result',{
@@ -194,7 +204,8 @@ export default function StyledTable(props) {
                  </StyledTableCell>
                  <StyledTableCell align="center">
                  <div className='inp'>
-                    <input 
+                    <input
+                      disabled={appProps.user.role.includes('Admin')?false:!appProps.user.user.examButton} 
                       style={{border:`2px solid ${exam}`}}
                       onBlur={
                        (e)=>{
@@ -204,7 +215,8 @@ export default function StyledTable(props) {
                    value:parseInt(e.target.value),
                    currentClass:props.row.class,
                    username:props.row.username,
-                   category:props.row.category
+                   category:props.row.category,
+                   subject:props.row.subject
  
                  }
                  console.log(myObj)

@@ -38,6 +38,7 @@ import Dosier from '../Dosier/Dosier'
 import ViewResult from './ViewResult/ViewResult'
 import EditStaff from './Staff/EditStaff'
 import EditStudent from './Student/EditStudent'
+import AssessmentControl from './AssesmentControl/AssessmentControl'
 
 
 const StyledDraw=styled.div`
@@ -115,11 +116,7 @@ flex-direction: row;
     )
 }
 
-function checkLoad() {
-  window.onbeforeunload = function() {
-    return alert('donntttt')
-}
-}
+
 
 function Index(props) {
     const appProps=useContext(AppContext)
@@ -137,7 +134,7 @@ function Index(props) {
    function open() {
     setVisible(true)
 }
- 
+
     useEffect(() => {
         fetch('https://polar-brook-59807.herokuapp.com/admin/get-every-class')
         .then(res=>{
@@ -146,7 +143,7 @@ function Index(props) {
             setAllClassess(data.message)
           })
         })
-        checkLoad()
+    
     }, [])
     const Dynamic=()=>{
         switch (props.match.url) {
@@ -188,6 +185,9 @@ function Index(props) {
                                                 return <EditStaff></EditStaff>
                  case '/dash/editstudent':
                                                   return <EditStudent></EditStudent>
+                 case '/dash/assessment':
+                                                    return <AssessmentControl></AssessmentControl>
+
                                         
              
         
