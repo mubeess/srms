@@ -40,10 +40,13 @@ margin-bottom: 10px;
        {
          isAd?(
           <Link onClick={()=>{
-            window.scrollTo({
-              top: 0,
-              behavior: "smooth"
-            });
+            fetch(`https://polar-brook-59807.herokuapp.com/admin/get-single-staff/?username=${appProps.user.user.username}`)
+            .then(res=>{
+              res.json()
+              .then(dat=>{
+                appProps.setUser({role:dat.message.role,user:dat.message})
+              })
+            })
           }} to="/dash/main">
           <ListItem style={{borderBottom:'1px solid white'}} button>
             <ListItemIcon>
@@ -58,7 +61,15 @@ margin-bottom: 10px;
       {
         
       }
-        <Link to="/dash/profile">
+        <Link onClick={()=>{
+            fetch(`https://polar-brook-59807.herokuapp.com/admin/get-single-staff/?username=${appProps.user.user.username}`)
+            .then(res=>{
+              res.json()
+              .then(dat=>{
+                appProps.setUser({role:dat.message.role,user:dat.message})
+              })
+            })
+          }} to="/dash/profile">
         <ListItem style={{borderBottom:'1px solid white'}} button>
           <ListItemIcon>
             <VerifiedUserRounded style={{color:'white'}} />
@@ -69,7 +80,15 @@ margin-bottom: 10px;
 
        {
          isAd||isPrincipal?(
-          <Link to="/dash/subject">
+          <Link onClick={()=>{
+            fetch(`https://polar-brook-59807.herokuapp.com/admin/get-single-staff/?username=${appProps.user.user.username}`)
+            .then(res=>{
+              res.json()
+              .then(dat=>{
+                appProps.setUser({role:dat.message.role,user:dat.message})
+              })
+            })
+          }} to="/dash/subject">
         <ListItem style={{borderBottom:'1px solid white'}} button>
           <ListItemIcon>
             <Folder style={{color:'white'}} />
@@ -83,7 +102,15 @@ margin-bottom: 10px;
 
        {
        isAd?(
-          <Link to="/dash/staff">
+          <Link onClick={()=>{
+            fetch(`https://polar-brook-59807.herokuapp.com/admin/get-single-staff/?username=${appProps.user.user.username}`)
+            .then(res=>{
+              res.json()
+              .then(dat=>{
+                appProps.setUser({role:dat.message.role,user:dat.message})
+              })
+            })
+          }} to="/dash/staff">
           <ListItem style={{borderBottom:'1px solid white'}} button>
             <ListItemIcon>
               <Group style={{color:'white'}} />
@@ -96,7 +123,15 @@ margin-bottom: 10px;
        
        {
         isAd||isPrincipal?(
-          <Link to="/dash/student">
+          <Link onClick={()=>{
+            fetch(`https://polar-brook-59807.herokuapp.com/admin/get-single-staff/?username=${appProps.user.user.username}`)
+            .then(res=>{
+              res.json()
+              .then(dat=>{
+                appProps.setUser({role:dat.message.role,user:dat.message})
+              })
+            })
+          }} to="/dash/student">
           <ListItem style={{borderBottom:'1px solid white'}} button>
             <ListItemIcon>
               <GroupAdd style={{color:'white'}} />
@@ -109,7 +144,15 @@ margin-bottom: 10px;
        }
        {
        isAd ||isTeacher||isFormMaster||isPrincipal||isExamOfficer?(
-          <Link to="/dash/result">
+          <Link onClick={()=>{
+            fetch(`https://polar-brook-59807.herokuapp.com/admin/get-single-staff/?username=${appProps.user.user.username}`)
+            .then(res=>{
+              res.json()
+              .then(dat=>{
+                appProps.setUser({role:dat.message.role,user:dat.message})
+              })
+            })
+          }} to="/dash/result">
           <ListItem style={{borderBottom:'1px solid white'}} button>
             <ListItemIcon>
               <FileCopy style={{color:'white'}} />
@@ -123,7 +166,15 @@ margin-bottom: 10px;
 
         {
          isAd||isPrincipal||isExamOfficer?(
-            <Link to="/dash/veiwresult">
+            <Link onClick={()=>{
+              fetch(`https://polar-brook-59807.herokuapp.com/admin/get-single-staff/?username=${appProps.user.user.username}`)
+              .then(res=>{
+                res.json()
+                .then(dat=>{
+                  appProps.setUser({role:dat.message.role,user:dat.message})
+                })
+              })
+            }} to="/dash/veiwresult">
             <ListItem style={{borderBottom:'1px solid white'}} button>
             <ListItemIcon>
               <ViewAgenda style={{color:'white'}} />
@@ -136,7 +187,15 @@ margin-bottom: 10px;
 
 {
        isAd||isExamOfficer?(
-          <Link to="/dash/assessment">
+          <Link onClick={()=>{
+            fetch(`https://polar-brook-59807.herokuapp.com/admin/get-single-staff/?username=${appProps.user.user.username}`)
+            .then(res=>{
+              res.json()
+              .then(dat=>{
+                appProps.setUser({role:dat.message.role,user:dat.message})
+              })
+            })
+          }} to="/dash/assessment">
           <ListItem style={{borderBottom:'1px solid white'}} button>
             <ListItemIcon>
               <LockOpen style={{color:'white'}} />
@@ -149,7 +208,15 @@ margin-bottom: 10px;
 
          {
            isAd ||isBursar?(
-            <Link to="/dash/fees">
+            <Link onClick={()=>{
+              fetch(`https://polar-brook-59807.herokuapp.com/admin/get-single-staff/?username=${appProps.user.user.username}`)
+              .then(res=>{
+                res.json()
+                .then(dat=>{
+                  appProps.setUser({role:dat.message.role,user:dat.message})
+                })
+              })
+            }} to="/dash/fees">
         <ListItem style={{borderBottom:'1px solid white'}} button>
           <ListItemIcon>
             <Receipt style={{color:'white'}} />
@@ -164,7 +231,15 @@ margin-bottom: 10px;
 
 {
           isAd?(
-            <Link to="/dash/roles">
+            <Link onClick={()=>{
+              fetch(`https://polar-brook-59807.herokuapp.com/admin/get-single-staff/?username=${appProps.user.user.username}`)
+              .then(res=>{
+                res.json()
+                .then(dat=>{
+                  appProps.setUser({role:dat.message.role,user:dat.message})
+                })
+              })
+            }} to="/dash/roles">
             <ListItem style={{borderBottom:'1px solid white'}} button>
               <ListItemIcon>
                 <Work style={{color:'white'}} />
@@ -181,6 +256,7 @@ margin-bottom: 10px;
            isAd?(
             <ListItem onClick={()=>{
               props.open()
+
             }} style={{borderBottom:'1px solid white'}} button>
               <ListItemIcon>
                 <HouseRounded style={{color:'white'}} />
@@ -193,7 +269,15 @@ margin-bottom: 10px;
         {
           isAd||isFormMaster?(
   
-        <Link to="/dash/cognitive">
+        <Link onClick={()=>{
+          fetch(`https://polar-brook-59807.herokuapp.com/admin/get-single-staff/?username=${appProps.user.user.username}`)
+          .then(res=>{
+            res.json()
+            .then(dat=>{
+              appProps.setUser({role:dat.message.role,user:dat.message})
+            })
+          })
+        }} to="/dash/cognitive">
         <ListItem  style={{borderBottom:'1px solid white'}} button>
           <ListItemIcon>
             <Schedule style={{color:'white'}} />
@@ -208,7 +292,15 @@ margin-bottom: 10px;
       
     {
       isAd||isTeacher||isFormMaster?(
-        <Link to="/dash/assignment">
+        <Link onClick={()=>{
+          fetch(`https://polar-brook-59807.herokuapp.com/admin/get-single-staff/?username=${appProps.user.user.username}`)
+          .then(res=>{
+            res.json()
+            .then(dat=>{
+              appProps.setUser({role:dat.message.role,user:dat.message})
+            })
+          })
+        }} to="/dash/assignment">
         <ListItem  style={{borderBottom:'1px solid white'}} button>
           <ListItemIcon>
             <Assignment style={{color:'white'}} />
@@ -223,7 +315,15 @@ margin-bottom: 10px;
 
         {
        isAd?(
-          <Link to="/dash/proceed">
+          <Link onClick={()=>{
+            fetch(`https://polar-brook-59807.herokuapp.com/admin/get-single-staff/?username=${appProps.user.user.username}`)
+            .then(res=>{
+              res.json()
+              .then(dat=>{
+                appProps.setUser({role:dat.message.role,user:dat.message})
+              })
+            })
+          }} to="/dash/proceed">
           <ListItem style={{borderBottom:'1px solid white'}} button>
             <ListItemIcon>
               <ArrowForward style={{color:'white'}} />

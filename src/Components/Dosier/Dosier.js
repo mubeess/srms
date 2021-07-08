@@ -11,21 +11,33 @@ import AppContext from '../../Context/app/appContext'
 const grader = (grade) => {
 
     switch (grade) {
-        case 'A':
-            return "Excellence" 
+        case 'A1':
+            return "Excellent" 
             break;
 
-        case 'B':
+        case 'B2':
             return "Very Good"
             break;
             
-        case 'C':
+        case 'B3':
             return "Good"
             break; 
 
-        case 'D':
-            return "Pass"
+        case 'C4':
+            return "Credit"
             break;
+       case 'C4':
+                return "Credit"
+                break;
+       case 'C4':
+                    return "Credit"
+                    break;
+     case 'D7':
+                 return "Pass"
+                break;
+     case 'E8':
+                    return "Pass"
+                    break;
 
         case 'F':
             return "Fail"

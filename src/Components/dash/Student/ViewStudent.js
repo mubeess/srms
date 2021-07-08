@@ -1,4 +1,4 @@
-import { Divider,Typography, Input,Button,TextField} from '@material-ui/core';
+import { Divider,Typography, Input,Button,TextField, Backdrop} from '@material-ui/core';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import React,{useEffect,useState,useRef,useContext} from 'react'
 import styled from 'styled-components'
@@ -11,14 +11,26 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import {EditRounded,DeleteForeverRounded,ViewArrayRounded} from '@material-ui/icons'
+import {EditRounded,DeleteForeverRounded,ViewArrayRounded,CloseOutlined} from '@material-ui/icons'
 import gray from '@material-ui/core/colors/grey'
 import AppContext from '../../../Context/app/appContext'
 import { CSVLink } from 'react-csv'
 import {useReactToPrint} from 'react-to-print'
 import {withRouter} from 'react-router-dom'
+import Bio from '../../Bio/Bio';
+
+const StyledModal=styled.div`
+display: flex;
+flex-direction: column;
+width: 65%;
+max-height: 90vh;
+background-color: white;
+border-radius: 5px;
+box-shadow: 5px 10px #888888;
+overflow-y: scroll;
 
 
+`;
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -59,25 +71,51 @@ const rows = [
 {id:'004',name:'Mutafa dotzee',section:'Drop Out',classs:'DROP OUT',statuss:'NOT Active'}
 ];
 
-const useStyles = makeStyles({
-  table: {
-    minWidth: 700,
-  },
-});
+
+const useStyles = makeStyles((theme)=>(
+  {
+    table: {
+      minWidth: 700,
+    },
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: '#fff',
+  }
+} 
+))
+
  function ViewStudent(props) {
   const appProps =useContext(AppContext)
 const classes = useStyles();
 const[allStudents,setAllStudents]=useState([])
 // const [filtered,setFiltered]=useState('')
 const [searchVal,setSearchVal]=useState('')
+const [studentSelected,setStudentSelected]=useState([])
 
 const componentRef=useRef()
+const componentRef2=useRef()
 
 const handlePrint=useReactToPrint({
     content:()=>componentRef.current,
     copyStyles:true
 
 })
+
+const handlePrint2=useReactToPrint({
+  content:()=>componentRef2.current,
+  copyStyles:true
+
+})
+
+
+
+const [open, setOpen] = React.useState(false);
+const handleClose = () => {
+  setOpen(false);
+};
+const handleToggle = () => {
+  setOpen(!open);
+};
 
 
 const filtered=allStudents.filter(dat=>dat.firstName.toLowerCase().includes(searchVal.toLowerCase())||dat.lastName.toLowerCase().includes(searchVal.toLowerCase())||dat.username.toLowerCase().includes(searchVal.toLowerCase())||dat.section.toLowerCase().includes(searchVal.toLowerCase())||dat.currentClass.toLowerCase().includes(searchVal.toLowerCase()))
@@ -155,7 +193,10 @@ useEffect(()=>{
                 <StyledTableCell align="right">{row.currentClass}</StyledTableCell>
                 <StyledTableCell align="right">{row.gender}</StyledTableCell>
                 <StyledTableCell align="right">
-                <ViewArrayRounded style={{color:'#F39C77',marginRight:'10px',cursor:'pointer'}}></ViewArrayRounded>
+                <ViewArrayRounded onClick={()=>{
+                  setStudentSelected([row])
+                  handleToggle()
+                }} style={{color:'#F39C77',marginRight:'10px',cursor:'pointer'}}></ViewArrayRounded>
                  <EditRounded onClick={()=>{
                       appProps.setEdit({user:row})
                       props.history.push('editstudent')
@@ -197,6 +238,21 @@ useEffect(()=>{
       </Table>
     </TableContainer>
    
+    <Backdrop  style={{display:'flex',flexDirection:'column'}} className={classes.backdrop} open={open}>
+     
+       <StyledModal>
+         <Divider></Divider>
+         <CloseOutlined style={{color:'black',marginLeft:'auto',marginRight:'20px',cursor:'pointer'}} onClick={()=>{
+           handleClose()
+         }}></CloseOutlined>
+     <Button onClick={handlePrint2} style={{backgroundColor:'#1E7F95',marginLeft:'20px',height:'30px',width:'30%',marginTop:'20px',marginBottom:'20px'}} variant="contained" color="primary">
+  PDF
+</Button>
+    <Bio props={studentSelected} ref={componentRef2}></Bio>
+
+       </StyledModal>
+      </Backdrop>
+
 
       </StyledView>
     )

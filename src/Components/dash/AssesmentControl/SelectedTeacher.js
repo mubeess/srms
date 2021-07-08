@@ -65,11 +65,12 @@ export default function StyledTable(props) {
                      }
                      
                      const myObj={
-                        id:props.teach._id,
-                        submitButton:'ca1Button',
-                        value:e.target.checked
+                        teacherId:props.teach._id,
+                        button:'ca1Button',
+                        value:e.target.checked,
+                        username:props.teach.username
                       }
-                      fetch(`https://polar-brook-59807.herokuapp.com/admin/final-submission`,{
+                      fetch(`https://polar-brook-59807.herokuapp.com/admin/allow-submission-priviledge`,{
                         method:'PUT',
                         headers:{
                           "Content-Type":'application/json'
@@ -93,6 +94,7 @@ export default function StyledTable(props) {
 
 
                  <Switch
+                 color='primary'
                   onChange={(e)=>{
                     if (e.target.checked) {
                        setCa2(true)
@@ -101,11 +103,12 @@ export default function StyledTable(props) {
                     }
                     
                     const myObj={
-                       id:props.teach._id,
-                       submitButton:'ca2Button',
-                       value:e.target.checked
+                       teacherId:props.teach._id,
+                       button:'ca2Button',
+                       value:e.target.checked,
+                       username:props.teach.username
                      }
-                     fetch(`https://polar-brook-59807.herokuapp.com/admin/final-submission`,{
+                     fetch(`https://polar-brook-59807.herokuapp.com/admin/allow-submission-priviledge`,{
                        method:'PUT',
                        headers:{
                          "Content-Type":'application/json'
@@ -126,6 +129,7 @@ export default function StyledTable(props) {
                  </StyledTableCell>
                  <StyledTableCell align="right">
                  <Switch
+                 color='primary'
                   onChange={(e)=>{
                     if (e.target.checked) {
                        setCa3(true)
@@ -134,11 +138,12 @@ export default function StyledTable(props) {
                     }
                     
                     const myObj={
-                       id:props.teach._id,
-                       submitButton:'ca3Button',
-                       value:e.target.checked
+                       teacherId:props.teach._id,
+                       button:'ca3Button',
+                       value:e.target.checked,
+                       username:props.teach.username
                      }
-                     fetch(`https://polar-brook-59807.herokuapp.com/admin/final-submission`,{
+                     fetch(`https://polar-brook-59807.herokuapp.com/admin/allow-submission-priviledge`,{
                        method:'PUT',
                        headers:{
                          "Content-Type":'application/json'
@@ -162,6 +167,7 @@ export default function StyledTable(props) {
 
 
                  <Switch
+                 color='primary'
                   onChange={(e)=>{
                     if (e.target.checked) {
                        setCa4(true)
@@ -170,11 +176,12 @@ export default function StyledTable(props) {
                     }
                     
                     const myObj={
-                       id:props.teach._id,
-                       submitButton:'ca4Button',
-                       value:e.target.checked
+                       teacherId:props.teach._id,
+                       button:'ca4Button',
+                       value:e.target.checked,
+                       username:props.teach.username
                      }
-                     fetch(`https://polar-brook-59807.herokuapp.com/admin/final-submission`,{
+                     fetch(`https://polar-brook-59807.herokuapp.com/admin/allow-submission-priviledge`,{
                        method:'PUT',
                        headers:{
                          "Content-Type":'application/json'
@@ -197,6 +204,7 @@ export default function StyledTable(props) {
 
 
                  <Switch
+                 color='primary'
                   onChange={(e)=>{
                     if (e.target.checked) {
                        setExam(true)
@@ -205,11 +213,12 @@ export default function StyledTable(props) {
                     }
                     
                     const myObj={
-                       id:props.teach._id,
-                       submitButton:'examButton',
-                       value:e.target.checked
+                       teacherId:props.teach._id,
+                       button:'examButton',
+                       value:e.target.checked,
+                       username:props.teach.username
                      }
-                     fetch(`https://polar-brook-59807.herokuapp.com/admin/final-submission`,{
+                     fetch(`https://polar-brook-59807.herokuapp.com/admin/allow-submission-priviledge`,{
                        method:'PUT',
                        headers:{
                          "Content-Type":'application/json'

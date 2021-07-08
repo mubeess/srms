@@ -16,7 +16,7 @@ margin-top: 20px;
 export default function Attendance() {
     const appProps=useContext(AppContext)
     useEffect(()=>{
-      console.log(appProps)
+      console.log(appProps.studentsResult[0][0])
     },[])
     const componentRef=useRef()
     const handlePrint=useReactToPrint({
@@ -40,15 +40,15 @@ export default function Attendance() {
         <div className="information-container">
             <div>
                 <span className="content-title">SUBJECT: &nbsp;</span> <span  className="content-title-post">{appProps.studentsResult[1].subject}</span><br></br>
-                <span className="content-title">TEACHER: &nbsp;</span> <span  className="content-title-post">MR. MUBARAK </span><br></br>
+                <span className="content-title">TEACHER: &nbsp;</span> <span  className="content-title-post">MR/MRS </span><br></br>
             </div>
             <div>
                 <span className="content-title">CLASS: &nbsp;</span> <span className="content-title-post">{appProps.studentsResult[1].class}</span><br></br>
-                <span className="content-title">CLASS-SIZE: &nbsp;</span> <span className="content-title-post">{appProps.studentsResult.length+1}</span><br></br>
+                <span className="content-title">CLASS-SIZE: &nbsp;</span> <span className="content-title-post">{appProps.studentsResult[0].length}</span><br></br>
             </div>
             <div>
-                <span className="content-title">SESSION:</span> <span className="content-title-post">2020/2021</span><br></br>
-                <span className="content-title">TERM:</span> <span className="content-title-post">FIRST TERM</span><br></br>
+                <span className="content-title">SESSION:</span> <span className="content-title-post">{appProps.studentsResult[0][0].session}</span><br></br>
+                <span className="content-title">TERM:</span> <span className="content-title-post">{appProps.studentsResult[0][0].term}</span><br></br>
             </div>
 
         </div>
