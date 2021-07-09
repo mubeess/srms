@@ -160,8 +160,10 @@ const useStyles = makeStyles((theme) => ({
     color: '#fff',
   },
   table: {
-    minWidth: 700,
+    minWidth: 2000,
+   
   },
+  
 }));
 
 
@@ -173,6 +175,7 @@ const StyledTableCell = withStyles((theme) => ({
   body: {
     fontSize: 14,
   },
+  
 }))(TableCell);
 
 
@@ -363,22 +366,30 @@ const StyledTableCell = withStyles((theme) => ({
           <Divider></Divider>
       <TableContainer  style={{marginTop:'20px'}} component={Paper}>
       <Table className={classes.table} aria-label="customized table">
-        <TableHead >
+        <TableHead className={classes.th}>
           <TableRow style={{backgroundColor:gray[500]}} >
             <StyledTableCell>S/N</StyledTableCell>
             <StyledTableCell align="center">STUDENT ID</StyledTableCell>
             <StyledTableCell align="center">NAME</StyledTableCell>
+            <StyledTableCell align="center">Attentiveness</StyledTableCell>
+            <StyledTableCell align="center">Emotional</StyledTableCell>
             <StyledTableCell align="center">Neatness</StyledTableCell>
+            {/* <StyledTableCell align="center">Acceptance</StyledTableCell> */}
+            <StyledTableCell align="center">Team Work</StyledTableCell>
+            {/* <StyledTableCell align="center">Preseverance</StyledTableCell> */}
+            <StyledTableCell align="center">Speaking</StyledTableCell>
+            {/* <StyledTableCell align="center">Leadership</StyledTableCell> */}
+            <StyledTableCell align="center">Honesty</StyledTableCell>
             <StyledTableCell align="center">Punctuality</StyledTableCell>
-            <StyledTableCell align="center">Hard Working</StyledTableCell>
-            {/* <StyledTableCell align="center">Attitude</StyledTableCell> */}
-              {
-                // cognitiveValue.length>=1&&(
-                // cognitiveValue.map((cog,ind)=>(
-                //   <StyledTableCell key={ind} align="center">{cog.name}</StyledTableCell>
-                // )))
-              }
-            <StyledTableCell style={{width:'30%'}} align="center">Remarks</StyledTableCell>
+            <StyledTableCell align="center">Attitude</StyledTableCell>
+            <StyledTableCell align="center">Initiative</StyledTableCell>
+            <StyledTableCell align="center">Acceptance</StyledTableCell>
+            <StyledTableCell align="center">Preseverance</StyledTableCell>
+            <StyledTableCell align="center">Leadership</StyledTableCell> 
+            <StyledTableCell align="center">Follows</StyledTableCell>
+             <StyledTableCell align="center">Participation</StyledTableCell>
+          
+            <StyledTableCell style={{width:'10%'}} align="center">Remarks</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>

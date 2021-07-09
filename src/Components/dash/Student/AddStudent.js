@@ -271,8 +271,9 @@ export default function AddStudent() {
             id: 'outlined-age-native-simple',
           }}
         >
-           <option value='Kindergartens'>Kindergartens</option>
           <option value='Playclass'>Playclass</option>
+          <option value='Daycare'>Daycare</option>
+           <option value='Kindergartens'>Kindergartens</option>
           <option value='Grade'>Grade</option>
           <option value='JSS'>JSS</option>
           <option value='SSS'>SSS</option>

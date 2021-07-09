@@ -12,6 +12,7 @@ const StyledTableCell = withStyles((theme) => ({
     },
     body: {
       fontSize: 14,
+     
     },
   }))(TableCell);
 
@@ -34,29 +35,40 @@ const StyledTableCell = withStyles((theme) => ({
 
 export default function StyledTable(props) {
     const classes = useStyles();
-    const [neatenes,setNeateness]=useState('black')
-    const [puntuality,setPuntuality]=useState('black')
-    const [hardWorkin,setHard]=useState('black')
+    const [Attentiveness,setAttentiveness]=useState('black')
+    const [Emotional,setEmotion]=useState('black')
+    const [Neatness,setHard]=useState('black')
     const [remarks,setRemarks]=useState('black')
-    const [exam,setExam]=useState('black')
+    const [TeamWork,setTeam]=useState('black')
+    const [Speaking,setSpeaking]=useState('black')
+    const [Honesty,setHonesty]=useState('black')
+    const [Punctuality,setPunctuality]=useState('black')
+    const [Attitude,setAttitude]=useState('black')
+    const [Initiative,setInitiative]=useState('black')
+    const [Acceptance,setAcceptance]=useState('black')
+    const [Preseverance,setPreseverance]=useState('black')
+    const [Leadership,setLeadership]=useState('black')
+    const [Follows,setFollows]=useState('black')
+    const [Participation,setParticipation]=useState('black')
 
-
+    
+    
 
     return (
         <StyledTableRow>
                 <StyledTableCell component="th" scope="row">
                   {props.ind+1}
                 </StyledTableCell>
-                <StyledTableCell style={{width:'20%'}} align="center">{props.row.username}</StyledTableCell>
-                <StyledTableCell align="center">{props.row.firstName+" "+props.row.lastName}</StyledTableCell>
+                <StyledTableCell style={{width:'10%'}} align="center">{props.row.username}</StyledTableCell>
+                <StyledTableCell style={{width:'10%'}} align="center">{props.row.firstName+" "+props.row.lastName}</StyledTableCell>
                 <StyledTableCell align="center">
                 <div className='inp'>
                     <input
-                    style={{border:`2px solid ${neatenes}`}}
+                    style={{border:`2px solid ${Attentiveness}`}}
                     onBlur={
                       (e)=>{
                         const myObj={
-                          key:'neatness',
+                          key:'Attentiveness',
                           value:e.target.value,
                           username:props.row.username,
 
@@ -73,7 +85,7 @@ export default function StyledTable(props) {
                         res.json()
                         .then(data=>{
                           // appProps.setUser({})
-                          setNeateness('green')
+                          setAttentiveness('green')
                           console.log(data)
                        
                         })
@@ -94,12 +106,12 @@ export default function StyledTable(props) {
                  <StyledTableCell align="center">
                 <div className='inp'>
                     <input
-                    style={{border:`2px solid ${puntuality}`}}
+                    style={{border:`2px solid ${Emotional}`}}
                     onBlur={
                       (e)=>{
                         const myObj={
                           
-                          key:'punctuality',
+                          key:'Emotional',
                           value:e.target.value,
                           username:props.row.username,
         
@@ -114,7 +126,7 @@ export default function StyledTable(props) {
                         res.json()
                         .then(data=>{
                           // appProps.setUser({})
-                          setPuntuality('green')
+                          setEmotion('green')
                           console.log(data)
                        
                         })
@@ -124,7 +136,7 @@ export default function StyledTable(props) {
                       }
                       
                     }
-                     name='puntuality'  type='text'></input>
+                     name='Emotional'  type='text'></input>
                 </div>
                  </StyledTableCell>
 
@@ -134,12 +146,12 @@ export default function StyledTable(props) {
                  <StyledTableCell align="center">
                 <div className='inp'>
                     <input
-                    style={{border:`2px solid ${hardWorkin}`}}
+                    style={{border:`2px solid ${Neatness}`}}
                     onBlur={
                       (e)=>{
                         const myObj={
                          
-                          key:'hardWorking',
+                          key:'Neatness',
                           value:e.target.value,
                           username:props.row.username,
                         
@@ -170,7 +182,477 @@ export default function StyledTable(props) {
                  </StyledTableCell>
 
 
+              
+                 <StyledTableCell align="center">
+                <div className='inp'>
+                    <input
+                    style={{border:`2px solid ${TeamWork}`}}
+                    onBlur={
+                      (e)=>{
+                        const myObj={
+                         
+                          key:'TeamWork',
+                          value:e.target.value,
+                          username:props.row.username,
+                        
+        
+                        }
+                        fetch('https://polar-brook-59807.herokuapp.com/admin/add-student-cognitive',{
+                        method:'PUT',
+                        headers:{
+                          "Content-Type":'application/json'
+                        },
+                        body:JSON.stringify(myObj)   
+                      }).then(res=>{
+                        res.json()
+                        .then(data=>{
+                          // appProps.setUser({})
+                          setTeam('green')
+                          console.log(data)
+                       
+                        })
+                       
+                      })
+                      console.log(myObj)
+                      }
+                      
+                    }
+                     name='hardwork'  type='text'></input>
+                </div>
+                 </StyledTableCell>
 
+
+
+
+
+
+                 <StyledTableCell align="center">
+                <div className='inp'>
+                    <input
+                    style={{border:`2px solid ${Speaking}`}}
+                    onBlur={
+                      (e)=>{
+                        const myObj={
+                         
+                          key:'Speaking',
+                          value:e.target.value,
+                          username:props.row.username,
+                        
+        
+                        }
+                        fetch('https://polar-brook-59807.herokuapp.com/admin/add-student-cognitive',{
+                        method:'PUT',
+                        headers:{
+                          "Content-Type":'application/json'
+                        },
+                        body:JSON.stringify(myObj)   
+                      }).then(res=>{
+                        res.json()
+                        .then(data=>{
+                          // appProps.setUser({})
+                          setSpeaking('green')
+                          console.log(data)
+                       
+                        })
+                       
+                      })
+                      console.log(myObj)
+                      }
+                      
+                    }
+                     name='hardwork'  type='text'></input>
+                </div>
+                 </StyledTableCell>
+
+
+
+                 <StyledTableCell align="center">
+                <div className='inp'>
+                    <input
+                    style={{border:`2px solid ${Honesty}`}}
+                    onBlur={
+                      (e)=>{
+                        const myObj={
+                         
+                          key:'Honesty',
+                          value:e.target.value,
+                          username:props.row.username,
+                        
+        
+                        }
+                        fetch('https://polar-brook-59807.herokuapp.com/admin/add-student-cognitive',{
+                        method:'PUT',
+                        headers:{
+                          "Content-Type":'application/json'
+                        },
+                        body:JSON.stringify(myObj)   
+                      }).then(res=>{
+                        res.json()
+                        .then(data=>{
+                          // appProps.setUser({})
+                          setHonesty('green')
+                          console.log(data)
+                       
+                        })
+                       
+                      })
+                      console.log(myObj)
+                      }
+                      
+                    }
+                     name='hardwork'  type='text'></input>
+                </div>
+                 </StyledTableCell>
+
+
+
+
+
+
+                 <StyledTableCell align="center">
+                <div className='inp'>
+                    <input
+                    style={{border:`2px solid ${Punctuality}`}}
+                    onBlur={
+                      (e)=>{
+                        const myObj={
+                         
+                          key:'Punctuality',
+                          value:e.target.value,
+                          username:props.row.username,
+                        
+        
+                        }
+                        fetch('https://polar-brook-59807.herokuapp.com/admin/add-student-cognitive',{
+                        method:'PUT',
+                        headers:{
+                          "Content-Type":'application/json'
+                        },
+                        body:JSON.stringify(myObj)   
+                      }).then(res=>{
+                        res.json()
+                        .then(data=>{
+                          // appProps.setUser({})
+                          setPunctuality('green')
+                          console.log(data)
+                       
+                        })
+                       
+                      })
+                      console.log(myObj)
+                      }
+                      
+                    }
+                     name='hardwork'  type='text'></input>
+                </div>
+                 </StyledTableCell>
+
+
+
+
+
+
+                 <StyledTableCell align="center">
+                <div className='inp'>
+                    <input
+                    style={{border:`2px solid ${Attitude}`}}
+                    onBlur={
+                      (e)=>{
+                        const myObj={
+                         
+                          key:'Attitude',
+                          value:e.target.value,
+                          username:props.row.username,
+                        
+        
+                        }
+                        fetch('https://polar-brook-59807.herokuapp.com/admin/add-student-cognitive',{
+                        method:'PUT',
+                        headers:{
+                          "Content-Type":'application/json'
+                        },
+                        body:JSON.stringify(myObj)   
+                      }).then(res=>{
+                        res.json()
+                        .then(data=>{
+                          // appProps.setUser({})
+                          setAttitude('green')
+                          console.log(data)
+                       
+                        })
+                       
+                      })
+                      console.log(myObj)
+                      }
+                      
+                    }
+                     name='hardwork'  type='text'></input>
+                </div>
+                 </StyledTableCell>
+
+
+
+
+
+
+                 <StyledTableCell align="center">
+                <div className='inp'>
+                    <input
+                    style={{border:`2px solid ${Initiative}`}}
+                    onBlur={
+                      (e)=>{
+                        const myObj={
+                         
+                          key:'Initiative',
+                          value:e.target.value,
+                          username:props.row.username,
+                        
+        
+                        }
+                        fetch('https://polar-brook-59807.herokuapp.com/admin/add-student-cognitive',{
+                        method:'PUT',
+                        headers:{
+                          "Content-Type":'application/json'
+                        },
+                        body:JSON.stringify(myObj)   
+                      }).then(res=>{
+                        res.json()
+                        .then(data=>{
+                          // appProps.setUser({})
+                          setInitiative('green')
+                          console.log(data)
+                       
+                        })
+                       
+                      })
+                      console.log(myObj)
+                      }
+                      
+                    }
+                     name='hardwork'  type='text'></input>
+                </div>
+                 </StyledTableCell>
+
+
+
+
+
+
+
+                 <StyledTableCell align="center">
+                <div className='inp'>
+                    <input
+                    style={{border:`2px solid ${Acceptance}`}}
+                    onBlur={
+                      (e)=>{
+                        const myObj={
+                         
+                          key:'Acceptance',
+                          value:e.target.value,
+                          username:props.row.username,
+                        
+        
+                        }
+                        fetch('https://polar-brook-59807.herokuapp.com/admin/add-student-cognitive',{
+                        method:'PUT',
+                        headers:{
+                          "Content-Type":'application/json'
+                        },
+                        body:JSON.stringify(myObj)   
+                      }).then(res=>{
+                        res.json()
+                        .then(data=>{
+                          // appProps.setUser({})
+                          setAcceptance('green')
+                          console.log(data)
+                       
+                        })
+                       
+                      })
+                      console.log(myObj)
+                      }
+                      
+                    }
+                     name='hardwork'  type='text'></input>
+                </div>
+                 </StyledTableCell>
+
+
+
+
+
+
+
+                 <StyledTableCell align="center">
+                <div className='inp'>
+                    <input
+                    style={{border:`2px solid ${Preseverance}`}}
+                    onBlur={
+                      (e)=>{
+                        const myObj={
+                         
+                          key:'Preseverance',
+                          value:e.target.value,
+                          username:props.row.username,
+                        
+        
+                        }
+                        fetch('https://polar-brook-59807.herokuapp.com/admin/add-student-cognitive',{
+                        method:'PUT',
+                        headers:{
+                          "Content-Type":'application/json'
+                        },
+                        body:JSON.stringify(myObj)   
+                      }).then(res=>{
+                        res.json()
+                        .then(data=>{
+                          // appProps.setUser({})
+                          setPreseverance('green')
+                          console.log(data)
+                       
+                        })
+                       
+                      })
+                      console.log(myObj)
+                      }
+                      
+                    }
+                     name='hardwork'  type='text'></input>
+                </div>
+                 </StyledTableCell>
+
+
+
+
+
+                 <StyledTableCell align="center">
+                <div className='inp'>
+                    <input
+                    style={{border:`2px solid ${Leadership}`}}
+                    onBlur={
+                      (e)=>{
+                        const myObj={
+                         
+                          key:'Leadership',
+                          value:e.target.value,
+                          username:props.row.username,
+                        
+        
+                        }
+                        fetch('https://polar-brook-59807.herokuapp.com/admin/add-student-cognitive',{
+                        method:'PUT',
+                        headers:{
+                          "Content-Type":'application/json'
+                        },
+                        body:JSON.stringify(myObj)   
+                      }).then(res=>{
+                        res.json()
+                        .then(data=>{
+                          // appProps.setUser({})
+                          setLeadership('green')
+                          console.log(data)
+                       
+                        })
+                       
+                      })
+                      console.log(myObj)
+                      }
+                      
+                    }
+                     name='hardwork'  type='text'></input>
+                </div>
+                 </StyledTableCell>
+
+
+
+
+
+
+
+       
+                 <StyledTableCell align="center">
+                <div className='inp'>
+                    <input
+                    style={{border:`2px solid ${Follows}`}}
+                    onBlur={
+                      (e)=>{
+                        const myObj={
+                         
+                          key:'Follows',
+                          value:e.target.value,
+                          username:props.row.username,
+                        
+        
+                        }
+                        fetch('https://polar-brook-59807.herokuapp.com/admin/add-student-cognitive',{
+                        method:'PUT',
+                        headers:{
+                          "Content-Type":'application/json'
+                        },
+                        body:JSON.stringify(myObj)   
+                      }).then(res=>{
+                        res.json()
+                        .then(data=>{
+                          // appProps.setUser({})
+                          setFollows('green')
+                          console.log(data)
+                       
+                        })
+                       
+                      })
+                      console.log(myObj)
+                      }
+                      
+                    }
+                     name='hardwork'  type='text'></input>
+                </div>
+                 </StyledTableCell>
+
+
+
+                 <StyledTableCell align="center">
+                <div className='inp'>
+                    <input
+                    style={{border:`2px solid ${Participation}`}}
+                    onBlur={
+                      (e)=>{
+                        const myObj={
+                         
+                          key:'Participation',
+                          value:e.target.value,
+                          username:props.row.username,
+                        
+        
+                        }
+                        fetch('https://polar-brook-59807.herokuapp.com/admin/add-student-cognitive',{
+                        method:'PUT',
+                        headers:{
+                          "Content-Type":'application/json'
+                        },
+                        body:JSON.stringify(myObj)   
+                      }).then(res=>{
+                        res.json()
+                        .then(data=>{
+                          // appProps.setUser({})
+                          setParticipation('green')
+                          console.log(data)
+                       
+                        })
+                       
+                      })
+                      console.log(myObj)
+                      }
+                      
+                    }
+                     name='hardwork'  type='text'></input>
+                </div>
+                 </StyledTableCell>
+
+
+
+
+
+                 
 
 
                  {/* <StyledTableCell align="center">
