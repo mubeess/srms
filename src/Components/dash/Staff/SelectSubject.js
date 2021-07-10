@@ -88,13 +88,16 @@ const useStyles = makeStyles({
   },
 });
 function SelectSubject(props) {
+  const appProps=useContext(AppContext)
   const [subjects,setSubjects]=useState([])
   const [classs,setClass]=useState([])
   const [classValue,setClassValue]=useState('None')
   const [classToConsider,setConsider]=useState([])
   const classes = useStyles();
-  const appProps=useContext(AppContext)
-  const urlToPush=appProps.user.role.includes('Admin')?'https://polar-brook-59807.herokuapp.com/admin/get-all-admin-curriculum':`https://polar-brook-59807.herokuapp.com/teacher/teacher-subjects/?id=${appProps.user.user._id}`
+  const isAdmin=appProps.user.role.includes('Admin')
+  const isExamOfficer=appProps.user.role.includes('examOfficer')
+
+  const urlToPush=isAdmin||isExamOfficer?'https://polar-brook-59807.herokuapp.com/admin/get-all-admin-curriculum':`https://polar-brook-59807.herokuapp.com/teacher/teacher-subjects/?id=${appProps.user.user._id}`
 
   useEffect(()=>{
 
@@ -110,7 +113,7 @@ function SelectSubject(props) {
         newCl.push(`${row.class+"/"+row.category}`)
         console.log("+++++++_____++++",row)
         
-        return appProps.user.role.includes('Admin')?[`${row.name+"/"+row.category}`]:newCl.toString()
+        return isAdmin||isExamOfficer?[`${row.name+"/"+row.category}`]:newCl.toString()
       })
       if (data.subjects.length>=1) {
         const filteredClass=data.subjects[0]
@@ -150,10 +153,10 @@ function SelectSubject(props) {
         <Select
           onChange={(e)=>{
             const filteredClassValue=e.target.value.split('/')
-            const filteredArray=subjects.filter(dat=>appProps.user.role.includes('Admin')?dat.name==filteredClassValue[0]&&dat.category==filteredClassValue[1]:dat.class==filteredClassValue[0]&&dat.category==filteredClassValue[1])
+            const filteredArray=subjects.filter(dat=>isAdmin||isExamOfficer?dat.name==filteredClassValue[0]&&dat.category==filteredClassValue[1]:dat.class==filteredClassValue[0]&&dat.category==filteredClassValue[1])
             
             // setClassValue(e.target.value)
-            console.log("||||||",filteredClassValue)
+      
             setConsider(filteredArray)
             setClassValue(e.target.value)
           }}
@@ -214,13 +217,13 @@ function SelectSubject(props) {
                      </StyledTableCell>
                           <StyledTableCell align="right">{row}</StyledTableCell>
                           <StyledTableCell align="right">{classToConsider[0].category}</StyledTableCell>
-                          <StyledTableCell align="right">{appProps.user.role.includes('Admin')?classToConsider[0].name:classToConsider[0].class}</StyledTableCell>
+                          <StyledTableCell align="right">{isAdmin||isExamOfficer?classToConsider[0].name:classToConsider[0].class}</StyledTableCell>
       
                     <StyledTableCell align="right">
                     <IconButton style={{backgroundColor:gray[500]}} onClick={()=>{
 
     const myObj={
-      class:appProps.user.role.includes('Admin')?classToConsider[0].name:classToConsider[0].class,
+      class:isAdmin||isExamOfficer?classToConsider[0].name:classToConsider[0].class,
       subject:row,
       category:classToConsider[0].category
     }
@@ -235,7 +238,7 @@ function SelectSubject(props) {
       res.json()
       .then(data=>{
      
-      appProps.setStudentsResults([data.students,{class:appProps.user.role.includes('Admin')?classToConsider[0].name:classToConsider[0].class,subject:row,category:classToConsider[0].category}])
+      appProps.setStudentsResults([data.students,{class:isAdmin||isExamOfficer?classToConsider[0].name:classToConsider[0].class,subject:row,category:classToConsider[0].category}])
       props.history.push('enterresult')
       
       })

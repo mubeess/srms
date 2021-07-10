@@ -27,11 +27,11 @@ align-items: center;
     width: 50%;
     height: 350px;
     background: transparent;
-    filter: drop-shadow(4px 4px 10px rgba(0,0,0,0.5));
-    box-shadow: 0px 0px 8px  rgba(0,0,0,0.4),
-    0px 0px 6px  rgba(0,0,0,0.3),
-    0px 0px 4px  rgba(0,0,0,0.2),
-    0px 0px 2px  rgba(0,0,0,0.1)
+    filter: drop-shadow(4px 4px 10px white);
+    box-shadow: 0px 0px 1px  rgba(255,255,255,0.8),
+    0px 0px 1px  rgba(0,0,0,0.8),
+    0px 0px 1px  rgba(0,0,0,0.8),
+    0px 0px 1px  rgba(0,0,0,0.8)
     ;
     border-radius: 5px;
     display: flex;
@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme)=>(
     },
     root:{
       '&:hover': {
-        boxShadow: '0 3px 5px 2px #FFC305',
+        boxShadow: '0 3px 5px 2px white',
       },
     },
     backdrop: {
@@ -130,9 +130,7 @@ export default function Login(props) {
       <ThemeProvider theme={theme}>
         <StyledLogin>
             <div className='login-container'>
-             <div className='login-header'>
-
-             </div>
+          
              <div className='login-details'>
                  <div className='logo'>
                      <img src='logo.png' alt='logo'></img>
@@ -145,7 +143,7 @@ export default function Login(props) {
                  onChange={handleChangeName}
         style={{marginLeft:'30px',width:'80%'}}
         id="input-with-icon-adornment"
-        label="Input Your Id Here"
+        label="Enter Your Id Here"
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">

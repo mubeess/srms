@@ -2,6 +2,7 @@ import Logo from './logo1.png'
 import Passport from './passport.jpg'
 import './bio.css'
 import React, { Component } from 'react'
+import { Avatar } from '@material-ui/core'
 
 export class Bio extends Component {
     constructor(props) {
@@ -72,7 +73,8 @@ export class Bio extends Component {
                                  </table>
                              </div>
                              <div className="passport-container">
-                                 <img className="passport-img" src={Passport}/>
+                             <Avatar className="passport-img" style={{width:'200px',height:'200px',marginLeft:'15px'}} alt={std.firstName.split('')[0]}/>   
+                                 {/* <img className="passport-img" src={Passport}/> */}
                              </div>
                              <div className="parent-info-section">
                             

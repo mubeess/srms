@@ -71,8 +71,8 @@ export default function AddStudent() {
     const [term,setTerm]=useState('First Term')
     const [gender,setGender]=useState('Male')
     const [lga,setLga]=useState('Maiha')
-    const [section,setSection]=useState('Grade')
-    const [classs,setClass]=useState('Grade3')
+    const [section,setSection]=useState('none')
+    const [classs,setClass]=useState('none')
     const [category,setCtegory]=useState('none')
     const [students,setStudets]=useState({
       firstName:'',
@@ -336,6 +336,7 @@ export default function AddStudent() {
            <option value='none'>none</option>
           <option value='Science'>Science</option>
           <option value='Arts'>Arts</option>
+          <option value='Commercial'>Commercial</option>
         </Select>
       </FormControl>
         </div>

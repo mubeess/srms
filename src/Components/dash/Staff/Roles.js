@@ -207,6 +207,15 @@ export default function Roles() {
         <Select
          onChange={(e)=>{
           setRole(e.target.value)
+          if (e.target.value!=='subjectTeacher') {
+            setClasss('None')
+            setSubject('None')
+            setCategory('None')
+          }
+
+          if (e.target.value!=='classTeacher') {
+           setClassTeacherClass('None')
+          }
          }}
           native
           value={role}
@@ -217,6 +226,7 @@ export default function Roles() {
           }}
         >
           <option value='None'>None</option>
+          <option value='Admin'>Super Admin</option>
           <option value='Bursar'>Bursar</option>
           <option value='subjectTeacher'>Subject Teacher</option>
           <option value='classTeacher'>Class Teacher</option>
@@ -303,7 +313,7 @@ export default function Roles() {
         >
           <option value='---None---'>---None---</option>
           <option value='Science'>Science</option>
-          <option value='Art'>Art</option>
+          <option value='Arts'>Art</option>
           <option value='Commercial'>Commercial</option>
         </Select>
       </FormControl>
@@ -433,9 +443,9 @@ fetch(`https://polar-brook-59807.herokuapp.com/admin/set-role/?id=${staff}`,{
                    color:'black',
                    marginLeft:'50px'
                  }} variant='overline' align='center' gutterBottom>{staf.role.map(rol=>(`${rol+'**'}`))}</Typography>
-          <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr'}}>
-          <Button style={{marginLeft:'50px',backgroundColor:'#F39C77',color:'white', width: '7rem'}} variant="contained">Deactivate</Button>
-          <Button style={{marginLeft:'30px',backgroundColor:'green',color:'white'}} variant="contained">Edit</Button>
+          <div style={{display:'grid',gridTemplateColumns:'1fr'}}>
+          {/* <Button style={{marginLeft:'50px',backgroundColor:'#F39C77',color:'white', width: '7rem'}} variant="contained">Deactivate</Button>
+          <Button style={{marginLeft:'30px',backgroundColor:'green',color:'white'}} variant="contained">Edit</Button> */}
           <Button onClick={()=>{
             handleToggle()
             const myObjj={

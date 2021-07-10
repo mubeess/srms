@@ -9,6 +9,7 @@
   margin-right: auto;
   margin-top: auto;
   margin-bottom: auto;
+  position: relative;
 }
 .header2{
     display: inline-block;
@@ -66,7 +67,7 @@
         position: absolute;
         width: 500px;
         margin-left:15%;
-        height: 350px;
+        height: 330px;
         opacity: 0.2;
 
     }
