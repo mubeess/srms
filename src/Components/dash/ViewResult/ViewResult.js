@@ -269,6 +269,8 @@ const StyledTableRow = withStyles((theme) => ({
           <option value='2020/2021'>2020/2021</option>
           <option value='2020/2019'>2020/2019</option>
           <option value='2022/2023'>2022/2023</option>
+          <option value='2022/2023'>2023/2024</option>
+          <option value='2022/2023'>2024/2025</option>
         </Select>
       </FormControl>
 
@@ -336,6 +338,8 @@ const StyledTableRow = withStyles((theme) => ({
                   id: 'outlined-age-native-simple',
                 }}
               >
+                 <option value='None'>---None---</option>
+                 <option value='Daycare'>Daycare</option>
                 <option value='Kindergartens'>Kindergartens</option>
                 <option value='Playclass'>Playclass</option>
                 <option value='Grade'>Grade</option>
