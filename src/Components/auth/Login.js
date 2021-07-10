@@ -264,7 +264,7 @@ export default function Login(props) {
         <CircularProgress color="inherit" />
         <Typography style={{
                color:'white',
-               marginTop:'10px',
+               marginTop:'10px', 
                opacity:isSuccess?'1':'0',
                transition:'0.6s'
              }} variant="button" align='center' gutterBottom>Please Wait While Your Dashboard Is Beign Set Up!!!</Typography>

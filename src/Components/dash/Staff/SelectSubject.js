@@ -107,13 +107,13 @@ function SelectSubject(props) {
       setSubjects(data.subjects)
       const newClasses=data.subjects.map((row,ind)=>{
         const newCl=[]
-        newCl.push(row.class)
+        newCl.push(`${row.class+"/"+row.category}`)
+        console.log("+++++++_____++++",row)
         
-        return appProps.user.role.includes('Admin')?[row.name]:newCl.toString()
+        return appProps.user.role.includes('Admin')?[`${row.name+"/"+row.category}`]:newCl.toString()
       })
       if (data.subjects.length>=1) {
         const filteredClass=data.subjects[0]
-        console.log(filteredClass)
         setClass(newClasses)
         setClassValue(newClasses[0])
         console.log(filteredClass)
@@ -149,12 +149,13 @@ function SelectSubject(props) {
         <InputLabel htmlFor="outlined-age-native-simple">Select Class</InputLabel>
         <Select
           onChange={(e)=>{
-            const filteredArray=subjects.filter(dat=>appProps.user.role.includes('Admin')?dat.name==e.target.value:dat.class==e.target.value)
-
-            setClassValue(e.target.value)
-            console.log(subjects)
-            setConsider(filteredArray)
+            const filteredClassValue=e.target.value.split('/')
+            const filteredArray=subjects.filter(dat=>appProps.user.role.includes('Admin')?dat.name==filteredClassValue[0]&&dat.category==filteredClassValue[1]:dat.class==filteredClassValue[0]&&dat.category==filteredClassValue[1])
+            
             // setClassValue(e.target.value)
+            console.log("||||||",filteredClassValue)
+            setConsider(filteredArray)
+            setClassValue(e.target.value)
           }}
           native
           value={classValue}
@@ -164,7 +165,7 @@ function SelectSubject(props) {
             id: 'outlined-age-native-simple',
           }}
         >
-           
+        
         {
           classs.length>=1&&(
              classs.map((cls,ind)=>(
@@ -200,7 +201,7 @@ function SelectSubject(props) {
             <StyledTableCell align="right">CATEGORY</StyledTableCell>
             <StyledTableCell align="right">CLASS</StyledTableCell>
             <StyledTableCell align="right">ACTIONS</StyledTableCell>
-            {console.log(classToConsider)}
+           
           </TableRow>
         </TableHead>
         <TableBody>

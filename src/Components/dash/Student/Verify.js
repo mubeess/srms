@@ -110,7 +110,7 @@ const useStyles = makeStyles((theme) => ({
     const [studentId,setStudentId]=useState('None')
     const [studentName,setStudentName]=useState('None')
     const [teller,setTeller]=useState('')
-    const [section,setSection]=useState('SSS')
+    const [section,setSection]=useState('None')
     const [selectedOptions,setSelected]=React.useState([''])
     const [allStudent,setAllStudent]=useState([])
     const [purpose,setPurpose]=useState('')
@@ -237,6 +237,7 @@ const useStyles = makeStyles((theme) => ({
           }}
         > 
          <option value='None'>None</option>
+         <option value='Daycare'>Daycare</option>
          <option value='Playclass'>Playclass</option>
          <option value='Kindergartens'>Kindergartens</option>
          <option value='Grade'>Grade</option>
@@ -375,6 +376,7 @@ const useStyles = makeStyles((theme) => ({
             id: 'outlined-age-native-simple',
           }}
         >
+           <option value='None'>----None-----</option>
           <option value='First Term'>First Term</option>
           <option value='Second Term'>Second Term</option>
           <option value='Third Term'>Third Term</option>
