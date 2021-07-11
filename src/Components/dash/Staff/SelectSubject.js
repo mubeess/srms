@@ -224,10 +224,10 @@ function SelectSubject(props) {
 
     const myObj={
       class:isAdmin||isExamOfficer?classToConsider[0].name:classToConsider[0].class,
-      subject:row,
-      category:classToConsider[0].category
+      subject:isAdmin||isExamOfficer?row:classToConsider[0].class.includes('Daycare')?row:row,
+      category:classToConsider[0].category.toLowerCase()
     }
-    console.log(myObj)
+    console.log("_+_+_+_",myObj)
      fetch('https://polar-brook-59807.herokuapp.com/teacher/fetch-students-result',{
       method:'POST',
       headers:{

@@ -237,7 +237,7 @@ export default function Dosier() {
                 
                 {
                     dos.length>0&&(
-                        dos[0].class.includes('Play')&&
+                        dos[0].class.includes('Playclass')||dos[0].class.includes('Daycare')?
                         (
                             <table class="table11">
                             <thead>
@@ -263,7 +263,7 @@ export default function Dosier() {
                                  
                             </tbody>
                         </table>
-                        ))
+                        ):null)
                         }
                
 
