@@ -34,6 +34,9 @@ margin-bottom: 10px;
    const isFormMaster=appProps.user.role.includes('classTeacher')
    const isAd=appProps.user.role.includes('Admin')
    const isExamOfficer=appProps.user.role.includes('examOfficer')
+   const isSubAdmin=appProps.user.role.includes('subAdmin')
+
+  
    
     return (
         <StyledAside>
@@ -79,7 +82,7 @@ margin-bottom: 10px;
         </Link>
 
        {
-         isAd||isPrincipal?(
+         isAd||isPrincipal||isSubAdmin?(
           <Link onClick={()=>{
             fetch(`https://polar-brook-59807.herokuapp.com/admin/get-single-staff/?username=${appProps.user.user.username}`)
             .then(res=>{
@@ -101,7 +104,7 @@ margin-bottom: 10px;
         
 
        {
-       isAd?(
+       isAd||isSubAdmin?(
           <Link onClick={()=>{
             fetch(`https://polar-brook-59807.herokuapp.com/admin/get-single-staff/?username=${appProps.user.user.username}`)
             .then(res=>{
@@ -122,7 +125,7 @@ margin-bottom: 10px;
        }
        
        {
-        isAd||isPrincipal?(
+        isAd||isPrincipal||isSubAdmin?(
           <Link onClick={()=>{
             fetch(`https://polar-brook-59807.herokuapp.com/admin/get-single-staff/?username=${appProps.user.user.username}`)
             .then(res=>{
@@ -207,7 +210,7 @@ margin-bottom: 10px;
    }
 
          {
-           isAd ||isBursar?(
+           isAd ||isBursar||isSubAdmin?(
             <Link onClick={()=>{
               fetch(`https://polar-brook-59807.herokuapp.com/admin/get-single-staff/?username=${appProps.user.user.username}`)
               .then(res=>{
@@ -253,7 +256,7 @@ margin-bottom: 10px;
 
 
 {
-           isAd?(
+           isAd||isSubAdmin?(
             <ListItem onClick={()=>{
               props.open()
 

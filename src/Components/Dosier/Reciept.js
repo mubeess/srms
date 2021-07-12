@@ -16,6 +16,7 @@ margin-top: 20px;
 export default function Attendance() {
     const appProps=useContext(AppContext)
     const [currentSession,setCurrent]=useState('')
+    const [total,setTotal]=useState(0)
   
         useEffect(()=>{
             fetch('https://polar-brook-59807.herokuapp.com/admin/get-current-term').
@@ -23,9 +24,17 @@ export default function Attendance() {
               res.json()
               .then(data=>{
              setCurrent(data.result[0].session.year)
-                console.log(data)
+                
               })
             })
+      const calculatedFees=appProps.reciept[0].purposes.reduce((a,{amountOfPayment})=>parseInt(a)+parseInt(amountOfPayment), 0)
+      setTotal(calculatedFees)
+
+    // appProps.reciept[0].purposes.reduce((a,b)=>{
+    //     console.log(a,b)
+    // })
+
+
       
     }, [])
     const componentRef=useRef()
@@ -71,16 +80,20 @@ export default function Attendance() {
                 </thead>
                 <tbody>
                 {
-        appProps.reciept[0].purposeOfPayment.map((dat,ind)=>(
+        appProps.reciept[0].purposes.map((dat,ind)=>(
 <tr>
            
-            <td className="subject">{dat}</td>
-            <td className="subject">N</td>
+            <td className="subject">{dat.purposeOfPayment}</td>
+            <td className="subject">{`${'N'+dat.amountOfPayment}`}</td>
 </tr>
             
         ))
     }
-                    
+<tr>
+           
+           <td className="subject"><b>TOTAL</b></td>
+           <td className="subject"><b>N{total}</b></td>
+</tr>           
                     
                      </tbody>
             </table>

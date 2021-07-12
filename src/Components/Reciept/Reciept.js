@@ -68,6 +68,10 @@ align-items: center;
  function Reciept(props) {
     const appProps=useContext(AppContext)
     const componentRef=useRef()
+    useEffect(() => {
+        console.log(appProps)
+        
+    }, [])
 
     const handlePrint=useReactToPrint({
         content:()=>componentRef.current,

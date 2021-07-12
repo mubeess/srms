@@ -227,6 +227,7 @@ export default function Roles() {
         >
           <option value='None'>None</option>
           <option value='Admin'>Super Admin</option>
+          <option value='subAdmin'>Admin</option>
           <option value='Bursar'>Bursar</option>
           <option value='subjectTeacher'>Subject Teacher</option>
           <option value='classTeacher'>Class Teacher</option>

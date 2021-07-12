@@ -39,6 +39,7 @@ import ViewResult from './ViewResult/ViewResult'
 import EditStaff from './Staff/EditStaff'
 import EditStudent from './Student/EditStudent'
 import AssessmentControl from './AssesmentControl/AssessmentControl'
+import { withRouter } from 'react-router-dom'
 
 
 const StyledDraw=styled.div`
@@ -136,6 +137,9 @@ function Index(props) {
 }
 
     useEffect(() => {
+      // if (appProps.user.user.firstName==undefined) {
+      //   props.history.push('/')
+      // }
         fetch('https://polar-brook-59807.herokuapp.com/admin/get-every-class')
         .then(res=>{
           res.json()
@@ -408,7 +412,7 @@ function Index(props) {
   );
 }
 
-export default Index;
+export default withRouter(Index) ;
 
 
 

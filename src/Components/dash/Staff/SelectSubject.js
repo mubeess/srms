@@ -106,12 +106,10 @@ function SelectSubject(props) {
     .then(res=>{
       res.json()
       .then(data=>{
-      console.log("+++++++",data)
       setSubjects(data.subjects)
       const newClasses=data.subjects.map((row,ind)=>{
         const newCl=[]
         newCl.push(`${row.class+"/"+row.category}`)
-        console.log("+++++++_____++++",row)
         
         return isAdmin||isExamOfficer?[`${row.name+"/"+row.category}`]:newCl.toString()
       })
@@ -119,16 +117,10 @@ function SelectSubject(props) {
         const filteredClass=data.subjects[0]
         setClass(newClasses)
         setClassValue(newClasses[0])
-        console.log(filteredClass)
+       
         setConsider([filteredClass])
       }
-      // const filteredClass=data.subjects[0]
-      // console.log(filteredClass)
-      // setClass(newClasses)
-      // setClassValue(newClasses[0])
-      // console.log(filteredClass)
-      // setConsider([filteredClass])
-      // appProps.setStudentsResults()
+   
       })
       
 
@@ -221,13 +213,14 @@ function SelectSubject(props) {
       
                     <StyledTableCell align="right">
                     <IconButton style={{backgroundColor:gray[500]}} onClick={()=>{
-
+    //  isAdmin||isExamOfficer?row:classToConsider[0].class.includes('Daycare')?row:row
+    const MyrealClass=isAdmin||isExamOfficer?classToConsider[0].name:classToConsider[0].class
     const myObj={
-      class:isAdmin||isExamOfficer?classToConsider[0].name:classToConsider[0].class,
+      class:MyrealClass,
       subject:isAdmin||isExamOfficer?row:classToConsider[0].class.includes('Daycare')?row:row,
-      category:classToConsider[0].category.toLowerCase()
+      category:MyrealClass.includes('SSS')?classToConsider[0].category:classToConsider[0].category.toLowerCase()
     }
-    console.log("_+_+_+_",myObj)
+  
      fetch('https://polar-brook-59807.herokuapp.com/teacher/fetch-students-result',{
       method:'POST',
       headers:{

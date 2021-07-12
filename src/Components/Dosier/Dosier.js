@@ -105,11 +105,13 @@ export default function Dosier() {
                 {
                      dos.length>0&&(
                         dos[0].class.includes('Kindergarten')&&(
-                            <table class="table1">
+                            <table class="table11">
                 <thead>
                     <th>SUBJECT</th>
-                    <th>1ST CA <br></br>(20)</th>
-                    <th>2ND CA <br></br>(20)</th>
+                    <th>1ST CA <br></br>(10)</th>
+                    <th>2ND CA <br></br>(10)</th>
+                    <th>3RD CA <br></br>(10)</th>
+                    <th>4TH CA <br></br>(10)</th>
                    
                     <th>EXAM<br></br>(60)</th>
                     <th>TOTAL</th>
@@ -126,6 +128,8 @@ export default function Dosier() {
                                        <td className="subject">{curDos.subject}</td>
                                        <td>{curDos.ca1 ||0}</td>
                                        <td>{curDos.ca2 ||0}</td>
+                                       <td>{curDos.ca3 ||0}</td>
+                                       <td>{curDos.ca4 ||0}</td>
                                        <td>{curDos.exam ||0}</td>
                                        <td>{curDos.total ||0}</td>
                                        <td>{curDos.grade ||'F'}</td>

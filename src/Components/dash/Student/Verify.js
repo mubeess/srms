@@ -103,7 +103,7 @@ const useStyles = makeStyles((theme) => ({
   const id = openn ? 'simple-popover' : undefined;
 
     const classes = useStyles();
-    const [options,setOptions]=React.useState([{ value: 'Tuition Fee' }])
+    const [options,setOptions]=React.useState([{ value: 'Tuition' }])
     const [open, setOpen] = React.useState(false);
     const [classs,setClass]=useState('None')
     const [term,setTerm]=useState('None')
@@ -111,12 +111,12 @@ const useStyles = makeStyles((theme) => ({
     const [studentName,setStudentName]=useState('None')
     const [teller,setTeller]=useState('')
     const [section,setSection]=useState('None')
-    const [selectedOptions,setSelected]=React.useState([''])
+    const [selectedOptions,setSelected]=React.useState(['Tuition'])
     const [allStudent,setAllStudent]=useState([])
     const [purpose,setPurpose]=useState('')
     const [mainStudent,setMain]=useState({class:'None',name:'None'})
     const [amount,setAmount]=useState('')
-    const [selectedValWithAm,setValAm]=useState({})
+    const [selectedValWithAm,setValAm]=useState([])
     const appProps=useContext(AppContext)
     
 
@@ -174,7 +174,7 @@ const useStyles = makeStyles((theme) => ({
       // setSubjects(event.target.value);
 
       setSelected(value)
-     console.log("|||\\\\",filteredAm,options,value)
+     console.log("|||\\\\",value)
     };
 
 
@@ -477,7 +477,8 @@ const useStyles = makeStyles((theme) => ({
             teller,
             className:classs,
             purposeOfPayment:selectedOptions,
-            amount
+            amount,
+            purposes:selectedValWithAm
           }
           
         appProps.setReCiept([selectors])
@@ -559,7 +560,28 @@ const useStyles = makeStyles((theme) => ({
       <Fab onClick={handleClick}  aria-describedby={id}  color="primary" aria-label="add">
         <AddIcon />
       </Fab>
-    
+      <div style={{width:'100%',display:'grid',gridTemplateColumns:'1fr 1fr 1fr 1fr'}}>
+      {
+        selectedOptions.length>0&&(
+          selectedOptions.map((opt,ind)=>(
+             <TextField onBlur={(e)=>{
+               const filteredSel=selectedValWithAm.filter(sel=>sel.purposeOfPayment==opt)
+               console.log(filteredSel)
+               if (filteredSel.length>0) {
+                //  console.log(filteredSel[0].amountOfPayment)
+                // setValAm([...selectedValWithAm,filteredSel[0].amountOfPayment=e.target.value])
+                filteredSel[0].amountOfPayment=e.target.value
+               }else{
+                setValAm([...selectedValWithAm,{purposeOfPayment:opt,amountOfPayment:e.target.value}])
+               }
+             
+            
+             }} style={{width:'90%',margin:'10px',marginLeft:'auto',marginRight:'auto'}} label={`${opt+' '+'Amount'}`} key={ind} size='small' variant='outlined'></TextField>
+          ))
+        )
+      }
+       </div>
+     
         </StyledFees>
     )
 }

@@ -143,7 +143,7 @@ const useStyles = makeStyles({
               </StyledTableCell>
               <StyledTableCell align="right">{row.username}</StyledTableCell>
               <StyledTableCell align="right">{row.firstName+" "+row.lastName}</StyledTableCell>
-              <StyledTableCell align="right">{row.role.map(rl=>(`${rl+'**'}`))}</StyledTableCell>
+              <StyledTableCell align="right">{row.role.map(rl=>(`${row.role.includes('Admin')?'*******':rl+'**'}`))}</StyledTableCell>
               <StyledTableCell align="right">
                <EditRounded onClick={()=>{
                 appProps.setEdit({user:row})
