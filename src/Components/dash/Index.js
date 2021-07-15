@@ -253,33 +253,7 @@ function Index(props) {
 
 
 
-      <FormControl hidden={section!=='SSS'} style={{width:'20%',opacity:section=='SSS'?'1':'0',transition:'0.4s'}} variant="outlined" className={classes.formControl}>
-        <InputLabel htmlFor="outlined-age-native-simple">SELECT CATEGORY</InputLabel>
-        <Select
-        disabled={section!=='SSS'}
-         onChange={(e)=>{
-        if (section=='SSS') {
-            setCategory(e.target.value)
-        }else{
-            setCategory('None')
-        }
-          
-         
-         }}
-          native
-          value={category}
-          label="SELECT CATEGORY"
-          inputProps={{
-            name:'category',
-            id: 'outlined-age-native-simple',
-          }}
-        >
-        <option value='none'>None</option>
-          <option value='Science'> Science</option>
-          <option value='Arts'>Arts</option>
-          <option value='Commercial'>Commercial</option>
-        </Select>
-      </FormControl>
+     
 
       <TextField style={{width:'20%',marginTop:'9px'}} onChange={(e)=>{
           setClass(e.target.value)

@@ -198,7 +198,8 @@ const useStyles = makeStyles({
                   studentName:`${row.firstname+" "+row.lastName}`,
                   teller:row.pays[0].teller,
                   className:row.className,
-                  purposeOfPayment:row.pays[0].purposeOfPayment
+                  purposeOfPayment:row.pays[0].purposeOfPayment,
+                  purposes:[]
                 }
                 appProps.setReCiept([selectors])
                 props.history.push('reciept')

@@ -80,6 +80,7 @@ export default function Attendance() {
                 </thead>
                 <tbody>
                 {
+        appProps.reciept[0].purposes.length>0&&(
         appProps.reciept[0].purposes.map((dat,ind)=>(
 <tr>
            
@@ -87,7 +88,7 @@ export default function Attendance() {
             <td className="subject">{`${'N'+dat.amountOfPayment}`}</td>
 </tr>
             
-        ))
+        )))
     }
 <tr>
            
