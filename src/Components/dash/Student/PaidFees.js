@@ -111,7 +111,7 @@ const useStyles = makeStyles({
           setSortValue(e.target.value)
         if (e.target.value=='All') {
           setUltra(allPaid)
-          console.lg(allPaid)
+          
          
         }else 
         if(e.target.value=='Paid'){
@@ -181,7 +181,9 @@ const useStyles = makeStyles({
                 <StyledTableCell component="th" scope="row">
                   {ind+1}
                 </StyledTableCell>
-                <StyledTableCell align="right">{row.username}</StyledTableCell>
+                <StyledTableCell onClick={()=>{
+                  console.log(",,,,,,,,",row)
+                }} align="right">{row.username}</StyledTableCell>
                 <StyledTableCell align="right">{`${row.firstname+" "+row.lastName}`}</StyledTableCell>
                 <StyledTableCell align="right">{row.term}</StyledTableCell>
                 <StyledTableCell align="right">{row.className}</StyledTableCell>
@@ -199,7 +201,7 @@ const useStyles = makeStyles({
                   teller:row.pays[0].teller,
                   className:row.className,
                   purposeOfPayment:row.pays[0].purposeOfPayment,
-                  purposes:[]
+                  purposes:row.pays[0].purposeOfPayment
                 }
                 appProps.setReCiept([selectors])
                 props.history.push('reciept')

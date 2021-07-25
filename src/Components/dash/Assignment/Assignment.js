@@ -1,4 +1,5 @@
-import React,{useState} from 'react'
+import React,{useState,useContext} from 'react'
+import AppContext from '../../../Context/app/appContext'
 import styled from 'styled-components'
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider'
@@ -145,10 +146,11 @@ const propsss = {
 
 
  function AddSubject(props) {
+   const appProps=useContext(AppContext)
     const classes = useStyles();
     const theme = useTheme();
     const [section,setSection]=useState('none')
-    const [studentClassess,setStudentClass]=useState([{className:'JSS1'}])
+    const [studentClassess,setStudentClass]=useState([{className:'none'}])
     const [category,setCategory]=useState('none')
     const [subject,setSubject]=useState('none')
     const [open, setOpen] = React.useState(false);
@@ -428,12 +430,13 @@ const propsss = {
 
 const myObj={
   id,
-  username:'mubis',
-  staffId:'mubis',
+  username:appProps.user.user.username,
+  staffId:appProps.user.user.username,
   className:selectedClass,
   category,
   head:title,
-  text:msgBody
+  text:msgBody,
+  subject
 }
 
 

@@ -416,7 +416,7 @@ const useStyles = makeStyles((theme) => ({
          const newPays={
            pays:{
              teller,
-             purposeOfPayment:selectedOptions
+             purposeOfPayment:selectedValWithAm
            }
          }
          console.log(newPays)
