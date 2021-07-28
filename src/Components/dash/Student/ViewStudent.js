@@ -226,7 +226,7 @@ useEffect(()=>{
                      
                
                    })
-                   console.log(row._id)
+                   
                  }} style={{color:'red',marginRight:'10px',cursor:'pointer'}}></DeleteForeverRounded>
                  {
                    row.suspend==true?(
@@ -316,8 +316,9 @@ useEffect(()=>{
      <Button onClick={handlePrint2} style={{backgroundColor:'#1E7F95',marginLeft:'20px',height:'30px',width:'30%',marginTop:'20px',marginBottom:'20px'}} variant="contained" color="primary">
   PDF
 </Button>
+<Button style={{marginLeft:'20px',height:'30px',width:'30%',marginTop:'20px',marginBottom:'20px'}} size='small' variant='contained' color='secondary'>Reset Password</Button>
     <Bio props={studentSelected} ref={componentRef2}></Bio>
-
+  
        </StyledModal>
       </Backdrop>
 

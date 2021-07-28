@@ -401,10 +401,11 @@ const propsss = {
 
     beforeUpload={(file)=>{
       console.log(file.type)
-      if (file.type !== 'application/pdf') {
-          message.error(`${file.name} is not a pdf file`);
+      if (file.type !== 'application/msword') {
+          message.error(`${file.name} is not a word document`);
+          console.log('+++++',file.type)
         }
-        return file.type === 'application/pdf' ? true : Upload.LIST_IGNORE;
+        return file.type === 'application/msword' ? true : Upload.LIST_IGNORE;
       
     }}
     onChange={(info)=>{
@@ -422,7 +423,7 @@ const propsss = {
     }}
    
     >
-    <Button icon={<UploadOutlined />}>Upload A Pdf Format Of Your Assignment</Button>
+    <Button icon={<UploadOutlined />}>Upload A Word Document Of Your Assignment</Button>
   </Upload>
 </div>
        <Buttons onClick={()=>{

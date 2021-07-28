@@ -2,7 +2,7 @@ import Logo from './logo1.png'
 import Passport from './passport.jpg'
 import './bio.css'
 import React, { Component } from 'react'
-import { Avatar } from '@material-ui/core'
+import { Avatar, Button } from '@material-ui/core'
 
 export class Bio extends Component {
     constructor(props) {
@@ -17,7 +17,7 @@ export class Bio extends Component {
                 this.props.props.length>0&&(
                     this.props.props.map((std,ind)=>(
                         <div key={ind} id="container11">
-                        {console.log(this.props.props)}
+                       
                               <center><div className="header2">
                                    <img src={Logo} alt='img'/><br></br>
                                    <span className="school-name">NOBLE INTELLECT ACADEMY</span><br></br>
@@ -73,7 +73,7 @@ export class Bio extends Component {
                                  </table>
                              </div>
                              <div className="passport-container">
-                             <Avatar className="passport-img" style={{width:'200px',height:'200px',marginLeft:'15px'}} alt={std.firstName.split('')[0]}/>   
+                             <Avatar src={std.image!=='1.jpg'?`https://polar-brook-59807.herokuapp.com/${std.image}`:null} className="passport-img" style={{width:'200px',height:'200px',marginLeft:'15px'}} alt={std.firstName.split('')[0]}/>   
                                  {/* <img className="passport-img" src={Passport}/> */}
                              </div>
                              <div className="parent-info-section">
@@ -110,7 +110,7 @@ export class Bio extends Component {
                 )
             }
           
-           
+      
         </>   
         )
     }

@@ -44,6 +44,25 @@ const grader = (grade) => {
     }
 }
 
+
+const termer = (term) => {
+
+    switch (term) {
+        case 1:
+            return "First Term" 
+       case 2:
+            return "Second Term" 
+      case 3:
+            return "Third Term" 
+
+       
+    
+        default:
+            return "None"
+        
+    }
+}
+
 const StyledAttendance=styled.div`
 margin-left: 21%;
 margin-top: 20px;
@@ -90,14 +109,13 @@ export default function Dosier() {
                     <span className="content-title">CLASS SIZE:</span><span className="content-title-post">{appProps.dosier.length}</span><br></br>
                 </div>
                 <div>
-                    <span className="content-title">FINAL POSITION:</span> <span className="content-title-post">{dos[0].position}</span><br></br>
                     <span className="content-title">AGGREGATE:</span><span className="content-title-post">{dos[0].total}</span><br></br>
                     <span className="content-title">AVERAGE:</span><span className="content-title-post">{dos[0].average}</span><br></br>
                     <span className="content-title">NO OF SUBJECT:</span><span className="content-title-post">{dos[0].noOfCourse}</span><br></br>
                 </div>
                 <div>
                     <span className="content-title">SESSION:</span> <span className="content-title-post">{dos[0].session}</span><br></br>
-                    <span className="content-title">TERM:</span><span className="content-title-post">{dos[0].term}</span><br></br>
+                    <span className="content-title">TERM:</span><span className="content-title-post">{termer(dos[0].term)}</span><br></br>
                 </div>
     
             </div>

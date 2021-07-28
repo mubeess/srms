@@ -135,7 +135,9 @@ const useStyles = makeStyles({
           </TableRow>
         </TableHead>
         <TableBody>
-          {filtered.length>=1&&(
+          {
+          appProps.user.role.includes('Admin')&&(
+          filtered.length>=1&&(
            filtered.map((row,ind) => (
             <StyledTableRow key={ind}>
               <StyledTableCell component="th" scope="row">
@@ -149,39 +151,103 @@ const useStyles = makeStyles({
                 appProps.setEdit({user:row})
                  props.history.push('editstaff')
                }} style={{color:'green',marginRight:'10px',cursor:'pointer'}}></EditRounded>
-               <DeleteForeverRounded onClick={()=>{
-                 const userId=row._id;
-                 fetch(`https://polar-brook-59807.herokuapp.com/admin/remove-staff/?id=${userId}`,{
-                  method:'DELETE',
-                  headers:{
-                    "Content-Type":'application/json'
-                  }
-                })
-                 .then(res=>{
-                   res.json()
-                   .then(data=>{
-                     fetch(`https://polar-brook-59807.herokuapp.com/admin/get-all-staff`)
+               {
+                 appProps.user.role.includes('Admin')&&(
+                  <DeleteForeverRounded onClick={()=>{
+                    const userId=row._id;
+                    fetch(`https://polar-brook-59807.herokuapp.com/admin/remove-staff/?id=${userId}`,{
+                     method:'DELETE',
+                     headers:{
+                       "Content-Type":'application/json'
+                     }
+                   })
                     .then(res=>{
                       res.json()
                       .then(data=>{
-                        setAllStaff(data.message)
-                        console.log(data.message)
+                        fetch(`https://polar-brook-59807.herokuapp.com/admin/get-all-staff`)
+                       .then(res=>{
+                         res.json()
+                         .then(data=>{
+                           setAllStaff(data.message)
+                           console.log(data.message)
+                         })
+                         
+                   
+                       })
                       })
                       
                 
                     })
-                   })
-                   
-             
-                 })
-                 console.log(row._id)
-               }} style={{color:'red',marginRight:'10px',cursor:'pointer'}}></DeleteForeverRounded>
+                    console.log(row._id)
+                  }} style={{color:'red',marginRight:'10px',cursor:'pointer'}}></DeleteForeverRounded>
+                 )
+               }
+               <Button size='small' variant='contained' color='secondary'>Reset Password</Button>
               </StyledTableCell>
             </StyledTableRow>
           ))
           )
-          
+          )
          }
+
+
+{
+          appProps.user.role.includes('subAdmin')&&(
+          filtered.length>=1&&(
+           filtered.splice(1,filtered.length+1).map((row,ind) => (
+            <StyledTableRow key={ind}>
+              <StyledTableCell component="th" scope="row">
+                {ind+1}
+              </StyledTableCell>
+              <StyledTableCell align="right">{row.username}</StyledTableCell>
+              <StyledTableCell align="right">{row.firstName+" "+row.lastName}</StyledTableCell>
+              <StyledTableCell align="right">{row.role.map(rl=>(`${row.role.includes('Admin')?'*******':rl+'**'}`))}</StyledTableCell>
+              <StyledTableCell align="right">
+               <EditRounded onClick={()=>{
+                appProps.setEdit({user:row})
+                 props.history.push('editstaff')
+               }} style={{color:'green',marginRight:'10px',cursor:'pointer'}}></EditRounded>
+               {
+                 appProps.user.role.includes('Admin')&&(
+                  <DeleteForeverRounded onClick={()=>{
+                    const userId=row._id;
+                    fetch(`https://polar-brook-59807.herokuapp.com/admin/remove-staff/?id=${userId}`,{
+                     method:'DELETE',
+                     headers:{
+                       "Content-Type":'application/json'
+                     }
+                   })
+                    .then(res=>{
+                      res.json()
+                      .then(data=>{
+                        fetch(`https://polar-brook-59807.herokuapp.com/admin/get-all-staff`)
+                       .then(res=>{
+                         res.json()
+                         .then(data=>{
+                           setAllStaff(data.message)
+                           console.log(data.message)
+                         })
+                         
+                   
+                       })
+                      })
+                      
+                
+                    })
+                    console.log(row._id)
+                  }} style={{color:'red',marginRight:'10px',cursor:'pointer'}}></DeleteForeverRounded>
+                 )
+               }
+                <Button size='small' variant='contained' color='secondary'>Reset Password</Button>
+              </StyledTableCell>
+            </StyledTableRow>
+          ))
+          )
+          )
+         }
+
+
+
          {
            allStaff.length==0&&(
              <h4 style={{textAlign:'center'}}>No any Staff Added Yet</h4>
