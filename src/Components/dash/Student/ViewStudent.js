@@ -228,6 +228,74 @@ useEffect(()=>{
                    })
                    console.log(row._id)
                  }} style={{color:'red',marginRight:'10px',cursor:'pointer'}}></DeleteForeverRounded>
+                 {
+                   row.suspend==true?(
+                    <Button onClick={()=>{
+                      const confirmed=window.confirm(`Are You Sure You Want To Un-Suspend ${' '+row.username}`)
+                     if(confirmed==true) {
+                      fetch(`https://polar-brook-59807.herokuapp.com/admin/suspend-a-student/?username=${row.username}&suspend=false`,{
+                        method:'PUT',
+                        headers:{
+                          "Content-Type":'application/json'
+                        }
+                      })
+                       .then(res=>{
+                         res.json()
+                         .then(data=>{
+                           fetch(`https://polar-brook-59807.herokuapp.com/admin/get-all-student`)
+                          .then(res=>{
+                            res.json()
+                            .then(data=>{
+                              setAllStudents(data.students)
+                             
+                            })
+                            
+                      
+                          })
+                         })
+                         
+                   
+                       })
+                     }else{
+                      return null
+                     }
+                      
+                    }} size='small' variant='contained' style={{backgroundColor:'green',color:'white'}}>Un-Suspend</Button>
+                   ):(
+                    <Button onClick={()=>{
+                      const confirmed=window.confirm(`Are You Sure You Want To Suspend ${' '+row.username}`)
+                     if(confirmed==true) {
+                      fetch(`https://polar-brook-59807.herokuapp.com/admin/suspend-a-student/?username=${row.username}&suspend=true`,{
+                        method:'PUT',
+                        headers:{
+                          "Content-Type":'application/json'
+                        }
+                      })
+                       .then(res=>{
+                         res.json()
+                         .then(data=>{
+                           fetch(`https://polar-brook-59807.herokuapp.com/admin/get-all-student`)
+                          .then(res=>{
+                            res.json()
+                            .then(data=>{
+                              setAllStudents(data.students)
+                             
+                            })
+                            
+                      
+                          })
+                         })
+                         
+                   
+                       })
+                     }else{
+                      return null
+                     }
+                      
+                    }} size='small' variant='contained' style={{backgroundColor:'#1E7F95',color:'white'}}>Suspend</Button>
+                   )
+                 }
+                 
                 </StyledTableCell>
               </StyledTableRow>
             ))
