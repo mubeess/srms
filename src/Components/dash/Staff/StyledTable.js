@@ -57,10 +57,28 @@ export default function StyledTable(props) {
                 <StyledTableCell align="center">
                 <div className='inp'>
                     <input
+                    type='number'
+                    min='0'
+                    max='10'
+                    onChange={(e)=>{
+                      const minimum=0
+                      const maximum=10
+                      
+                      if (e.target.value<minimum||e.target.value==isNaN) {
+                       e.target.value=minimum
+                      }else if (e.target.value>maximum) {
+                        e.target.value=maximum
+                       
+                      }
+                    }}
                      disabled={appProps.user.role.includes('Admin')?false:!appProps.user.user.ca1Button}
                     style={{border:`2px solid ${ca1}`}}
                     onBlur={
                       (e)=>{
+                        console.log(e.target.value)
+                        if (parseInt(e.target.value)==NaN) {
+                          return alert('not')
+                        }
                         const myObj={
                           key:'ca1',
                           id:props.row._id,
@@ -90,12 +108,25 @@ export default function StyledTable(props) {
                       }
                       
                     }
-                     name='ca1' placeholder={props.row.ca1}  type='text'></input>
+                     name='ca1' placeholder={props.row.ca1}></input>
                 </div>
                  </StyledTableCell>
                  <StyledTableCell align="center">
                  <div className='inp'>
                     <input
+                    type='number'
+                    min='0'
+                    max='10'
+                    onChange={(e)=>{
+                      const minimum=0
+                      const maximum=10
+                      if (e.target.value<minimum) {
+                       e.target.value=minimum
+                      }else if (e.target.value>maximum) {
+                        e.target.value=maximum
+                        console.log(typeof(e.target.value))
+                      }
+                    }}
                          disabled={appProps.user.role.includes('Admin')?false:!appProps.user.user.ca2Button}
                         style={{border:`2px solid ${ca2}`}}
                      onBlur={
@@ -127,12 +158,26 @@ export default function StyledTable(props) {
               })
                       }
                     }
-                    name='ca2' placeholder={props.row.ca2} type='text'></input>
+                    name='ca2' placeholder={props.row.ca2}></input>
                 </div>
                  </StyledTableCell>
                  <StyledTableCell align="center">
                  <div className='inp'>
                     <input
+                    type='number'
+                    min='0'
+                    max='10'
+                    onChange={(e)=>{
+                      const minimum=0
+                      const maximum=10
+                      if (e.target.value<minimum) {
+                       e.target.value=minimum
+                      }else if (e.target.value>maximum) {
+                        e.target.value=maximum
+                        console.log(typeof(e.target.value))
+                      }
+                    }}
+
                      disabled={appProps.user.role.includes('Admin')?false:!appProps.user.user.ca3Button}
                      style={{border:`2px solid ${ca3}`}}
                      onBlur={
@@ -163,12 +208,25 @@ export default function StyledTable(props) {
               })
                       }
                     }
-                    name='ca3' placeholder={props.row.ca3} type='text'></input>
+                    name='ca3' placeholder={props.row.ca3}></input>
                 </div>
                 </StyledTableCell>
                  <StyledTableCell align="center">
                  <div className='inp'>
                     <input 
+                    type='number'
+                    min='0'
+                    max='10'
+                    onChange={(e)=>{
+                      const minimum=0
+                      const maximum=10
+                      if (e.target.value<minimum) {
+                       e.target.value=minimum
+                      }else if (e.target.value>maximum) {
+                        e.target.value=maximum
+                        console.log(typeof(e.target.value))
+                      }
+                    }}
                       disabled={appProps.user.role.includes('Admin')?false:!appProps.user.user.ca4Button}
                      style={{border:`2px solid ${ca4}`}}
                      onBlur={
@@ -199,12 +257,25 @@ export default function StyledTable(props) {
               })
                       }
                     }
-                    name='ca4' placeholder={props.row.ca4} type='text'></input>
+                    name='ca4' placeholder={props.row.ca4}></input>
                 </div>
                  </StyledTableCell>
                  <StyledTableCell align="center">
                  <div className='inp'>
                     <input
+                     type='number'
+                     min='0'
+                     max='60'
+                     onChange={(e)=>{
+                       const minimum=0
+                       const maximum=60
+                       if (e.target.value<minimum) {
+                        e.target.value=minimum
+                       }else if (e.target.value>maximum) {
+                         e.target.value=maximum
+                         console.log(typeof(e.target.value))
+                       }
+                     }}
                       disabled={appProps.user.role.includes('Admin')?false:!appProps.user.user.examButton} 
                       style={{border:`2px solid ${exam}`}}
                       onBlur={
@@ -236,7 +307,7 @@ export default function StyledTable(props) {
                })
                        }
                      }
-                    name='exam' placeholder={props.row.exam} type='text'></input>
+                    name='exam' placeholder={props.row.exam}></input>
                 </div>
                  </StyledTableCell>
               </StyledTableRow>

@@ -69,11 +69,16 @@ margin-left:50px;
 }
 .inp{
     input{
-        width: 60%;
+        width: 30px;
         border-radius:0px;
         border:1px solid gray;
         height: 20px;
     }
+    input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+
+}
 }
 table{
     border-spacing:0px;

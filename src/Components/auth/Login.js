@@ -225,7 +225,7 @@ export default function Login(props) {
         type:'error'
       });
 
-
+      
      }
      
 
@@ -240,6 +240,7 @@ export default function Login(props) {
       
     }).catch(err=>{
       handleClose()
+      console.log("++++++",err)
       notification.open({
         message: 'An Error Occured',
         description:'ERROR',

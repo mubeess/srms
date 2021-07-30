@@ -101,7 +101,7 @@ export default function Attendance() {
            
         </div>
        <div className="teacher-sign-container">
-        <center><span className="teacher-sign">Teacher Signature</span></center>
+        <center><span className="teacher-sign">Principal/Admin Signature</span></center>
     </div>
     </div>
           
