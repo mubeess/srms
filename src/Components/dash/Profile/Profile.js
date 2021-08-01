@@ -1,8 +1,9 @@
 import { Divider,Typography } from '@material-ui/core';
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import styled from 'styled-components'
 import Avatar from '@material-ui/core/Avatar';
 import MainProfile from '../../Profile/MainProfile.js';
+import AppContext from '../../../Context/app/appContext'
 
 
 
@@ -40,6 +41,10 @@ flex-direction: column;
 `;
 
 export default function Profile() {
+    // const appProps=useContext(AppContext)
+    // useEffect(() => {
+    //     appProps.setUser({user:JSON.parse(localStorage.getItem('user')).user,role:JSON.parse(localStorage.getItem('user')).role})
+    // }, [])
     return (
         <StyledProfile>
         <Typography  variant="h4" display="block" gutterBottom>

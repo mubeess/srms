@@ -94,14 +94,14 @@ function SelectSubject(props) {
   const [classValue,setClassValue]=useState('None')
   const [classToConsider,setConsider]=useState([])
   const classes = useStyles();
-  const isAdmin=appProps.user.role.includes('Admin')
-  const isExamOfficer=appProps.user.role.includes('examOfficer')
+  const isAdmin=JSON.parse(localStorage.getItem('user')).role.includes('Admin')
+  const isExamOfficer=JSON.parse(localStorage.getItem('user')).role.includes('examOfficer')
 
-  const urlToPush=isAdmin||isExamOfficer?'https://polar-brook-59807.herokuapp.com/admin/get-all-admin-curriculum':`https://polar-brook-59807.herokuapp.com/teacher/teacher-subjects/?id=${appProps.user.user._id}`
+  const urlToPush=isAdmin||isExamOfficer?'https://polar-brook-59807.herokuapp.com/admin/get-all-admin-curriculum':`https://polar-brook-59807.herokuapp.com/teacher/teacher-subjects/?id=${JSON.parse(localStorage.getItem('user')).user._id}`
 
   useEffect(()=>{
-
-   
+    
+    // appProps.setUser({user:JSON.parse(localStorage.getItem('user')).user,role:JSON.parse(localStorage.getItem('user')).role})
     fetch(urlToPush)
     .then(res=>{
       res.json()
@@ -191,7 +191,9 @@ function SelectSubject(props) {
       <Table className={classes.table} aria-label="customized table">
         <TableHead >
           <TableRow style={{backgroundColor:gray[500]}} >
-            <StyledTableCell>S/N</StyledTableCell>
+            <StyledTableCell onClick={()=>{
+              console.log("++++++++++++++",isAdmin,"______",JSON.parse(localStorage.getItem('user')).role)
+            }}>S/N</StyledTableCell>
             <StyledTableCell align="right">SUBJECT</StyledTableCell>
             <StyledTableCell align="right">CATEGORY</StyledTableCell>
             <StyledTableCell align="right">CLASS</StyledTableCell>

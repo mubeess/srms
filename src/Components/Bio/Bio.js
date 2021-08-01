@@ -73,7 +73,9 @@ export class Bio extends Component {
                                  </table>
                              </div>
                              <div className="passport-container">
-                             <Avatar src={std.image!=='1.jpg'?`https://polar-brook-59807.herokuapp.com/${std.image}`:null} className="passport-img" style={{width:'200px',height:'200px',marginLeft:'15px'}} alt={std.firstName.split('')[0]}/>   
+                             <Avatar onClick={()=>{
+                                 console.log("+++++++",std.image.split('/'))
+                             }} src={std.image!=='1.jpg'?`https://polar-brook-59807.herokuapp.com/${std.image.split('/').splice(1,2).join('/')}`:null} className="passport-img" style={{width:'200px',height:'200px',marginLeft:'15px'}} alt={std.firstName.split('')[0]}/>   
                                  {/* <img className="passport-img" src={Passport}/> */}
                              </div>
                              <div className="parent-info-section">

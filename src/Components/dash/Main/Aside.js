@@ -25,7 +25,8 @@ margin-bottom: 10px;
  function Aside(props) {
    const appProps=useContext(AppContext)
    useEffect(()=>{
-  console.log(appProps)
+  appProps.setUser({user:JSON.parse(localStorage.getItem('user')).user,role:JSON.parse(localStorage.getItem('user')).role})
+
    },[])
    const arr=[]
    const isTeacher=appProps.user.role.includes('subjectTeacher')

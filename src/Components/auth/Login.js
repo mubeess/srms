@@ -197,6 +197,7 @@ export default function Login(props) {
        
 
       appProps.setIslogged()
+      localStorage.setItem('user', JSON.stringify({role:data.user.role,user:data.user}))
       appProps.setUser({role:data.user.role,user:data.user})
       const isAdmin=data.user.role.includes('Admin')
       const urlToPush=isAdmin?'dash/main':'dash/profile'

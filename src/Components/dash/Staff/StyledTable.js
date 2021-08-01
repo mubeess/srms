@@ -41,9 +41,7 @@ export default function StyledTable(props) {
     const [ca4,setCa4]=useState('black')
     const [exam,setExam]=useState('black')
     const appProps=useContext(AppContext)
-    useEffect(()=>{
-     console.log("++++++++++++++",appProps)
-    },[])
+ 
 
 
     return (
@@ -63,7 +61,7 @@ export default function StyledTable(props) {
                     onChange={(e)=>{
                       const minimum=0
                       const maximum=10
-                      
+                      console.log(typeof(e.target.value))
                       if (e.target.value<minimum||e.target.value==isNaN) {
                        e.target.value=minimum
                       }else if (e.target.value>maximum) {
@@ -71,14 +69,12 @@ export default function StyledTable(props) {
                        
                       }
                     }}
-                     disabled={appProps.user.role.includes('Admin')?false:!appProps.user.user.ca1Button}
+                     disabled={JSON.parse(localStorage.getItem('user')).role.includes('Admin')?false:!JSON.parse(localStorage.getItem('user')).user.ca1Button}
                     style={{border:`2px solid ${ca1}`}}
                     onBlur={
                       (e)=>{
-                        console.log(e.target.value)
-                        if (parseInt(e.target.value)==NaN) {
-                          return alert('not')
-                        }
+                        
+                        
                         const myObj={
                           key:'ca1',
                           id:props.row._id,
@@ -98,7 +94,7 @@ export default function StyledTable(props) {
                       }).then(res=>{
                         res.json()
                         .then(data=>{
-                          // appProps.setUser({})
+                          // JSON.parse(localStorage.getItem('user'))ser({})
                           setCa1('green')
                        
                         })
@@ -127,7 +123,7 @@ export default function StyledTable(props) {
                         console.log(typeof(e.target.value))
                       }
                     }}
-                         disabled={appProps.user.role.includes('Admin')?false:!appProps.user.user.ca2Button}
+                         disabled={JSON.parse(localStorage.getItem('user')).role.includes('Admin')?false:!JSON.parse(localStorage.getItem('user')).user.ca2Button}
                         style={{border:`2px solid ${ca2}`}}
                      onBlur={
                       (e)=>{
@@ -151,7 +147,7 @@ export default function StyledTable(props) {
                 res.json()
                 .then(data=>{
                   console.log(data)
-                  // appProps.setUser({})
+                  // JSON.parse(localStorage.getItem('user'))ser({})
                  setCa2('green')
                 })
                
@@ -178,7 +174,7 @@ export default function StyledTable(props) {
                       }
                     }}
 
-                     disabled={appProps.user.role.includes('Admin')?false:!appProps.user.user.ca3Button}
+                     disabled={JSON.parse(localStorage.getItem('user')).role.includes('Admin')?false:!JSON.parse(localStorage.getItem('user')).user.ca3Button}
                      style={{border:`2px solid ${ca3}`}}
                      onBlur={
                       (e)=>{
@@ -201,7 +197,7 @@ export default function StyledTable(props) {
               }).then(res=>{
                 res.json()
                 .then(data=>{
-                  // appProps.setUser({})
+                  // JSON.parse(localStorage.getItem('user'))ser({})
                  setCa3('green')
                 })
                
@@ -227,7 +223,7 @@ export default function StyledTable(props) {
                         console.log(typeof(e.target.value))
                       }
                     }}
-                      disabled={appProps.user.role.includes('Admin')?false:!appProps.user.user.ca4Button}
+                      disabled={JSON.parse(localStorage.getItem('user')).role.includes('Admin')?false:!JSON.parse(localStorage.getItem('user')).user.ca4Button}
                      style={{border:`2px solid ${ca4}`}}
                      onBlur={
                       (e)=>{
@@ -250,7 +246,7 @@ export default function StyledTable(props) {
               }).then(res=>{
                 res.json()
                 .then(data=>{
-                  // appProps.setUser({})
+                  // JSON.parse(localStorage.getItem('user'))ser({})
                  setCa4('green')
                 })
                
@@ -276,7 +272,7 @@ export default function StyledTable(props) {
                          console.log(typeof(e.target.value))
                        }
                      }}
-                      disabled={appProps.user.role.includes('Admin')?false:!appProps.user.user.examButton} 
+                      disabled={JSON.parse(localStorage.getItem('user')).role.includes('Admin')?false:!JSON.parse(localStorage.getItem('user')).user.examButton} 
                       style={{border:`2px solid ${exam}`}}
                       onBlur={
                        (e)=>{
@@ -300,7 +296,7 @@ export default function StyledTable(props) {
                }).then(res=>{
                  res.json()
                  .then(data=>{
-                   // appProps.setUser({})
+                   // JSON.parse(localStorage.getItem('user'))ser({})
                   setExam('green')
                  })
                 

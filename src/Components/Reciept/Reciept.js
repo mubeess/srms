@@ -78,6 +78,24 @@ align-items: center;
         copyStyles:true
     
     })
+
+    const termer = (term) => {
+
+        switch (term) {
+            case 1:
+                return "First Term" 
+           case 2:
+                return "Second Term" 
+          case 3:
+                return "Third Term" 
+      
+           
+        
+            default:
+                return "None"
+            
+        }
+      }
    
     return (
        <StyledReciept ref={componentRef}>
