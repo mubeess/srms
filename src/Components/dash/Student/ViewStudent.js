@@ -203,29 +203,32 @@ useEffect(()=>{
                  }} style={{color:'green',marginRight:'10px',cursor:'pointer'}}></EditRounded>
                  <DeleteForeverRounded onClick={()=>{
                    const userId=row._id;
-                   fetch(`https://polar-brook-59807.herokuapp.com/admin/remove-student/?id=${userId}`,{
-                    method:'DELETE',
-                    headers:{
-                      "Content-Type":'application/json'
-                    }
-                  })
-                   .then(res=>{
-                     res.json()
-                     .then(data=>{
-                       fetch(`https://polar-brook-59807.herokuapp.com/admin/get-all-student`)
-                      .then(res=>{
-                        res.json()
-                        .then(data=>{
-                          setAllStudents(data.students)
-                          console.log(data.students)
+                   const confirmed=window.confirm('Are You Sure?')
+                   if (confirmed) {
+                    fetch(`https://polar-brook-59807.herokuapp.com/admin/remove-student/?id=${userId}&&username=${row.username}`,{
+                      method:'DELETE',
+                      headers:{
+                        "Content-Type":'application/json'
+                      }
+                    })
+                     .then(res=>{
+                       res.json()
+                       .then(data=>{
+                         fetch(`https://polar-brook-59807.herokuapp.com/admin/get-all-student`)
+                        .then(res=>{
+                          res.json()
+                          .then(data=>{
+                            setAllStudents(data.students)
+                            console.log(data.students)
+                          })
+                          
+                    
                         })
-                        
-                  
-                      })
+                       })
+                       
+                 
                      })
-                     
-               
-                   })
+                   }
                    
                  }} style={{color:'red',marginRight:'10px',cursor:'pointer'}}></DeleteForeverRounded>
                  {
