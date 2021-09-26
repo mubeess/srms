@@ -1,4 +1,4 @@
-import { Divider,Typography, Input,Button,TextField} from '@material-ui/core';
+import { Divider,Typography, Input,Button,TextField, Backdrop, CircularProgress} from '@material-ui/core';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import React,{useEffect,useState} from 'react'
 import styled from 'styled-components'
@@ -15,7 +15,8 @@ import {EditRounded,DeleteForeverRounded,ViewArrayRounded} from '@material-ui/ic
 import gray from '@material-ui/core/colors/grey'
 import Pagination from '@material-ui/lab/Pagination';
 import { CSVLink } from 'react-csv'
-
+import Fab from '@material-ui/core/Fab';
+import RemoveRedEye from '@material-ui/icons/RemoveRedEye';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -56,14 +57,33 @@ const rows = [
 {id:'004',name:'Mutafa dotzee',section:'Drop Out',classs:'DROP OUT',statuss:'NOT Active'}
 ];
 
-const useStyles = makeStyles({
+
+const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 700,
   },
-});
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
+}
+}))
+
+// const useStyles = makeStyles({
+//   table: {
+//     minWidth: 700,
+//   },
+//   backdrop: {
+//     zIndex: theme.zIndex.drawer + 1,
+//     color: '#fff',
+// }
+// });
 export default function RegisterdSubject(){
   const classes = useStyles();
   const [allSubjects,setAllSubjects]=useState([])
+  const [open, setOpen] = React.useState(false);
+  const [isLoading,setIsLoading]=useState(true)
+  const [allData,setAllData]=useState([])
+
 
   useEffect(()=>{
     fetch('https://polar-brook-59807.herokuapp.com/admin/get-all-subject')
@@ -71,7 +91,8 @@ export default function RegisterdSubject(){
       res.json()
       .then(data=>{
         setAllSubjects(data.message)
-        console.log(data)
+    
+    
       })
     })
   },[])
@@ -98,6 +119,22 @@ export default function RegisterdSubject(){
           ),
         }}
       />
+
+<Fab onClick={()=>{
+  setOpen(true)
+  if (allData.length==0) {
+    fetch('https://polar-brook-59807.herokuapp.com/admin/get-all-curriculum')
+  .then(res=>{
+    res.json()
+    .then(data=>{
+      setAllData(data.message)
+      setIsLoading(false)
+    })
+  })
+  }
+}} style={{backgroundColor:'#1E7F95'}} aria-label="add">
+        <RemoveRedEye style={{color:'white'}}></RemoveRedEye>
+ </Fab>
           </div>
           <TableContainer style={{marginTop:'20px'}} component={Paper}>
       <Table className={classes.table} aria-label="customized table">
@@ -160,7 +197,114 @@ export default function RegisterdSubject(){
         </TableBody>
       </Table>
     </TableContainer>
+    <Backdrop style={{display:'flex',flexDirection:'column'}} className={classes.backdrop} open={open}>
+   
+        {
+          isLoading&&(
+            <CircularProgress color="inherit"/>
+          )
+        }
+        {
+          !isLoading&&(
+            <div style={{
+              position:'absolute',
+              top:0,
+              left:0,
+              bottom:0,
+              right:0,
+              backgroundColor:'rgba(255,255,255,0.5)',
+              
 
+            }}>
+                 
+             <div style={{
+               minWidth:'70%',
+               backgroundColor:'#f9f9f9',
+               minHeight:'90vh',
+               maxWidth:'80%',
+               margin:'auto',
+               marginTop:'30px',
+               maxHeight:'80vh',
+               overflowY:'scroll',
+               borderRadius:'10px'
+             }}>
+        <span onClick={()=>{
+          setOpen(false)
+        }} style={{
+                   color:'white',
+                   backgroundColor:'black',
+                   height:'100px',
+                   width:'100px',
+                   borderRadius:'50%',
+                   marginLeft:'95%',
+                   marginTop:'20px',
+                   cursor:'pointer'
+                 }}>X</span>
+               {
+                 allData.length>0&&(
+                   allData.map((dat,ind)=>(
+                    <div key={ind} style={{
+                      display:'flex',
+                      flexDirection:'row',
+                      minWidth:'100%',
+                      minHeight:'100%'
+                    }}>
+             
+      
+      
+      
+      
+                <div style={{
+                     width:'30%',
+                     backgroundColor:'transparent',
+                     minHeight:'100px',
+                     borderBottom:'1px solid gray',
+                     borderRight:'1px solid gray'
+
+                   }}>
+                     <h2 style={{textAlign:'center',marginTop:'10px'}}>{dat.name} {dat.category=='none'?null:dat.category}</h2>
+                   </div>
+      
+                  <div style={{
+                     width:'70%',
+                     backgroundColor:'transparent',
+                     minHeight:'100px',
+                     display:'grid',
+                     gridTemplateColumns:'1fr 1fr 1fr 1fr',
+                     
+                     
+                   }}>
+                    {dat.subject.map((sbj,ind)=>(
+                      <h4 style={{
+                        color:'white',
+                        backgroundColor:'#4b5d67',
+                        borderRadius:'10px',
+                        margin:'20px',
+                        textAlign:'center'
+                      }} key={ind}>{sbj}</h4>
+                     ))}
+                   </div>
+      
+      
+      
+      
+      
+                    </div>
+                   ))
+                 )
+               }
+              
+
+
+
+
+              
+             </div>
+            </div>
+          )
+        }
+        
+      </Backdrop>
       </StyledView>
     )
 }

@@ -34,7 +34,7 @@ export default function StudentScript() {
             
            
             <span>No. 24 kofare zone 3,, Jimeta Yola North, Adamawa State</span><br></br>
-            <span>Motto: Learning For Better Future.</span>
+            <span>Motto: Opportunity, Innovation and Excellece</span>
             <h4>STUDENT SCORE SHEET</h4>
         </div> </center>
         <div className="information-container">

@@ -136,7 +136,7 @@ const useStyles = makeStyles({
     return (
     <StyledResult>
       <StyledView>
-          <Alert severity="warning">You Can't Edit These Result Aftre Final Submission!!!</Alert>
+          <Alert severity="warning">You Can't Edit This Result After Final Submission!!!</Alert>
         <Button onClick={()=>{
           props.history.push('attendance')
         }} style={{margin:'30px'}} color='default' variant='contained'>Attendance Sheet</Button>

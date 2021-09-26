@@ -463,7 +463,7 @@ const StyledTableRow = withStyles((theme) => ({
             <StyledTableCell>S/N</StyledTableCell>
             <StyledTableCell  align="center">STUDENT ID</StyledTableCell>
             <StyledTableCell align="center">NAME</StyledTableCell>
-            <StyledTableCell  align="center">POSITION</StyledTableCell>
+            {/* <StyledTableCell  align="center">POSITION</StyledTableCell> */}
             <StyledTableCell  align="center">Actions</StyledTableCell>
           </TableRow>
         </TableHead>
@@ -477,7 +477,7 @@ const StyledTableRow = withStyles((theme) => ({
                      </StyledTableCell>
                           <StyledTableCell align="right">{student[0].username}</StyledTableCell>
                           <StyledTableCell align="right">{`${student[2][0].firstName+' '+student[2][0].lastName}`}</StyledTableCell>
-                          <StyledTableCell align="right">{student[0].position}</StyledTableCell>
+                          {/* <StyledTableCell align="right">{student[0].position}</StyledTableCell> */}
                           <StyledTableCell align="right">
                             <Button onClick={()=>{
                           console.log('clicked')

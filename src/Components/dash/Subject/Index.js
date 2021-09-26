@@ -9,6 +9,8 @@ import { Button, Divider } from '@material-ui/core';
 import AddSubject from './AddSubject';
 import RegisteredSubject from './RegisteredSubject';
 import AddNew from './AddNew';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 
 
 function TabPanel(props) {
@@ -85,6 +87,10 @@ export default function Subject() {
       <TabPanel value={value} index={2}>
       <AddNew></AddNew>
       </TabPanel>
+    
+ 
+     
+    
     </div>
   );
 }
