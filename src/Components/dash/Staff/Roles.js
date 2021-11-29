@@ -285,7 +285,7 @@ export default function Roles() {
             id: 'outlined-age-native-simple',
           }}
         >
-          <option value='---None---'>---None---</option>
+          <option value='none'>---None---</option>
           {
             allClasses.length>=1&&(
               allClasses.map((cls,ind)=>(
