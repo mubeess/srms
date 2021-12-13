@@ -324,7 +324,6 @@ flex-direction: column;
     mode="multiple"
     showArrow
     tagRender={tagRender}
-    defaultValue={['Chemistry', 'Physics']}
     style={{ width: '100%' }}
     options={options}
     onChange={handleChange}

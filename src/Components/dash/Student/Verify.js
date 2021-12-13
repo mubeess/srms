@@ -287,7 +287,7 @@ const useStyles = makeStyles((theme) => ({
           {
           allStudent.length>=1&&(
             allStudent.map((std,ind)=>(
-              <option key={ind} value={std.username}>{std.username}</option>
+              <option key={ind} value={std.username}>{std.username}/{std.firstName} {std.lastName}</option>
             ))
           )
          }

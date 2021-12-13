@@ -159,10 +159,16 @@ export default function RegisterdSubject(){
                  <ViewArrayRounded style={{color:'#F39C77',marginRight:'10px',cursor:'pointer'}}></ViewArrayRounded>
                  <EditRounded style={{color:'green',marginRight:'10px',cursor:'pointer'}}></EditRounded>
                  <DeleteForeverRounded onClick={()=>{
-                   const myObj={
-                     id:row._id
-                   }
-                     fetch(`https://polar-brook-59807.herokuapp.com/admin/delete-single-subject`,{
+                   const isConfirmed=window.confirm('Are you sure?')
+                   if(isConfirmed==true){
+                     setIsLoading(true)
+                    const myObj={
+                      id:row._id,
+                      subject:row.subject
+                    }
+
+
+                    fetch(`https://polar-brook-59807.herokuapp.com/admin/delete-single-subject`,{
                       method:'DELETE',
                       headers:{
                         "Content-Type":'application/json'
@@ -170,6 +176,7 @@ export default function RegisterdSubject(){
                       body:JSON.stringify(myObj)
                     })
                      .then(res=>{
+                       setIsLoading(false)
                        res.json()
                        .then(data=>{
                          console.log(data)
@@ -185,6 +192,10 @@ export default function RegisterdSubject(){
                        
                  
                      })
+
+                   }
+                  
+                  
                  }} style={{color:'red',marginRight:'10px',cursor:'pointer'}}></DeleteForeverRounded>
                 </StyledTableCell>
               </StyledTableRow>
@@ -247,7 +258,8 @@ export default function RegisterdSubject(){
                       display:'flex',
                       flexDirection:'row',
                       minWidth:'100%',
-                      minHeight:'100%'
+                      minHeight:'100%',
+                      marginBottom:'40px'
                     }}>
              
       
@@ -259,7 +271,8 @@ export default function RegisterdSubject(){
                      backgroundColor:'transparent',
                      minHeight:'100px',
                      borderBottom:'1px solid gray',
-                     borderRight:'1px solid gray'
+                     borderRight:'1px solid gray',
+                   
 
                    }}>
                      <h2 style={{textAlign:'center',marginTop:'10px'}}>{dat.name} {dat.category=='none'?null:dat.category}</h2>
@@ -281,13 +294,109 @@ export default function RegisterdSubject(){
                         borderRadius:'10px',
                         margin:'20px',
                         textAlign:'center'
-                      }} key={ind}>{sbj}</h4>
+                      }} key={ind}>{sbj} <span onClick={()=>{
+                       const isConfirmed=window.confirm('Are you sure?')
+                       if(isConfirmed==true){
+                        const myObj={
+                          section:dat.section,
+                          subject:sbj,
+                          className:dat.name,
+                          category:dat.category
+                        }
+                        setIsLoading(true)
+                        fetch(`https://polar-brook-59807.herokuapp.com/admin/delete-subject`,{
+                          method:'DELETE',
+                          headers:{
+                            "Content-Type":'application/json'
+                          },
+                          body:JSON.stringify(myObj)
+                        })
+                         .then(res=>{
+                           res.json()
+                            
+                           .then(data=>{
+                             setIsLoading(false)
+                             fetch('https://polar-brook-59807.herokuapp.com/admin/get-all-curriculum')
+                             .then(res=>{
+                               res.json()
+                               .then(data=>{
+                                 setAllData(data.message)
+                                 setIsLoading(false)
+                               })
+                             })
+                           })
+                           
+                     
+                         })
+
+                       }
+                        
+                        
+                        
+
+                      }} style={{
+                        marginLeft:'20px',
+                        color:'white',
+                        backgroundColor:'black',
+                        height:'20px',
+                        width:'20px',
+                        borderRadius:'50px',
+                        cursor:'pointer'
+                      }}>X</span></h4>
+
                      ))}
                    </div>
       
       
       
-      
+                      
+
+
+
+                   <DeleteForeverRounded onClick={()=>{
+                   const isConfirmed=window.confirm('Are you sure?')
+                   if(isConfirmed==true){
+                     setIsLoading(true)
+                    const myObj={
+                      name:dat.name,
+                      section:dat.section,
+                      category:dat.category
+                    }
+              
+
+                    fetch(`https://polar-brook-59807.herokuapp.com/admin/delete-single-curriculum`,{
+                      method:'DELETE',
+                      headers:{
+                        "Content-Type":'application/json'
+                      },
+                      body:JSON.stringify(myObj)
+                    })
+                     .then(res=>{
+                       setIsLoading(false)
+                       res.json()
+                       .then(data=>{
+                         console.log(data)
+                         fetch('https://polar-brook-59807.herokuapp.com/admin/get-all-curriculum')
+                             .then(res=>{
+                               res.json()
+                               .then(data=>{
+                                 setAllData(data.message)
+                                 setIsLoading(false)
+                               })
+                             })
+                       })
+                       
+                 
+                     })
+
+                   }
+                  
+                  
+                 }} style={{color:'red',marginRight:'10px',cursor:'pointer',marginTop:'20px'}}></DeleteForeverRounded>
+
+
+
+
       
                     </div>
                    ))
