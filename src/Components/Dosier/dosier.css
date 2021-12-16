@@ -1,11 +1,11 @@
 #container{
-    display: flex;
-    margin: 20px auto;
+    display:flex;
     width: 850px;
     padding: 10px;
-    border: 1px solid #ddd;
-    height: 98%;
+    /* border: 1px solid #ddd; */
+    height:97%;
     flex-direction: column;
+    
     
     
   
@@ -18,6 +18,17 @@ img{
     width: 100px;
     height: 100px;
     margin-bottom: 0px;
+    border-radius: 50%;
+    
+
+}
+img.signature{
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    margin-bottom: 0px;
+    border-radius: 50%;
+    border: 1px dashed black;
 }
 .cover-img{
     width: 300px;
@@ -38,9 +49,13 @@ img{
 }
 .table11{
     width: 100%;
-    margin-top: 30px;
+    margin-top:0px;
+    height: 200px;
     /* border: 1px solid #ddd; */
     border-collapse: collapse;
+}
+.table11 tbody{
+    max-height: 200px;
 }
 .table2{
     width: 60%;
@@ -50,7 +65,7 @@ img{
     border-collapse: collapse;
 }
 .table3-container, .table2-container{
-    margin-top: 20px;
+    margin-top: 10px;
     
 }
 .table3{
@@ -59,11 +74,7 @@ img{
     /* border: 1px solid #ddd; */
     border-collapse: collapse;
 }
-tr{
-    /* border: 1px solid black; */
-    /* border-collapse: collapse; */
-    /* border: 1px solid #ddd; */
-}
+
 .table11 th,#container tr,#container td{
     border: 1px solid black;
     padding: 4px;

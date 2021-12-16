@@ -23,10 +23,10 @@ const grader = (grade) => {
 
         case 'C4':
             return "Credit"
-       case 'C4':
+       case 'C5':
                 return "Credit"
 
-       case 'C4':
+       case 'C6':
                     return "Credit"
     
      case 'D7':
@@ -71,9 +71,10 @@ min-height: 100vh;
 .printCont{
     display:flex;
     width: 100%;
-    padding: 20px;
+ 
     border: 1px solid #ddd;
     flex-direction: column;
+    max-height: 100%;
 }
 
 `;
@@ -97,7 +98,7 @@ export default function Dosier() {
             <div key={ind} id="container">
             <center> <div className="header">
                  <img src={Logo} style={{textAlign:'center'}}/><br></br>
-                 <span className="school-name">NOBLE INTELLECT ACADEMY</span><br></br>
+                 <span className="school-name">NOBLE INTELLECTS ACADEMY</span><br></br>
                 <span>No. 24 kofare zone 3,, Jimeta Yola North, Adamawa State</span><br></br>
                 <span>Motto: Opportunity, Innovation and Excellece</span>
                 <h4>STUDENT REPORT SHEET</h4>
@@ -546,7 +547,7 @@ export default function Dosier() {
                 </table>
             </div>
             
-            <center><img src={Signature}/></center>
+            <center><img className='signature' src={Signature}/></center>
         </div>
            ))
        )

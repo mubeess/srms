@@ -222,6 +222,7 @@ function SelectSubject(props) {
       subject:isAdmin||isExamOfficer?row:classToConsider[0].class.includes('Daycare')?row:row,
       category:MyrealClass.includes('SSS')?classToConsider[0].category:classToConsider[0].category.toLowerCase()
     }
+    // console.log(myObj)
   
      fetch('https://polar-brook-59807.herokuapp.com/teacher/fetch-students-result',{
       method:'POST',
@@ -232,6 +233,7 @@ function SelectSubject(props) {
     }).then(res=>{
       res.json()
       .then(data=>{
+        // console.log("+++++++",data)
      
       appProps.setStudentsResults([data.students,{class:isAdmin||isExamOfficer?classToConsider[0].name:classToConsider[0].class,subject:row,category:classToConsider[0].category}])
       props.history.push('enterresult')
