@@ -15,7 +15,7 @@ body{
   }
 }
 
-@media print {
+/* @media print {
   html, body {
     height: initial !important;
     overflow: initial !important;
@@ -34,4 +34,4 @@ body{
 @page {
   size: auto;
   margin: 20mm;
-}
+} */

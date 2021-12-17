@@ -91,14 +91,17 @@ export default function Dosier() {
     return (
         <StyledAttendance>
     <Button style={{margin:'10px'}} variant='contained' onClick={handlePrint} color='primary'>Print</Button>
-    <div ref={componentRef} className='printCont'>
+    <div ref={componentRef}  className='printCont'>
    {
        appProps.dosier.length>=1&&(
            appProps.dosier.map((dos,ind)=>(
-            <div key={ind} id="container">
+            <>
+            <div  key={ind} id="container">
             <center> <div className="header">
                  <img src={Logo} style={{textAlign:'center'}}/><br></br>
-                 <span className="school-name">NOBLE INTELLECTS ACADEMY</span><br></br>
+                 <span style={{
+                     fontSize:'15px'
+                 }} className="school-name">NOBLE INTELLECTS ACADEMY</span><br></br>
                 <span>No. 24 kofare zone 3,, Jimeta Yola North, Adamawa State</span><br></br>
                 <span>Motto: Opportunity, Innovation and Excellece</span>
                 <h4>STUDENT REPORT SHEET</h4>
@@ -174,11 +177,11 @@ export default function Dosier() {
                         <table className="table11">
                         <thead>
                             <th>SUBJECT</th>
-                            <th>1ST CA <br></br>(10)</th>
-                            <th>2ND CA <br></br>(10)</th>
-                            <th>3RD CA <br></br>(10)</th>
-                            <th>4TH CA <br></br>(10)</th>
-                            <th>EXAM<br></br>(60)</th>
+                            <th>1ST CA (10)</th>
+                            <th>2ND CA (10)</th>
+                            <th>3RD CA (10)</th>
+                            <th>4TH CA (10)</th>
+                            <th>EXA (60)</th>
                             <th>TOTAL</th>
                             <th>GRADE</th>
                             <th>POSITION</th>
@@ -549,6 +552,7 @@ export default function Dosier() {
             
             <center><img className='signature' src={Signature}/></center>
         </div>
+        </>
            ))
        )
    }

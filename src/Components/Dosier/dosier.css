@@ -1,9 +1,20 @@
+@page {
+    size: A4;
+    margin: 0;
+  }
+  @media print {
+    html, body {
+      width: 210mm;
+      height: 317mm;
+    }
+    /* ... the rest of the rules ... */
+  }
 #container{
     display:flex;
     width: 850px;
-    padding: 10px;
+   
     /* border: 1px solid #ddd; */
-    height:97%;
+    height:100%;
     flex-direction: column;
     
     
@@ -15,8 +26,8 @@
 }
 img{
     align-items: center;
-    width: 100px;
-    height: 100px;
+    width: 50px;
+    height: 50px;
     margin-bottom: 0px;
     border-radius: 50%;
     
@@ -26,7 +37,7 @@ img.signature{
     align-items: center;
     width: 50px;
     height: 50px;
-    margin-bottom: 0px;
+    margin-bottom:0px;
     border-radius: 50%;
     border: 1px dashed black;
 }
@@ -50,13 +61,11 @@ img.signature{
 .table11{
     width: 100%;
     margin-top:0px;
-    height: 200px;
+    max-height: 200px;
     /* border: 1px solid #ddd; */
     border-collapse: collapse;
 }
-.table11 tbody{
-    max-height: 200px;
-}
+
 .table2{
     width: 60%;
     margin-bottom: 10px;
