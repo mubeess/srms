@@ -103,7 +103,7 @@ export default function Dosier() {
                      fontSize:'15px'
                  }} className="school-name">NOBLE INTELLECTS ACADEMY</span><br></br>
                 <span>No. 24 kofare zone 3,, Jimeta Yola North, Adamawa State</span><br></br>
-                <span>Motto: Opportunity, Innovation and Excellece</span>
+                <span>Motto: Opportunity, Innovation and Excellence</span>
                 <h4>STUDENT REPORT SHEET</h4>
             </div> </center>
             <div className="information-container">

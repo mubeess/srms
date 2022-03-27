@@ -235,6 +235,7 @@ export default function AddStudent() {
             id: 'outlined-age-native-simple',
           }}
         >
+           <option value='none'>Select Term</option>
           <option value='First Term'>First Term</option>
           <option value='Second Term'>Second Term</option>
           <option value='Third Term'>Third Term</option>
@@ -271,6 +272,7 @@ export default function AddStudent() {
             id: 'outlined-age-native-simple',
           }}
         >
+           <option value='none'>Select Category</option>
           <option value='Playclass'>Playclass</option>
           <option value='Daycare'>Daycare</option>
            <option value='Kindergartens'>Kindergartens</option>
@@ -298,7 +300,7 @@ export default function AddStudent() {
             id: 'outlined-age-native-simple',
           }}
         >
-          <option value='none'>None</option>
+          <option value='none'>Select Class</option>
           {
             allClasses.length>=1&&(
               allClasses.map((cls,ind)=>(
