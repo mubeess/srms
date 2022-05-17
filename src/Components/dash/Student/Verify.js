@@ -103,7 +103,7 @@ const useStyles = makeStyles((theme) => ({
   const id = openn ? 'simple-popover' : undefined;
 
     const classes = useStyles();
-    const [options,setOptions]=React.useState([{ value: 'Tuition' }])
+    const [options,setOptions]=React.useState([{ value: '' }])
     const [open, setOpen] = React.useState(false);
     const [classs,setClass]=useState('None')
     const [term,setTerm]=useState('None')
@@ -393,7 +393,6 @@ const useStyles = makeStyles((theme) => ({
     mode="multiple"
     showArrow
     tagRender={tagRender}
-    defaultValue={['Tuition']}
     style={{ width: '100%' }}
     options={options}
     onChange={handleChange}
@@ -419,7 +418,7 @@ const useStyles = makeStyles((theme) => ({
              purposeOfPayment:selectedValWithAm
            }
          }
-         console.log(newPays)
+        
          fetch(`https://polar-brook-59807.herokuapp.com/admin/verify-payment/?username=${studentId}`,{
           method:'POST',
           headers:{
