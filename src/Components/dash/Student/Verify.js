@@ -418,7 +418,7 @@ const useStyles = makeStyles((theme) => ({
              purposeOfPayment:selectedValWithAm
            }
          }
-        
+            //name
          fetch(`https://polar-brook-59807.herokuapp.com/admin/verify-payment/?username=${studentId}`,{
           method:'POST',
           headers:{
