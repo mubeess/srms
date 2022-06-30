@@ -73,8 +73,12 @@ export default function StyledTable(props) {
                     style={{border:`2px solid ${ca1}`}}
                     onBlur={
                       (e)=>{
+
+                         if (e.target.value='') {
+                          return
+                        }
                         
-                        
+                       
                         const myObj={
                           key:'ca1',
                           id:props.row._id,
@@ -127,6 +131,10 @@ export default function StyledTable(props) {
                         style={{border:`2px solid ${ca2}`}}
                      onBlur={
                       (e)=>{
+
+                         if (e.target.value='') {
+                          return
+                        }
                 const myObj={
                   key:'ca2',
                   id:props.row._id,
@@ -178,6 +186,10 @@ export default function StyledTable(props) {
                      style={{border:`2px solid ${ca3}`}}
                      onBlur={
                       (e)=>{
+
+                         if (e.target.value='') {
+                          return
+                        }
                 const myObj={
                   key:'ca3',
                   id:props.row._id,
@@ -227,6 +239,10 @@ export default function StyledTable(props) {
                      style={{border:`2px solid ${ca4}`}}
                      onBlur={
                       (e)=>{
+
+                         if (e.target.value='') {
+                          return
+                        }
                 const myObj={
                   key:'ca4',
                   id:props.row._id,
@@ -276,6 +292,10 @@ export default function StyledTable(props) {
                       style={{border:`2px solid ${exam}`}}
                       onBlur={
                        (e)=>{
+
+                         if (e.target.value='') {
+                          return
+                        }
                  const myObj={
                    key:'exam',
                    id:props.row._id,
