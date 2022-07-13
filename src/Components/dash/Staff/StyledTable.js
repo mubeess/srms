@@ -74,8 +74,8 @@ export default function StyledTable(props) {
                     onBlur={
                       (e)=>{
 
-                         if (e.target.value='') {
-                          return
+                         if (e.target.value=='') {
+                          return null
                         }
                         
                        
@@ -132,8 +132,9 @@ export default function StyledTable(props) {
                      onBlur={
                       (e)=>{
 
-                         if (e.target.value='') {
-                          return
+                         if (e.target.value=='') {
+                          return null
+                          // console.log(e.target.value,"0000000")
                         }
                 const myObj={
                   key:'ca2',
@@ -174,11 +175,11 @@ export default function StyledTable(props) {
                     onChange={(e)=>{
                       const minimum=0
                       const maximum=10
+                     
                       if (e.target.value<minimum) {
                        e.target.value=minimum
                       }else if (e.target.value>maximum) {
                         e.target.value=maximum
-                        console.log(typeof(e.target.value))
                       }
                     }}
 
@@ -187,8 +188,8 @@ export default function StyledTable(props) {
                      onBlur={
                       (e)=>{
 
-                         if (e.target.value='') {
-                          return
+                         if (e.target.value=='') {
+                          return null
                         }
                 const myObj={
                   key:'ca3',
@@ -200,6 +201,7 @@ export default function StyledTable(props) {
                   subject:props.row.subject
 
                 }
+                console.log(e.target.value,"++++++++")
                 fetch('https://polar-brook-59807.herokuapp.com/teacher/insert-one-result',{
                 method:'POST',
                 headers:{
@@ -240,8 +242,8 @@ export default function StyledTable(props) {
                      onBlur={
                       (e)=>{
 
-                         if (e.target.value='') {
-                          return
+                         if (e.target.value=='') {
+                          return null
                         }
                 const myObj={
                   key:'ca4',
@@ -293,8 +295,8 @@ export default function StyledTable(props) {
                       onBlur={
                        (e)=>{
 
-                         if (e.target.value='') {
-                          return
+                         if (e.target.value=='') {
+                          return null
                         }
                  const myObj={
                    key:'exam',

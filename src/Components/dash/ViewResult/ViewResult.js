@@ -408,28 +408,38 @@ const StyledTableRow = withStyles((theme) => ({
           <Button onClick={()=>{
             handleToggle()
             fetch(`https://polar-brook-59807.herokuapp.com/admin/get-a-class-result/?className=${classs}&&category=${category}&&term=${term}&&session=${session}`)
-                .then(res=>{
-                  res.json()
-                  .then(data=>{
-                  if (data.success) {
-                    appProps.setDosier(data.message)
-                    props.history.push('dosier')
-                    console.log(data)
-                    handleClose()
-                  }else{
-                    handleClose()
-                    alert('Error Occured While Fetching Students')
-                  }
+            .then((res) => { return res.blob();})
+            .then((data) => {
+              console.log(data)
+              handleClose()
+              var a = document.createElement("a");
+              a.href = window.URL.createObjectURL(data);
+              a.download = "STUDENT_RESULT";
+              a.click();
+            });
+            // fetch(`https://polar-brook-59807.herokuapp.com/admin/get-a-class-result/?className=${classs}&&category=${category}&&term=${term}&&session=${session}`)
+            //     .then(res=>{
+            //       res.json()
+            //       .then(data=>{
+            //       if (data.success) {
+            //         appProps.setDosier(data.message)
+            //         props.history.push('dosier')
+            //         console.log(data)
+            //         handleClose()
+            //       }else{
+            //         handleClose()
+            //         alert('Error Occured While Fetching Students')
+            //       }
                                    
-                  }).catch(err=>{
-                    handleClose()
-                    alert('Error Occured While Fetching Students')
-                  })
-                })
-                .catch(err=>{
-                  handleClose()
-                  alert('Error Occured While Fetching Students')
-                })
+            //       }).catch(err=>{
+            //         handleClose()
+            //         alert('Error Occured While Fetching Students')
+            //       })
+            //     })
+            //     .catch(err=>{
+            //       handleClose()
+            //       alert('Error Occured While Fetching Students')
+            //     })
      
           }} style={{marginLeft:'70%',marginTop:'10px'}}  variant="contained" color='primary'>View Students</Button>
           </div>
