@@ -201,7 +201,7 @@ export default function StyledTable(props) {
                   subject:props.row.subject
 
                 }
-                console.log(e.target.value,"++++++++")
+                
                 fetch('https://polar-brook-59807.herokuapp.com/teacher/insert-one-result',{
                 method:'POST',
                 headers:{
